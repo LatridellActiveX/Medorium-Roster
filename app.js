@@ -14,4 +14,6 @@ const port = process.env.PORT ?? 443;
 
 server.listen(port);
 
+console.log("root directory is: " + __dirname)
+
 console.log(`server is on http://localhost:${port}`);
