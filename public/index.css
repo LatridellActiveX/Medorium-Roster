@@ -36,7 +36,6 @@ body {
     min-height: 100vh;
     padding: 0px;
     display: flex;
-
     border: var(--border-size) solid black;
     flex-direction: column;
     justify-content: center;
@@ -73,7 +72,6 @@ body {
     align-items: flex-end;
     border: var(--border-size) solid yellow;
     font-size: 14px;
-
 }
 /* .login-form{
     display: flex;

@@ -2,15 +2,19 @@
 
 var express = require('express');
 var http = require('http');
+const cors = require('cors');
 //import mongoose later
 var app = express();
 const routes = require('./router');
 
+app.use(cors());
 app.use('/', routes);
+app.use(express.json());
+
 
 const server = http.createServer(app);
 
-const port = process.env.PORT ?? 443;
+const port = process.env.PORT ?? 3000;
 
 server.listen(port);
 

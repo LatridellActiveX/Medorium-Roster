@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import axios from 'axios';
 
 
 //form component
@@ -16,11 +16,18 @@ const handleChange = (event) => {
 };
 
 //function that handles when the form is submitted
-const handleSubmit = (event) => {
+const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log('Form submitted on client side:', formData);
+    console.log("Attempting to send form data to server.");
+    try{
+        const response = await axios.post('http://localhost:3000/api/test', formData);
+        console.log('Server response: ', response.data);
+    }catch(error){
+        console.error('Error communicating with server: ', error);
+    }
 
-    setFormData({username: '', passwork: ''});
+    setFormData({username: '', password: ''});
 };
 
     //Html of the component

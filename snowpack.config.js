@@ -10,5 +10,8 @@ module.exports = {
     ],
     babel: {
         presets: ['@babel/preset-react']
+    },
+    devOptions: {
+        proxy: 'http://localhost:8080',
     }
 };
