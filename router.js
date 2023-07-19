@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-var path = require('path')
+var path = require('path');
 var app = express();
 const router = express.Router();
 
@@ -15,10 +15,10 @@ router.get('/', function(req, res){
 router.get('/index.js', function(req, res){
     res.sendFile(path.join(__dirname,'index.js'));
 });
-
+2
 router.get('/src/*', (req, res) =>{
      res.sendFile(path.join(__dirname, 'src', req.params[0]));
- });
+});
 
 router.post('/api/test', (req, res)=>{
     const clientData = req.body;
@@ -31,7 +31,6 @@ router.post('/register', (req,res)=>{
     //Have something that checks the registration code. 
     console.log("Registration action recieved");
     res.send("Successfully registered");
-
 });
 
 router.get('/test', (req, res) =>{

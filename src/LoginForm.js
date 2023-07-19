@@ -53,7 +53,6 @@ const LoginForm = () => {
         <div className="login-form">
             <h1>The form will go here</h1>
         </div>
-
     );
 };
 
