@@ -40,19 +40,25 @@ return(
     <form id="Rform" onSubmit={handleSubmit}>
         <table>
             <tr>
-                <td><label id="RuName">Username:</label></td>
+                <td><label id="RuName"><strong>Username:</strong></label></td>
                 <td><input type="text" name="username" value={formData.username} onChange={handleChange} required></input></td>
             </tr>
             <tr>
-                <td><label id="Rpass">Password:</label></td>
+                <td><label id="Rpass"><strong>Password:</strong></label></td>
                 <td><td><input type="password" name="username" value={formData.password} onChange={handleChange} required></input></td></td>
             </tr>
             <tr>
-                <td><label id="regCode">Registration Code:</label></td>
+                <td><label id="regCode"><strong>Registration Code</strong>:</label></td>
                 <td><td><input type="text" name="regCode" value={formData.regcode} onChange={handleChange} required></input></td></td>
             </tr>
+            <tr>
+                <td><button type="submit">Register</button></td>
+            </tr>
         </table>
-        <botton type="submit">Register</botton>
+        
     </form>
 );
 }
+
+
+export default Rform;

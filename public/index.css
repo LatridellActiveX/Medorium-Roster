@@ -56,6 +56,11 @@ body {
     color: black;
 }
 
+#formArea{
+    background-color: rgba(59, 50, 50, 0.774);
+    border-radius: 5%;
+}
+
 #Lform{
     flex: 1;
     display: flex;
