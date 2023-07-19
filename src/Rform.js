@@ -53,6 +53,7 @@ return(
             </tr>
             <tr>
                 <td><button type="submit">Register</button></td>
+                <td><a id ="loginReturn" href="/">Return to login</a></td>
             </tr>
         </table>
         

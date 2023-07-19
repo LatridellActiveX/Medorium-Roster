@@ -3,6 +3,8 @@ const cors = require('cors');
 var path = require('path');
 var app = express();
 const router = express.Router();
+const roster =  require('./Model/modelController');
+require('dotenv').config();
 
 
 router.use(cors());
@@ -20,10 +22,19 @@ router.get('/src/*', (req, res) =>{
      res.sendFile(path.join(__dirname, 'src', req.params[0]));
 });
 
-router.post('/api/test', (req, res)=>{
+router.post('/api/login', (req, res)=>{
     const clientData = req.body;
-    console.log("Recieved a request from the client.");
-    res.send({"Communication with server successful:": JSON.stringify(clientData)});
+    console.log("Recieved a request from the client: ", clientData);
+    if(clientData.username == process.env.TEST_USER && clientData.password == process.env.TEST_PASS){
+        console.log("Test user authenticated");
+        res.send("1400");
+    }else{
+        console.log("username: ", clientData.username);
+        console.log(process.env.TEST_USER, process.env.TEST_PASS);
+        res.send({"Communication with server successful:": JSON.stringify(clientData)});
+    }
+    
+    
 });
 
 router.post('/register', (req,res)=>{
@@ -35,6 +46,12 @@ router.post('/register', (req,res)=>{
 
 router.get('/test', (req, res) =>{
     res.sendFile(path.join(__dirname,'test.html'));
+});
+
+router.get('/roster', (req, res)=>{
+    console.log("Roster requested. Sending: ", roster());
+    res.send(roster());
+    console.log("Roster sent");
 });
 
 router.use(express.static('public'));

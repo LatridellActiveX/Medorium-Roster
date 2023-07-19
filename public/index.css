@@ -1,5 +1,5 @@
 :root{
-    --border-size: 0px;
+    --border-size: 3px;
 }
 
 body {
@@ -57,17 +57,26 @@ body {
 }
 
 #formArea{
+    border: var(--border-size) solid black;
     background-color: rgba(59, 50, 50, 0.774);
-    border-radius: 5%;
+    border-radius: 3%;
 }
 
 #Lform{
     flex: 1;
     display: flex;
     justify-content: flex-end;
-    border: var(--border-size) solid black;
     flex-direction: column;
 
+}
+
+#loginReturn{
+    text-decoration: none;
+    color: white;
+}
+
+#loginReturn:hover{
+    color: aqua;
 }
 
 

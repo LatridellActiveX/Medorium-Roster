@@ -3,9 +3,10 @@ import axios from 'axios';
 
 
 //form component
-const MyForm = ({ onRegToggle} ) => {
+const MyForm = ({ onRegToggle, adminToggle} ) => {
     //state variable that triggers component render/handles state and variables related to form
     var regToggle = false;
+
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -17,30 +18,30 @@ const MyForm = ({ onRegToggle} ) => {
         onRegToggle(regToggle);
 
     }
-//function that handles when data in the form is changed
-const handleChange = (event) => {
+    //function that handles when data in the form is changed
+    const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
-};
+    };
 
-//function that handles when the form is submitted
-const handleSubmit = async (event) => {
+    //function that handles when the form is submitted
+    const handleSubmit = async (event) => {
     event.preventDefault();
     console.log('Form submitted on client side:', formData);
     console.log("Attempting to send form data to server.");
     try{
-        const response = await axios.post('http://localhost:3000/api/test', formData);
+        const response = await axios.post('http://localhost:3000/api/login', formData);
         console.log('Server response: ', response.data);
+        if(response.data == "1400"){
+            adminToggle(true);
+        }
     }catch(error){
         console.error('Error communicating with server: ', error);
     }
 
     setFormData({username: '', password: ''});
-};
+    };
 
-
-
-
-    //Html of the component
+   //View of the component
     return(
         <form id="Lform" onSubmit={handleSubmit}>
             <table>
@@ -54,22 +55,12 @@ const handleSubmit = async (event) => {
                 </tr>
             </table>
           <button type="submit">Submit</button>
-          <p>Not a member?</p>
+          <p>First Time?</p>
           <button onClick={toggleForm}>Register</button>
 
      </form>
 
     );
 };
-const LoginForm = () => {
-    return(
-        <div className="login-form">
-            <h1>The form will go here</h1>
-        </div>
-    );
-};
-
-
-
 
 export default MyForm;
