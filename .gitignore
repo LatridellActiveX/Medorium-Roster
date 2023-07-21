@@ -1,2 +1,4 @@
-/node_modules
+.snowpack
+build
+node_modules
 .env
