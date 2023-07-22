@@ -6,6 +6,7 @@
         "moduleResolution": "node",
         "jsx": "preserve",
         "baseUrl": "./",
+        "typeRoots":["node_modules/@types", "types"],
         /* paths - import rewriting/resolving */
         "paths": {
         // If you configured any Snowpack aliases, add them here.
