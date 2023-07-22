@@ -5,12 +5,10 @@ const AdminPanel = () =>{
 
     const [roster, setRoster] = useState([]);
 
-
     //regular variable for character roster
     var rosterList;
 
     //stateVariable for form data
-
 
     //useEffect function to pull roster data
     useEffect(()=>{
