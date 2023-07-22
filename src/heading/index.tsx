@@ -4,7 +4,7 @@ const Heading = () => {
 
     return <div id="Heading">
         <h1 className='text-4xl' id="HeadingText">Medor Dashboard</h1>
-        <img id="Logo" src='./../../public/CorpLogo.png' alt="Logo" />
+        <img id="Logo" src='CorpLogo.png' alt="Logo" />
     </div>
 }
 
