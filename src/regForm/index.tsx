@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 
 
 
-//.FC is a type for react meaning functional component?
+//Registration Form,  React Functional Component
 const RegForm: React.FC = () => {
 
     const formik = useFormik({
