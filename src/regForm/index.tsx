@@ -4,13 +4,8 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
 
-//make sure its css lines up with the login form as well.
- 
-/*we need to have an endpoint it sends the information to but 
-first we need to create its look and make sure it appears on the
-page correctly using a table and css. 
-*/
 
+//.FC is a type for react meaning functional component?
 const RegForm: React.FC = () => {
 
     const formik = useFormik({

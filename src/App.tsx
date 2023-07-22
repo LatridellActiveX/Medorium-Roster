@@ -5,6 +5,8 @@ import Footer from './footer/index';
 import AdminPanel from './APanel/index';
 import RegForm from './regForm/index';
 
+
+//Not sure what .FC does....
 const App: React.FC = () => {
     const [isRegForm, setisRegForm] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +17,7 @@ const App: React.FC = () => {
         let token = setTimeout(() => {
             setIsLoading(false);
         }, 2000);
-
+        //dont know what this token is
         return () => {
             clearTimeout(token);
         };
@@ -35,7 +37,7 @@ const App: React.FC = () => {
         return <h1>Page is Loading...</h1>
     };
 
-
+    //will need to go over the tertiary operator stucture here to understand it better
     return <div className="app">
         <Heading />
         <div id="formArea">

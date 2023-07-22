@@ -1,6 +1,13 @@
+/*Changed the tailwind directives to import statements as they were throwing me an error otherwise. */
 @import  'tailwindcss/base.css';
 @import 'tailwindcss/components.css';
 @import 'tailwindcss/utilities.css';
+
+
+
+
+
+
 
 :root {
 	--border-size: 3px;
