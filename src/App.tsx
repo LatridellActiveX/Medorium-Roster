@@ -5,8 +5,6 @@ import Footer from './footer/index';
 import AdminPanel from './APanel/index';
 import RegForm from './regForm/index';
 
-
-//Not sure what .FC does....
 const App: React.FC = () => {
     const [isRegForm, setisRegForm] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -14,12 +12,13 @@ const App: React.FC = () => {
 
     //timeout function for page loading
     useEffect(() => {
-        let token = setTimeout(() => {
+        let timeoutId = setTimeout(() => {
             setIsLoading(false);
         }, 2000);
         //dont know what this token is
+        //Alexey: I changed token to timeoutId
         return () => {
-            clearTimeout(token);
+            clearTimeout(timeoutId);
         };
     }, [isRegForm, isAdmin]);
 
@@ -38,18 +37,18 @@ const App: React.FC = () => {
     };
 
     //will need to go over the tertiary operator stucture here to understand it better
-    return <div className="app">
+    return <main className="app">
         <Heading />
-        <div id="formArea">
+        <section id="formArea">
             {isRegForm
                 ? <RegForm />
                 : isAdmin
                     ? <AdminPanel />
                     : <Loginform onRegToggle={onData} adminToggle={adminMode} />
             }
-        </div>
+        </section>
         <Footer />
-    </div>
+    </main>
 };
 
 export default App;

@@ -1,25 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
-type RosterType = {
-    label: string
-    value: string
-}
+import Roster, { RosterType } from './roster';
 
 const AdminPanel: React.FC = () => {
     const [roster, setRoster] = useState<RosterType[]>([]);
 
     useEffect(() => {
-        if (roster == null || roster == undefined || roster.length == 0) { //can roster really be null or undefined when the default value is empty array?
-            pullRoster();
-        } else {
-            console.log("roster data: ", roster);
-        }
+        pullRoster();
     }, []);
 
 
     function parseRoster(rosterData: string[]) {
-        var finishedData: RosterType[] = [];
+        let finishedData: RosterType[] | undefined = [];
 
         if (rosterData instanceof Array) {
             finishedData = rosterData.map(entry => ({ value: entry, label: entry }));
@@ -44,6 +36,8 @@ const AdminPanel: React.FC = () => {
         }
     }
 
+    let rosters = roster.map(r => <Roster {...r} key={r.label} />);
+
     return <div id="aPanelContainer">
         <h2 id="aPanelTitle">Admin Panel</h2>
         <form>
@@ -60,11 +54,7 @@ const AdminPanel: React.FC = () => {
                     <td>
                         <select>
                             <option value="none">N/A</option>
-                            {roster.map(option => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
+                            {rosters}
                         </select>
                     </td>
                 </tr>

@@ -2,8 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-
-
+import Input from '../ui/input';
 
 //.FC is a type for react meaning functional component?
 const RegForm: React.FC = () => {
@@ -36,30 +35,17 @@ const RegForm: React.FC = () => {
         },
     });
 
-    return <section>
-        <h1>Test Registration Form</h1>,
+    return <div>
+        <h2>Registration</h2>
         <form id="Rform" onSubmit={formik.handleSubmit}>
-            <table>
-                <tr>
-                    <td><label id="RuName"><strong>Username:</strong></label></td>
-                    <td><input type="text" name="username" value={formik.values.username} onChange={formik.handleChange} required></input></td>
-                </tr>
-                <tr>
-                    <td><label id="Rpass"><strong>Password:</strong></label></td>
-                    <td><td><input type="password" name="username" value={formik.values.password} onChange={formik.handleChange} required></input></td></td>
-                </tr>
-                <tr>
-                    <td><label id="regCode"><strong>Registration Code</strong>:</label></td>
-                    <td><td><input type="text" name="regCode" value={formik.values.regcode} disabled required></input></td></td>
-                </tr>
-                <tr>
-                    <td><button type="submit">Register</button></td>
-                    <td><a id="loginReturn" href="/">Return to login</a></td>
-                </tr>
-            </table>
-
+            <div>
+                <Input label='Username' value={formik.values.username} handleChange={formik.handleChange} />
+                <Input label='Password' type='password' value={formik.values.password} handleChange={formik.handleChange} />
+                <Input label='Registration Code' name='regcode' value={formik.values.regcode} handleChange={formik.handleChange} />
+            </div>
+            <button type="submit">Submit</button>
         </form>
-    </section>
+    </div>
 };
 
 export default RegForm;
