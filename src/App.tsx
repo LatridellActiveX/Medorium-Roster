@@ -26,9 +26,9 @@ const App: React.FC = () => {
         let token = setTimeout(() => {
             setIsLoading(false);
         }, 2000);
-
+        //Alexey: I changed token to timeoutId
         return () => {
-            clearTimeout(token);
+            clearTimeout(timeoutId);
         };
     }, [isRegForm, isAdmin]);
 
@@ -49,18 +49,19 @@ const App: React.FC = () => {
         return <h1>Page is Loading...</h1>
     };
 
-    return <div className="app">
+    //will need to go over the tertiary operator stucture here to understand it better
+    return <main className="app">
         <Heading />
-        <div id="formArea">
+        <section id="formArea">
             {isRegForm
                 ? <RegForm />
                 : isAdmin
                     ? <AdminPanel />
                     : <Loginform onRegToggle={onData} adminToggle={adminMode} />
             }
-        </div>
+        </section>
         <Footer />
-    </div>
+    </main>
 };
 
 export default App;

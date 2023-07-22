@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 //Yup is for schema validation
 import * as Yup from 'yup';
+import Input from '../ui/input';
 
 /** Type description
  * This is a Type definition for a custom type in Typescript.  
@@ -64,22 +65,21 @@ const LoginForm: React.FC<Props> = ({ adminToggle, onRegToggle }) => {
     const handleRegBtn = () => {
         onRegToggle(true);
     };
-    // Need to add a table head, table body and table footer or the browser complains in the console.
-    return <form id="Lform" onSubmit={formik.handleSubmit}>
-        <table>
-            <tr>
-                <td><label id="Uname">Username</label></td>
-                <td><input type="text" name="username" value={formik.values.username} onChange={formik.handleChange} /></td>
-            </tr>
-            <tr>
-                <td><label id="Pword">Password</label></td>
-                <td><input type="password" name="password" value={formik.values.password} onChange={formik.handleChange} /></td>
-            </tr>
-        </table>
-        <button type="submit">Submit</button>
-        <p>First Time?</p>
-        <button onClick={handleRegBtn}>Register</button>
-    </form>
+
+    return <div>
+        <h2>Registration</h2>
+        <form onSubmit={formik.handleSubmit}>
+            <div>
+                <Input label='Username' value={formik.values.username} handleChange={formik.handleChange} />
+                <Input label='Password' type='password' value={formik.values.password} handleChange={formik.handleChange} />
+            </div>
+            <button type="submit">Submit</button>
+            <div>
+                <p>First Time?</p>
+                <button onClick={handleRegBtn}>Register</button>
+            </div>
+        </form>
+    </div>
 };
 
 export default LoginForm;
