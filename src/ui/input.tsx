@@ -1,10 +1,10 @@
-import React from 'react';
 import { ChangeEvent, HTMLInputTypeAttribute } from "react"
 
 export type InputType = {
   label: string
   value: string
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void
+  error?: string
   name?: string
   type?: HTMLInputTypeAttribute
   isDisabled?: boolean
@@ -14,7 +14,7 @@ type Props = {
 
 } & InputType
 
-const Input: React.FC<Props> = ({ label, value, name, handleChange, type = 'text', isDisabled = false }) => {
+const Input: React.FC<Props> = ({ label, value, name, handleChange, error, type = 'text', isDisabled = false }) => {
 
   return <div>
     <label
@@ -31,6 +31,7 @@ const Input: React.FC<Props> = ({ label, value, name, handleChange, type = 'text
       disabled={isDisabled}
       required
     />
+    <small style={{color: 'red'}}>{error}</small>
   </div>
 };
 

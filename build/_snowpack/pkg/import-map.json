@@ -1,9 +1,0 @@
-{
-  "imports": {
-    "axios": "./axios.js",
-    "formik": "./formik.js",
-    "react": "./react.js",
-    "react-dom": "./react-dom.js",
-    "yup": "./yup.js"
-  }
-}

@@ -1,0 +1,1 @@
+the layout folder is for header and footer 

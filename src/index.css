@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --border-size: 3px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    border: var(--border-size) solid green;
+    position: relative;
+    height: 100%;
+    overflow-x: hidden;
+    background-image: url("./assets/Mining.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#root {
+    font-size: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0;
+    border: var(--border-size) solid blue;
+    min-height: 100vh;
+    position: relative;
+    margin: auto auto;
+}
+
+.app {
+    flex-grow: 1;
+    position: relative;
+    margin: auto auto;
+    min-height: 100vh;
+    padding: 0px;
+    display: flex;
+    border: var(--border-size) solid black;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    color: black
+}
+
+#Heading {
+    flex: 1;
+    border: var(--border-size) solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    Justify-content: center;
+}
+
+#HeadingText {
+    font-size: 20px;
+    color: black;
+}
+
+#formArea {
+    border: var(--border-size) solid black;
+    background-color: rgba(59, 50, 50, 0.774);
+    border-radius: 3%;
+}
+
+#Lform {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+
+}
+
+#loginReturn {
+    text-decoration: none;
+    color: white;
+}
+
+#loginReturn:hover {
+    color: aqua;
+}
+
+
+#footer {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    border: var(--border-size) solid yellow;
+    font-size: 14px;
+}
+
+.login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}

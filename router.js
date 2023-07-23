@@ -17,7 +17,7 @@ router.get('/', function (req, res) {
 router.get('/index.tsx', function (req, res) {
     res.sendFile(path.join(__dirname, 'index.tsx'));
 });
-2
+
 router.get('/src/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', req.params[0]));
 });
@@ -25,7 +25,8 @@ router.get('/src/*', (req, res) => {
 router.post('/api/login', (req, res) => {
     const clientData = req.body;
     console.log("Recieved a request from the client: ", clientData);
-    if (clientData.username == process.env.TEST_USER && clientData.password == process.env.TEST_PASS) {
+
+    if (clientData.username === process.env.TEST_USER && clientData.password === process.env.TEST_PASS) {
         console.log("Test user authenticated");
         res.send("1400");
     } else {

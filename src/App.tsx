@@ -1,67 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import Loginform from './loginForm/index';
-import Heading from './heading/index';
-import Footer from './footer/index';
-import AdminPanel from './APanel/index';
-import RegForm from './regForm/index';
+import MainPage from './pages/main';
+import Footer from './layout/footer';
+import Header from './layout/header';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LoginPage from './pages/login';
+import RegestrationPage from './pages/regestration';
+import AdminPanelPage from './pages/adminPanel';
 
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <MainPage />,
+    },
+    {
+        path: "/login",
+        element: <LoginPage />,
+    },
+    {
+        path: "/regestration",
+        element: <RegestrationPage />,
+    },
+    {
+        path: "/adminPanel",
+        element: <AdminPanelPage />,
+    },
+]);
 
-/*
-React.FC (.FC) is the typescript Type for Functional Components
-*
-* 
-*
-*/
 const App: React.FC = () => {
-    const [isRegForm, setisRegForm] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const [isAdmin, setIsAdmin] = useState(false);
 
-    /*Page loading timeout
-        contains a function called token that sets a timout event listener for 2 seconds, after which the loading state variable is set to false
-        returns a cleanup of the timout function. The question is in what situation is the timout function called, and how does clearTimout work?
-    */
-    useEffect(() => {
-        //executes the Timeout and returns the Timer ID/token for clean up when component is unmounted. 
-        let token = setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
-        //Alexey: I changed token to timeoutId
-        return () => {
-            clearTimeout(timeoutId);
-        };
-    }, [isRegForm, isAdmin]);
-
-    const adminMode = (isMode: boolean) => {
-        setIsAdmin(isMode);
-        window.alert("Admin Mode Authorized");
-    };
-
-    //the response boolean parameter is correlated with the login form prop
-    const onData = (response: boolean) => {
-        setisRegForm(response);
-        console.log("values passed to parent:", response);
-    };
-
-
-    //how is isLoading separated from the normal login form it returns?
-    if (isLoading) {
-        return <h1>Page is Loading...</h1>
-    };
-
-    //will need to go over the tertiary operator stucture here to understand it better
-    return <main className="app">
-        <Heading />
-        <section id="formArea">
-            {isRegForm
-                ? <RegForm />
-                : isAdmin
-                    ? <AdminPanel />
-                    : <Loginform onRegToggle={onData} adminToggle={adminMode} />
-            }
-        </section>
+    return <>
+        <Header />
+        <RouterProvider router={router} />
         <Footer />
-    </main>
+    </>
 };
 
 export default App;
