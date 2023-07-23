@@ -11,3 +11,8 @@ Version currently sits at login and registration pages only.
 -All changes and features should be done through a feature branch, then a merge request be made when finished for review. 
 
 -Code nesting should be done using 4 spaces, as opposed to 2. This allows the code to be more readable. 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> master
