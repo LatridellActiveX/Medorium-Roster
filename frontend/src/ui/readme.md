@@ -1,0 +1,1 @@
+The ui folder is for any component that can be reused by multiple components (e.g. input, button, pagination)
