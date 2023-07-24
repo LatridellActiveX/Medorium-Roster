@@ -18,9 +18,10 @@ Registers user if name is not in use
 ### Params
 
 `Note: accessCode is not implemented yet`
-| Field | Required | Type | minLen | maxLen |
+
+|   Field    | Required |  Type  | minLen | maxLen |
 | :--------: | :------: | :----: | :----: | :----: |
-| accessCode | No | string | ? | ? |
+| accessCode |    No    | string |   ?    |   ?    |
 
 <br>
 
