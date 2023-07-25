@@ -86,7 +86,8 @@ const LoginForm: React.FC = () => {
         >
             Submit
         </button>
-        <p>First Time?</p>
+        <hr className="w-full border-t-2 border-black my-2"/>
+        <p className="my-1">First Time?</p>
         <div className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded">
             
             <Link to='/regestration'>Register</Link>
