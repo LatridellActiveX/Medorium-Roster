@@ -10,17 +10,16 @@ export type InputType = {
   isDisabled?: boolean
 }
 
-type Props = {
-
-} & InputType
+// changed the emtpy object to a type that means the same thing.  
+type Props = NonNullable<unknown> & InputType
 
 const Input: React.FC<Props> = ({ label, value, name, handleChange, error, type = 'text', isDisabled = false }) => {
 
-  return <div>
+  return <div className="flex flex-col items-center">
     <label
       htmlFor={label} //htmlFor='id of an input' this attribute tells html (I guess it is html) that this label and that input are connected with each other (via id)
     >
-      <strong>{label}:</strong>
+      <strong>{label}</strong>
     </label>
     <input
       type={type}
