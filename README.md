@@ -1,10 +1,33 @@
 # Medorium-Roster
 
-What better way to keep track of our membership than an entire website.
+What better way to keep track of our Evo Online membership than an entire website.
 
 ## Contribution Guidelines
 
--All changes and features should be done through a feature branch, then a merge request be made when finished for review.
+All changes and features should be done through a feature branch.
+You have to create a new branch, commit the changes on that branch,
+then make a Pull Request when finished and ask for code review.
+
+## Project overview
+
+### `api` - REST API for authentication and fetching data of users and their characters
+
+#### Tech Stack
+
+- TypeScript
+- Express
+- MongoDB (mongoose ODM)
+- Vitest
+
+### `frontend` - React app that renders the data
+
+#### Tech Stack
+
+- TypeScript
+- Redux toolkit
+- CSS
+- Tailwind CSS
+- Vitest
 
 ## Installation guide
 
@@ -12,7 +35,7 @@ What better way to keep track of our membership than an entire website.
 # Clone the project
 git clone git@github.com:LatridellActiveX/Medorium-Roster.git
 
-# then cd into the Medorium-Roster directory
+# then go into the Medorium-Roster directory
 cd Medorium-Roster
 ```
 
