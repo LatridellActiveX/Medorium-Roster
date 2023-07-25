@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--border-size: 3px;
+	/* --toastify-color-light: #222222!important;
+	--toastify-text-color-light: #F2F2F2!important;
+	--toastify-toast-width: 330px!important; */
+}
+
+/* .Toastify__close-button {
+	color: #fff!important
+} */
+
+@layer base {
+	body {
+		@apply leading-[1.3] text-black tracking-wide;
+	}
+	main {
+		@apply mt-28 md:mt-36;
+		flex: 1 0 auto;
+	}
+	html, body, #root {
+		@apply min-h-screen
+	}
+	html, body {
+    	overflow-x: hidden;
+	}
+
+	.text20-36 {
+		@apply text-[20px] md:text-[30px] lg:text-[36px]
+	}
+	.text14-36 {
+		@apply text-[14px] sm:text-[18px] md:text-[20px] lg:text-[36px]
+	}
+	.text20-30 {
+		@apply text-[20px] sm:text-[24px] md:text-[30px]
+	}
+	.text18-30 {
+		@apply text-[18px] md:text-[30px]
+	}
+	.text14-26 {
+		@apply text-[14px] md:text-[26px]
+	}
+	.text16-28 {
+		@apply text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px]
+	}
+	.text18-24 {
+		@apply text-[18px] sm:text-[20px] lg:text-[24px]
+	}
+	.text16-24 {
+		@apply text-[16px] sm:text-[20px] lg:text-[24px]
+	}
+	.text14-24 {
+		@apply text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px]
+	}
+	.text18-20 {
+		@apply text-[18px] sm:text-[20px]
+	}
+	.text16-20 {
+		@apply text-[16px] sm:text-[20px]
+	}
+	.text14-20 {
+		@apply text-[14px] sm:text-[20px]
+	}
+	.text14-18 {
+		@apply text-[14px] sm:text-[18px]
+	}
+	.text16-18 {
+		@apply text-[16px] sm:text-[18px]
+	}
+	.text14-16 {
+		@apply text-[14px] sm:text-[16px]
+	}
+	.text12-20 {
+		@apply text-[12px] sm:text-[14px] md:text-[20px]
+	}
+	.text10-18 {
+		@apply text-[10px] sm:text-[12px] md:text-[18px]
+	}
+	.text12-16 {
+		@apply text-[12px] sm:text-[14px] md:text-[16px]
+	}
+	.text12-14 {
+		@apply text-[12px] sm:text-[14px]
+	}
+	.text14 {
+		@apply text-[14px]
+	}
+	.text10-14 {
+		@apply text-[10px] lg:text-[14px]
+	}
+	.text10-12 {
+		@apply text-[10px] md:text-[12px]
+	}
+
+	.mt130-300 {
+		@apply mt-32 sm:mt-[200px] md:mt-[300px]
+	}
+	.mt150-250 {
+		@apply mt-[150px] md:mt-[200px] lg:mt-[250px]
+	}
+	.mt130-200 {
+		@apply mt-32 sm:mt-36 lg:mt-[200px]
+	}
+	.mt100-200 {
+		@apply mt-[100px] md:mt-[200px]
+	}
+	.mt100-150 {
+		@apply mt-[100px] md:mt-[150px]
+	}
+	.mt50-150 {
+		@apply mt-12 sm:mt-[150px]
+	}
+	.mt40-50 {
+		@apply mt-10 sm:mt-[50px]
+	}
+	.mt30-50 {
+		@apply mt-[30px] sm:mt-[50px]
+	}
+	.mt10-20 {
+		@apply mt-2.5 md:mt-5
+	}
+
+	.leftContainer {
+		@apply -left-[calc((100vw_-_100%)_/_2)]
+	}
+
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    border: var(--border-size) solid green;
+    position: relative;
+    height: 100%;
+    overflow-x: hidden;
+    background-image: url("./assets/Mining.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#root {
+    font-size: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0;
+    border: var(--border-size) solid blue;
+    min-height: 100vh;
+    position: relative;
+    margin: auto auto;
+}
+
+.app {
+    flex-grow: 1;
+    position: relative;
+    margin: auto auto;
+    min-height: 100vh;
+    padding: 0px;
+    display: flex;
+    border: var(--border-size) solid black;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    color: black
+}
+
+#Heading {
+    flex: 1;
+    border: var(--border-size) solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    Justify-content: center;
+}
+
+#HeadingText {
+    font-size: 20px;
+    color: black;
+}
+
+#formArea {
+    border: var(--border-size) solid black;
+    background-color: rgba(59, 50, 50, 0.774);
+    border-radius: 3%;
+}
+
+#Lform {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+
+}
+
+#loginReturn {
+    text-decoration: none;
+    color: white;
+}
+
+#loginReturn:hover {
+    color: aqua;
+}
+
+
+#footer {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    border: var(--border-size) solid yellow;
+    font-size: 14px;
+}
+
+.login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
