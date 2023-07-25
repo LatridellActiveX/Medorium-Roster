@@ -1,8 +1,9 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import Input from '../../ui/input';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 //Registration Form,  React Functional Component
 const RegForm: React.FC = () => {
@@ -12,7 +13,6 @@ const RegForm: React.FC = () => {
         initialValues: {
             username: '',
             password: '',
-            regcode: `#${Math.floor(100000000 + Math.random() * 900000000)}` //the implementation is temporary
         },
         validationSchema: Yup.object({
             username: Yup.string()
@@ -25,19 +25,26 @@ const RegForm: React.FC = () => {
                 .required('Required'),
         }),
         onSubmit: async (values, { resetForm }) => {
-            console.log("Registration submitted locally", values);
 
             try {
-                let response = await axios.post('http://localhost:3000/api/regestration', values);
+                let response = await toast.promise(
+                    axios.post('http://localhost:3000/auth/register/codeHere', values),
+                    {
+                        pending: 'Pending...',
+                        success: 'Success!',
+                        error: 'Incorrect email or password'
+                    }
+                )
 
-                if (response.data === '200') {
+                if (response.status === 200) {
                     navigate('/');
-
-                    resetForm(); //There is actually no point of resetting form because the component is unmounted at that time
-                }
+                    resetForm();
+                };
 
             } catch (e) {
-                console.log('regestration form error', e)
+                let err = e as AxiosError;
+
+                console.error(err.code)
             }
 
         },
@@ -58,16 +65,9 @@ const RegForm: React.FC = () => {
                 value={formik.values.password}
                 handleChange={formik.handleChange}
             />
-            <Input
-                label='Registration Code'
-                name='regcode'
-                error={formik.errors.regcode}
-                value={formik.values.regcode}
-                handleChange={formik.handleChange}
-            />
         </div>
         <button
-            disabled={!!formik.errors.password || !!formik.errors.username || !!formik.errors.regcode} //double negation is fast way to convert a string to boolean
+            disabled={!!formik.errors.password || !!formik.errors.username} //double negation is fast way to convert a string to boolean
             type="submit"
             aria-label='Submit your regestration credentials' //for accessibility 
 

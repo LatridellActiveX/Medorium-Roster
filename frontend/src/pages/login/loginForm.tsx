@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Input from '../../ui/input';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const LoginForm: React.FC = () => {
     let navigate = useNavigate();
@@ -30,18 +31,21 @@ const LoginForm: React.FC = () => {
                 .required('Required'),
         }),
         onSubmit: async (values, { resetForm }) => {
-            console.log('Form submitted on client side:', values);
-            console.log("Attempting to send form data to server.");
-
             try {
-                let response = await axios.post('http://localhost:3000/api/login', values);
-                console.log('Server response: ', response.data);
-                console.log(response)
-                if (response.data == "1400") {
-                    navigate(`/adminPanel?user=${values.username}`)
+                let response = await toast.promise(
+                    axios.post('http://localhost:3000/auth/login', values),
+                    {
+                        pending: 'Pending...',
+                        success: 'Success!',
+                        error: 'Incorrect email or password'
+                    }
+                )
+
+                if (response.status === 200) {
+                    navigate('/');
+                    resetForm();
                 };
 
-                resetForm();
             } catch (error) {
                 console.error('Error communicating with server: ', error);
             };
