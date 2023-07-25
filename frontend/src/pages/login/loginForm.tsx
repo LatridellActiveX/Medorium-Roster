@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const LoginForm: React.FC = () => {
-    const navigate = useNavigate();
+    let navigate = useNavigate();
 
     //Dont know what formik is
     const formik = useFormik({
@@ -32,7 +32,7 @@ const LoginForm: React.FC = () => {
         }),
         onSubmit: async (values, { resetForm }) => {
             try {
-                const response = await toast.promise(
+                let response = await toast.promise(
                     axios.post('http://localhost:3000/auth/login', values),
                     {
                         pending: 'Pending...',
@@ -44,51 +44,39 @@ const LoginForm: React.FC = () => {
                 if (response.status === 200) {
                     navigate('/');
                     resetForm();
-                }
+                };
 
             } catch (error) {
                 console.error('Error communicating with server: ', error);
-            }
+            };
         },
     });
 
-    return <form id='formArea' className="flex flex-col items-center" onSubmit={formik.handleSubmit}>
+    return <form id='formArea' onSubmit={formik.handleSubmit}>
         <div>
-            <table>
-                <thead>
-                </thead>
-                <tbody>
-                    <tr>
-                    <Input
-                        label='Username'
-                        error={formik.errors.username}
-                        value={formik.values.username}
-                        handleChange={formik.handleChange}
-                    />
-                    </tr>
-                    <tr>
-                    <Input
-                        label='Password'
-                        type='password'
-                        error={formik.errors.password}
-                        value={formik.values.password}
-                        handleChange={formik.handleChange}
-                     />
-                    </tr>
-                </tbody>
-            </table>
+            <Input
+                label='Username'
+                error={formik.errors.username}
+                value={formik.values.username}
+                handleChange={formik.handleChange}
+            />
+            <Input
+                label='Password'
+                type='password'
+                error={formik.errors.password}
+                value={formik.values.password}
+                handleChange={formik.handleChange}
+            />
         </div>
         <button
-            className="bg-blue-400 hover:bg-blue-600 text-white font-bold  px-4 rounded cursor-pointer"
             disabled={!!formik.errors.password || !!formik.errors.username} //double negation is fast way to convert a string to boolean
             type="submit"
             aria-label='Submit your login credentials' //for accessibility 
         >
             Submit
         </button>
-        <p>First Time?</p>
-        <div className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded">
-            
+        <div>
+            <p>First Time?</p>
             <Link to='/regestration'>Register</Link>
         </div>
     </form>

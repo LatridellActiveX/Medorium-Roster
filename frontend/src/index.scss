@@ -161,6 +161,7 @@ body {
     flex-grow: 1;
     position: relative;
     margin: auto auto;
+    min-height: 100vh;
     padding: 0px;
     display: flex;
     border: var(--border-size) solid black;
@@ -174,6 +175,7 @@ input {
 }
 
 #Heading {
+    flex: 1;
     border: var(--border-size) solid black;
     display: flex;
     flex-direction: column;
@@ -218,3 +220,9 @@ input {
     font-size: 14px;
 }
 
+.login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
