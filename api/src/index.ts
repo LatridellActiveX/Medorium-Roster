@@ -1,8 +1,13 @@
 import { connect } from "mongoose";
 import app from "./app.js";
 
-// block from listening until connection is established
-await connect("mongodb://127.0.0.1:27017/medorium");
+connect("mongodb://127.0.0.1:27017/medorium")
+  .then(() => {
+    console.log("Connected to the local database");
+  })
+  .catch(() => {
+    console.error("Database connection failed");
+  });
 
 const port = process.env.PORT ?? 3000;
 app.listen(port, () => {
