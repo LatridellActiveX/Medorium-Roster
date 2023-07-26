@@ -22,7 +22,7 @@ import LoginForm from "./loginForm";
  * 
  */
 const LoginPage: React.FC = () => {
-    useAuthRedirect('/profile');
+    useAuthRedirect('/');
 
     return <PageInitialization>
         <main className="flex flex-col items-center">

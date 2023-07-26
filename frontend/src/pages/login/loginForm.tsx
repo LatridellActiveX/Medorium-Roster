@@ -36,9 +36,7 @@ const LoginForm: React.FC = () => {
         onSubmit: async (values, { resetForm }) => {
             try {
                 const response = await toast.promise(
-                    axios.post('http://localhost:3000/auth/login', values, {
-                        withCredentials: true,
-                    }),
+                    axios.post('http://localhost:3000/auth/login', values, { withCredentials: true }),
                     {
                         pending: 'Loading...',
                         success: 'Success!',
@@ -47,10 +45,7 @@ const LoginForm: React.FC = () => {
                 )
 
                 if (response.status === 200) {
-                    dispatch(authorizeUser({
-                        username: values.username,
-                        //something else later
-                    }));
+                    dispatch(authorizeUser(values.username));
                     navigate('/');
                     resetForm();
                 }
@@ -68,26 +63,26 @@ const LoginForm: React.FC = () => {
                 </thead>
                 <tbody>
                     <tr>
-                    <Input
-                        label='Username'
-                        error={formik.errors.username}
-                        value={formik.values.username}
-                        handleChange={formik.handleChange}
-                    />
+                        <Input
+                            label='Username'
+                            error={formik.errors.username}
+                            value={formik.values.username}
+                            handleChange={formik.handleChange}
+                        />
                     </tr>
                     <tr>
-                    <Input
-                        label='Password'
-                        type='password'
-                        error={formik.errors.password}
-                        value={formik.values.password}
-                        handleChange={formik.handleChange}
-                     />
+                        <Input
+                            label='Password'
+                            type='password'
+                            error={formik.errors.password}
+                            value={formik.values.password}
+                            handleChange={formik.handleChange}
+                        />
                     </tr>
                 </tbody>
             </table>
         </div>
-        
+
         <button
             className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded cursor-pointer transition-colors"
             disabled={!!formik.errors.password || !!formik.errors.username} //double negation is fast way to convert a string to boolean
