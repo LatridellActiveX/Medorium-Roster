@@ -6,9 +6,12 @@ import * as Yup from 'yup';
 import Input from '../../ui/input';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { authorizeUser } from '../../redux/reducers/authReducer';
+import { useDispatch } from 'react-redux';
 
 const LoginForm: React.FC = () => {
-    let navigate = useNavigate();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     //Dont know what formik is
     const formik = useFormik({
@@ -32,8 +35,10 @@ const LoginForm: React.FC = () => {
         }),
         onSubmit: async (values, { resetForm }) => {
             try {
-                let response = await toast.promise(
-                    axios.post('http://localhost:3000/auth/login', values),
+                const response = await toast.promise(
+                    axios.post('http://localhost:3000/auth/login', values, {
+                        withCredentials: true,
+                    }),
                     {
                         pending: 'Pending...',
                         success: 'Success!',
@@ -42,6 +47,10 @@ const LoginForm: React.FC = () => {
                 )
 
                 if (response.status === 200) {
+                    dispatch(authorizeUser({
+                        username: values.username,
+                        //something else later
+                    }));
                     navigate('/');
                     resetForm();
                 };
@@ -69,14 +78,15 @@ const LoginForm: React.FC = () => {
             />
         </div>
         <button
+            className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded cursor-pointer transition-colors"
             disabled={!!formik.errors.password || !!formik.errors.username} //double negation is fast way to convert a string to boolean
             type="submit"
             aria-label='Submit your login credentials' //for accessibility 
         >
             Submit
         </button>
-        <div>
-            <p>First Time?</p>
+        <p>First Time?</p>
+        <div className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded transition-colors">
             <Link to='/regestration'>Register</Link>
         </div>
     </form>

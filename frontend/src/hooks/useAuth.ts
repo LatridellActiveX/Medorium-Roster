@@ -1,22 +1,19 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { useCookies } from "react-cookie";
 import { authorizeUser } from "../redux/reducers/authReducer";
+import { useDispatch } from "react-redux";
 
 const useAuth = () => {
-    const [cookies] = useCookies(['jwt']);
-
-    let jwtToken = cookies.jwt as string | undefined; //need to add
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!jwtToken) return;
-
-        axios.get(`http://localhost:3000/auth?token=${jwtToken}`).then(resp => {
+        axios.get('http://localhost:3000/auth').then(resp => {
             if (resp.status === 200) {
-                authorizeUser(resp.data.userId)
+                console.log(resp)
+                dispatch(authorizeUser(resp.data.username));
             };
         })
-    }, [jwtToken]);
+    }, []);
 };
 
 export default useAuth;
