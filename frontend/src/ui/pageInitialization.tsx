@@ -2,9 +2,11 @@ import { ReactNode, useState, useEffect } from 'react';
 
 type Props = {
     children: ReactNode
+    pathIfAuth?: string
+    pathIfUnauth?: string
 }
 
-const PageInitialization: React.FC<Props> = ({ children }) => {
+const PageInitialization: React.FC<Props> = ({ children, pathIfAuth, pathIfUnauth }) => {
     const [isLoading, setIsLoading] = useState(true);
 
     /*Page loading timeout

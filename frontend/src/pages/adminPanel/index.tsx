@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Roster, { RosterType } from './roster';
 import PageInitialization from '../../ui/pageInitialization';
+import useAuthRedirect from '../../hooks/useAuthRedirect';
 
 const AdminPanelPage: React.FC = () => {
+    useAuthRedirect(null, '/login');
     const [roster, setRoster] = useState<RosterType[]>([]);
 
     useEffect(() => {
