@@ -40,7 +40,7 @@ const LoginForm: React.FC = () => {
                         withCredentials: true,
                     }),
                     {
-                        pending: 'Pending...',
+                        pending: 'Loading...',
                         success: 'Success!',
                         error: 'Incorrect email or password'
                     }
@@ -53,30 +53,41 @@ const LoginForm: React.FC = () => {
                     }));
                     navigate('/');
                     resetForm();
-                };
+                }
 
             } catch (error) {
                 console.error('Error communicating with server: ', error);
-            };
+            }
         },
     });
 
-    return <form id='formArea' onSubmit={formik.handleSubmit}>
+    return <form id='formArea' className="flex flex-col items-center" onSubmit={formik.handleSubmit}>
         <div>
-            <Input
-                label='Username'
-                error={formik.errors.username}
-                value={formik.values.username}
-                handleChange={formik.handleChange}
-            />
-            <Input
-                label='Password'
-                type='password'
-                error={formik.errors.password}
-                value={formik.values.password}
-                handleChange={formik.handleChange}
-            />
+            <table>
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                    <Input
+                        label='Username'
+                        error={formik.errors.username}
+                        value={formik.values.username}
+                        handleChange={formik.handleChange}
+                    />
+                    </tr>
+                    <tr>
+                    <Input
+                        label='Password'
+                        type='password'
+                        error={formik.errors.password}
+                        value={formik.values.password}
+                        handleChange={formik.handleChange}
+                     />
+                    </tr>
+                </tbody>
+            </table>
         </div>
+        
         <button
             className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded cursor-pointer transition-colors"
             disabled={!!formik.errors.password || !!formik.errors.username} //double negation is fast way to convert a string to boolean

@@ -14,6 +14,7 @@ export interface IUser {
   enlistedTimestamp?: number; // Joined the corporation, time in service can be calculated
 }
 
+//Mongoose schema for user
 export const UserSchema = new Schema<IUser>({
   name: { type: String, required: true, unique: true },
   hash: { type: String, required: true },
@@ -28,6 +29,11 @@ export const UserSchema = new Schema<IUser>({
 export const UserModel = model("User", UserSchema);
 
 class User {
+  static async findByUsername(name: string) {
+    const doc = await UserModel.findOne({ name });
+    return doc;
+  }
+
   /**
    * Creates a new user if name is not taken
    */
@@ -51,7 +57,7 @@ class User {
   }
 
   /**
-   *
+   * Need a default user/pass so that we can login in development and edit other pages
    */
   static async login(name: string, password: string) {
     // TODO: query the database for the user
@@ -66,10 +72,7 @@ class User {
     if (!passwordIsCorrect) {
       return Err("Incorrect password");
     }
-    // TODO: generate jwt token
-    const token = "TODO";
-
-    return Ok({ token });
+    return Ok(1);
   }
 }
 

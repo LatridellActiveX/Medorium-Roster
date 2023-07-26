@@ -2,10 +2,9 @@
 
 <br>
 
-## POST /auth/register/:accessCode
+## POST /auth/register?accessCode=
 
 Registers user if name is not in use
-
 (and the accessCode is valid)
 
 ### Body
@@ -15,7 +14,7 @@ Registers user if name is not in use
 | username |   Yes    | string |   ?    |   ?    |
 | password |   Yes    | string |   ?    |   ?    |
 
-### Params
+### Query
 
 `Note: accessCode is not implemented yet`
 
@@ -27,9 +26,7 @@ Registers user if name is not in use
 
 ## POST /auth/login
 
-Returns authentication token (hardcoded at the moment)
-
-(Could also send it as a cookie)
+Sends authToken cookie
 
 ### Body
 
@@ -37,5 +34,11 @@ Returns authentication token (hardcoded at the moment)
 | :------: | :------: | :----: | :----: | :----: |
 | username |   Yes    | string |   ?    |   ?    |
 | password |   Yes    | string |   ?    |   ?    |
+
+<br>
+
+## GET /auth
+
+Responds with 200 if authorized, otherwise responds with 401
 
 <br>

@@ -52,7 +52,7 @@ export async function login(req: Request, res: Response) {
 
 export async function isAuthorized(req: Request, res: Response) {
   const { authToken } = req.cookies;
-
+  console.log(authToken) //undefined here
   if (typeof authToken !== "string") {
     return res.status(401).json({ error: "Not Authorized" });
   }
