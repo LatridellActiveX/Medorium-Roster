@@ -29,6 +29,11 @@ export const UserSchema = new Schema<IUser>({
 export const UserModel = model("User", UserSchema);
 
 class User {
+  static async findByUsername(name: string) {
+    const doc = await UserModel.findOne({ name });
+    return doc;
+  }
+
   /**
    * Creates a new user if name is not taken
    */
@@ -67,10 +72,7 @@ class User {
     if (!passwordIsCorrect) {
       return Err("Incorrect password");
     }
-    // TODO: generate jwt token
-    const token = "TODO";
-
-    return Ok({ token });
+    return Ok(1);
   }
 }
 
