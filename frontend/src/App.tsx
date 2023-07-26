@@ -8,6 +8,7 @@ import AdminPanelPage from './pages/adminPanel';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useAuth from './hooks/useAuth';
+import ProfilePage from './pages/profile';
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
     {
         path: "/adminPanel",
         element: <AdminPanelPage />,
+    },
+    {
+        path: "/profile",
+        element: <ProfilePage />,
     },
 ]);
 

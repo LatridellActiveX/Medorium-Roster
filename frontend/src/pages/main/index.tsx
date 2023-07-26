@@ -3,7 +3,7 @@ import PageInitialization from "../../ui/pageInitialization";
 import useAuthRedirect from "../../hooks/useAuthRedirect";
 
 const MainPage: React.FC = () => {
-    useAuthRedirect('', '/login');
+    useAuthRedirect(null, '/login');
 
     return <PageInitialization>
         <main className="app">

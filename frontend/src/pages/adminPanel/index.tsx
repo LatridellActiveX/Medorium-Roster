@@ -5,7 +5,7 @@ import PageInitialization from '../../ui/pageInitialization';
 import useAuthRedirect from '../../hooks/useAuthRedirect';
 
 const AdminPanelPage: React.FC = () => {
-    useAuthRedirect('', '/login');
+    useAuthRedirect(null, '/login');
     const [roster, setRoster] = useState<RosterType[]>([]);
 
     useEffect(() => {
