@@ -14,6 +14,7 @@ export interface IUser {
   enlistedTimestamp?: number; // Joined the corporation, time in service can be calculated
 }
 
+//Mongoose schema for user
 export const UserSchema = new Schema<IUser>({
   name: { type: String, required: true, unique: true },
   hash: { type: String, required: true },
@@ -51,7 +52,7 @@ class User {
   }
 
   /**
-   *
+   * Need a default user/pass so that we can login in development and edit other pages
    */
   static async login(name: string, password: string) {
     // TODO: query the database for the user

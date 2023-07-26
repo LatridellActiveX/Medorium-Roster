@@ -35,7 +35,7 @@ const LoginForm: React.FC = () => {
                 const response = await toast.promise(
                     axios.post('http://localhost:3000/auth/login', values),
                     {
-                        pending: 'Pending...',
+                        pending: 'Loading...',
                         success: 'Success!',
                         error: 'Incorrect email or password'
                     }
@@ -78,8 +78,9 @@ const LoginForm: React.FC = () => {
                 </tbody>
             </table>
         </div>
+        
         <button
-            className="bg-blue-400 hover:bg-blue-600 text-white font-bold  px-4 rounded cursor-pointer"
+            className="bg-blue-400 hover:bg-blue-600 text-white font-bold  px-4 rounded cursor-pointer my-2"
             disabled={!!formik.errors.password || !!formik.errors.username} //double negation is fast way to convert a string to boolean
             type="submit"
             aria-label='Submit your login credentials' //for accessibility 
@@ -88,7 +89,7 @@ const LoginForm: React.FC = () => {
         </button>
         <hr className="w-full border-t-2 border-black my-2"/>
         <p className="my-1">First Time?</p>
-        <div className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded">
+        <div className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded my-2 ">
             
             <Link to='/regestration'>Register</Link>
         </div>

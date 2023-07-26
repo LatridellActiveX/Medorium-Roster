@@ -6,7 +6,7 @@ import { authorizeUser } from "../redux/reducers/authReducer";
 const useAuth = () => {
     const [cookies] = useCookies(['jwt']);
 
-    let jwtToken = cookies.jwt as string | undefined; //need to add
+    const jwtToken = cookies.jwt as string | undefined; //need to add
 
     useEffect(() => {
         if (!jwtToken) return;
@@ -14,7 +14,7 @@ const useAuth = () => {
         axios.get(`http://localhost:3000/auth?token=${jwtToken}`).then(resp => {
             if (resp.status === 200) {
                 authorizeUser(resp.data.userId)
-            };
+            }
         })
     }, [jwtToken]);
 };
