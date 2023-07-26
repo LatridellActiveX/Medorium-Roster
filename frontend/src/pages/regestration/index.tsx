@@ -1,7 +1,9 @@
+import useAuthRedirect from '../../hooks/useAuthRedirect';
 import PageInitialization from '../../ui/pageInitialization';
 import RegForm from './regForm';
 
 const RegestrationPage: React.FC = () => {
+    useAuthRedirect('/');
 
     return <PageInitialization>
         <main>

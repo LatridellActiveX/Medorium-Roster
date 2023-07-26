@@ -1,14 +1,9 @@
 import { Link } from "react-router-dom";
 import PageInitialization from "../../ui/pageInitialization";
-
-/*
-React.FC (.FC) is the typescript Type for Functional Components
-*
-* 
-*
-*/
+import useAuthRedirect from "../../hooks/useAuthRedirect";
 
 const MainPage: React.FC = () => {
+    useAuthRedirect('', '/login');
 
     return <PageInitialization>
         <main className="app">

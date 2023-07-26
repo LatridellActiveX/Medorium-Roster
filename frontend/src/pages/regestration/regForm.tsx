@@ -28,7 +28,7 @@ const RegForm: React.FC = () => {
 
             try {
                 let response = await toast.promise(
-                    axios.post('http://localhost:3000/auth/register/codeHere', values),
+                    axios.post('http://localhost:3000/auth/register/codeHere', values, { withCredentials: true }),
                     {
                         pending: 'Pending...',
                         success: 'Success!',

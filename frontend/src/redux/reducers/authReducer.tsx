@@ -2,24 +2,21 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 type AuthReducerStateType = {
-    username: string | null //if there is username, the user in authorized 
+    //false means a user is unauthorized
+    //null means there was no auth check yet
+    username: string | null | false //if there is username, the user in authorized 
 }
 
 const initialState: AuthReducerStateType = {
     username: null
 };
 
-type AuthorizeUserPayloadType = {
-    username: string
-    //something else later...
-}
-
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        authorizeUser: (state, action: PayloadAction<AuthorizeUserPayloadType>) => {
-            state.username = action.payload.username
+        authorizeUser: (state, action: PayloadAction<string | null>) => {
+            state.username = action.payload; //username as payload
         },
     },
 });

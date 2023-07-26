@@ -1,3 +1,4 @@
+import useAuthRedirect from "../../hooks/useAuthRedirect";
 import PageInitialization from "../../ui/pageInitialization";
 import LoginForm from "./loginForm";
 
@@ -21,6 +22,7 @@ import LoginForm from "./loginForm";
  * 
  */
 const LoginPage: React.FC = () => {
+    useAuthRedirect('/');
 
     return <PageInitialization>
         <main className="flex flex-col items-center">

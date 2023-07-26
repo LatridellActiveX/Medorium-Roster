@@ -6,8 +6,11 @@ import * as Yup from 'yup';
 import Input from '../../ui/input';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { authorizeUser } from '../../redux/reducers/authReducer';
 
 const LoginForm: React.FC = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     //Dont know what formik is
@@ -33,7 +36,7 @@ const LoginForm: React.FC = () => {
         onSubmit: async (values, { resetForm }) => {
             try {
                 const response = await toast.promise(
-                    axios.post('http://localhost:3000/auth/login', values),
+                    axios.post('http://localhost:3000/auth/login', values, { withCredentials: true }),
                     {
                         pending: 'Loading...',
                         success: 'Success!',
@@ -42,6 +45,7 @@ const LoginForm: React.FC = () => {
                 )
 
                 if (response.status === 200) {
+                    dispatch(authorizeUser(values.username));
                     navigate('/');
                     resetForm();
                 }
@@ -59,26 +63,26 @@ const LoginForm: React.FC = () => {
                 </thead>
                 <tbody>
                     <tr>
-                    <Input
-                        label='Username'
-                        error={formik.errors.username}
-                        value={formik.values.username}
-                        handleChange={formik.handleChange}
-                    />
+                        <Input
+                            label='Username'
+                            error={formik.errors.username}
+                            value={formik.values.username}
+                            handleChange={formik.handleChange}
+                        />
                     </tr>
                     <tr>
-                    <Input
-                        label='Password'
-                        type='password'
-                        error={formik.errors.password}
-                        value={formik.values.password}
-                        handleChange={formik.handleChange}
-                     />
+                        <Input
+                            label='Password'
+                            type='password'
+                            error={formik.errors.password}
+                            value={formik.values.password}
+                            handleChange={formik.handleChange}
+                        />
                     </tr>
                 </tbody>
             </table>
         </div>
-        
+
         <button
             className="bg-blue-400 hover:bg-blue-600 text-white font-bold  px-4 rounded cursor-pointer my-2"
             disabled={!!formik.errors.password || !!formik.errors.username} //double negation is fast way to convert a string to boolean
@@ -87,10 +91,10 @@ const LoginForm: React.FC = () => {
         >
             Submit
         </button>
-        <hr className="w-full border-t-2 border-black my-2"/>
+        <hr className="w-full border-t-2 border-black my-2" />
         <p className="my-1">First Time?</p>
         <div className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded my-2 ">
-            
+
             <Link to='/regestration'>Register</Link>
         </div>
     </form>
