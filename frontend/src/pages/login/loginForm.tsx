@@ -84,17 +84,23 @@ const LoginForm: React.FC = () => {
         </div>
 
         <button
-            className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded cursor-pointer transition-colors"
+            className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded cursor-pointer transition-colors mt-5"
             disabled={!!formik.errors.password || !!formik.errors.username} //double negation is fast way to convert a string to boolean
             type="submit"
             aria-label='Submit your login credentials' //for accessibility 
         >
             Submit
         </button>
-        <p>First Time?</p>
-        <div className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded transition-colors">
+        <div className='flex items-center justify-around gap-x-2 w-full mt-5'>
+            <p>First Time?</p>
             <Link to='/regestration'>Register</Link>
         </div>
+        <small className='mt-5'>
+            <span>First time here? </span>
+            <Link className='text-blue-400 transition-colors underline hover:text-blue-600' to='/FAQ#registrationCode'>
+                Ask you admin to give you a regestration link.
+            </Link>
+        </small>
     </form>
 };
 
