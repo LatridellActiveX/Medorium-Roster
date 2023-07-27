@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "api": "npm run dev -w api",
+    "frontend": "npm run dev -w frontend",
+    "full": "concurrently \"npm run dev -w frontend\" \"npm run dev -w api\""
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
