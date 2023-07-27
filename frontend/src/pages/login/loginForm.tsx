@@ -52,10 +52,11 @@ const LoginForm: React.FC = () => {
         },
     });
 
-    return <form id='formArea' className="flex flex-col items-center" onSubmit={formik.handleSubmit}>
+    return <form id='formArea' className="flex flex-col items-center border-0 px-9 rounded-xl py-4 shadow-2xl" onSubmit={formik.handleSubmit}>
         <div>
             <table>
                 <thead>
+                    <h2 className='text-center mb-4'>Login</h2>
                 </thead>
                 <tbody>
                     <tr>
@@ -80,7 +81,7 @@ const LoginForm: React.FC = () => {
         </div>
 
         <button
-            className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded cursor-pointer transition-colors mt-5"
+            className="bg-blue-500 hover:bg-blue-600 text-white text-base font-bold py-2 rounded-md cursor-pointer w-full my-6"
             disabled={!!formik.errors.password || !!formik.errors.username} //double negation is fast way to convert a string to boolean
             type="submit"
             aria-label='Submit your login credentials' //for accessibility 
