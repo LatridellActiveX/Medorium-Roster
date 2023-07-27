@@ -50,26 +50,3 @@ export async function login(req: Request, res: Response) {
   return res.status(200).json({ authenticated: true });
 }
 
-export async function isAuthorized(req: Request, res: Response) {
-  const { authToken } = req.cookies;
-
-  if (typeof authToken !== "string") {
-    return res.status(401).json({ error: "Not Authorized" });
-  }
-
-  const payload = decodeAuthToken(authToken);
-
-  if (!payload) {
-    return res.status(401).json({ error: "Not Authorized" });
-  }
-
-  const { username } = payload;
-
-  const user = await User.findByUsername(username);
-
-  if (!user) {
-    return res.status(401).json({ error: "Not Authorized" });
-  }
-
-  return res.status(200).json({ authorized: true, username });
-}
