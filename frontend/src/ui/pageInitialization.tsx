@@ -21,14 +21,13 @@ const PageInitialization: React.FC<Props> = ({ children, className, pathIfAuth =
         //executes the Timeout and returns the Timer ID/token for clean up when component is unmounted. 
         let timeoutId = setTimeout(() => {
             setIsLoading(false);
-        }, 1000);
+        }, 50);
 
         return () => {
             clearTimeout(timeoutId);
         };
     }, []);
 
-    //how is isLoading separated from the normal login form it returns?
     if (isLoading) {
         return <main className={cn(className)}>
             <h1>Page is Loading...</h1>
