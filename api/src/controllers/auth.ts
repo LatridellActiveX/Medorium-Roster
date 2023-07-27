@@ -49,7 +49,7 @@ export async function login(req: Request, res: Response) {
 
   return res.status(200).json({ authenticated: true });
 }
-
+//checks for the authorization token in the cookies, the endpoint /auth needs to specifically be called. 
 export async function isAuthorized(req: Request, res: Response) {
   const { authToken } = req.cookies;
 

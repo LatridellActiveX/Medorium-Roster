@@ -17,12 +17,12 @@ const LoginForm: React.FC = () => {
             password: '',
         },
         /**Validation Schema Description
-         * -apart of the Yup libary, throws 
+         * -apart of the Yup libary 
          * 
          */
         validationSchema: Yup.object({
             username: Yup.string()
-                .max(15, 'Must be 15 characters or less') //where does this string get sent to
+                .max(15, 'Must be 15 characters or less') 
                 .min(4, 'Your name is too short')
                 .required('Required'),
             password: Yup.string()
@@ -30,6 +30,7 @@ const LoginForm: React.FC = () => {
                 .min(4, 'Your password is too short')
                 .required('Required'),
         }),
+        //where does this pull the values parameter from?
         onSubmit: async (values, { resetForm }) => {
             try {
                 const response = await toast.promise(
