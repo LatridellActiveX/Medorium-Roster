@@ -44,7 +44,7 @@ export async function login(req: Request, res: Response) {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     httpOnly: true,
     // secure: true, // TODO: set to true if in production env
-    sameSite: "none",
+    sameSite: "lax",
   });
 
   return res.status(200).json({ authenticated: true });
@@ -71,5 +71,5 @@ export async function isAuthorized(req: Request, res: Response) {
     return res.status(401).json({ error: "Not Authorized" });
   }
 
-  return res.status(200).json({ authorized: true });
+  return res.status(200).json({ authorized: true, username });
 }

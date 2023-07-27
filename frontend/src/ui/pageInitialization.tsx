@@ -1,10 +1,16 @@
 import { ReactNode, useState, useEffect } from 'react';
+import cn from 'classnames';
+import useAuthRedirect from '../hooks/useAuthRedirect';
 
 type Props = {
     children: ReactNode
+    className?: string
+    pathIfAuth?: string | null
+    pathIfUnauth?: string
 }
 
-const PageInitialization: React.FC<Props> = ({ children }) => {
+const PageInitialization: React.FC<Props> = ({ children, className, pathIfAuth = null, pathIfUnauth }) => {
+    useAuthRedirect(pathIfAuth, pathIfUnauth);
     const [isLoading, setIsLoading] = useState(true);
 
     /*Page loading timeout
@@ -15,7 +21,7 @@ const PageInitialization: React.FC<Props> = ({ children }) => {
         //executes the Timeout and returns the Timer ID/token for clean up when component is unmounted. 
         let timeoutId = setTimeout(() => {
             setIsLoading(false);
-        }, 2000);
+        }, 1000);
 
         return () => {
             clearTimeout(timeoutId);
@@ -24,7 +30,9 @@ const PageInitialization: React.FC<Props> = ({ children }) => {
 
     //how is isLoading separated from the normal login form it returns?
     if (isLoading) {
-        return <h1>Page is Loading...</h1>
+        return <main className={cn(className)}>
+            <h1>Page is Loading...</h1>
+        </main>
     };
 
     return children

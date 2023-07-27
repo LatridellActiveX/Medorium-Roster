@@ -22,9 +22,9 @@ import LoginForm from "./loginForm";
  */
 const LoginPage: React.FC = () => {
 
-    return <PageInitialization>
-        <main>
-            <h2>Login</h2>
+    return <PageInitialization className="bg-img1" pathIfAuth='/'>
+        <main  className="bg-img1 flex flex-col items-center">
+            <h2 className=" text-black font-bold my-2">Login</h2>
             <LoginForm />
         </main>
     </PageInitialization>

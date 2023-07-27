@@ -5,7 +5,6 @@ import Input from '../../ui/input';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-//Registration Form,  React Functional Component
 const RegForm: React.FC = () => {
     let navigate = useNavigate();
 
@@ -28,11 +27,11 @@ const RegForm: React.FC = () => {
 
             try {
                 let response = await toast.promise(
-                    axios.post('http://localhost:3000/auth/register/codeHere', values),
+                    axios.post('http://localhost:3000/auth/register/codeHere', values, { withCredentials: true }),
                     {
                         pending: 'Pending...',
                         success: 'Success!',
-                        error: 'Incorrect email or password'
+                        error: 'Incorrect username or password'
                     }
                 )
 
@@ -70,7 +69,6 @@ const RegForm: React.FC = () => {
             disabled={!!formik.errors.password || !!formik.errors.username} //double negation is fast way to convert a string to boolean
             type="submit"
             aria-label='Submit your regestration credentials' //for accessibility 
-
         >
             Submit
         </button>
