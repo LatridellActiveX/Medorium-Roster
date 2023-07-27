@@ -1,7 +1,5 @@
 import axios from 'axios';
-//what is formik?
 import { useFormik } from 'formik';
-//Yup is for schema validation
 import * as Yup from 'yup';
 import Input from '../../ui/input';
 import { Link, useNavigate } from 'react-router-dom';
@@ -19,13 +17,11 @@ const LoginForm: React.FC = () => {
             username: '',
             password: '',
         },
-        /**Validation Schema Description
-         * -apart of the Yup libary, throws 
-         * 
-         */
+        // Yup validation schema description
+        // These error strings will be available in formik.errors.username or formik.errors.password if these fields fail the validation
         validationSchema: Yup.object({
             username: Yup.string()
-                .max(15, 'Must be 15 characters or less') //where does this string get sent to
+                .max(15, 'Must be 15 characters or less')
                 .min(4, 'Your name is too short')
                 .required('Required'),
             password: Yup.string()
@@ -40,7 +36,7 @@ const LoginForm: React.FC = () => {
                     {
                         pending: 'Loading...',
                         success: 'Success!',
-                        error: 'Incorrect email or password'
+                        error: 'Incorrect username or password'
                     }
                 )
 
