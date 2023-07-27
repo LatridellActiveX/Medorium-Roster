@@ -3,16 +3,12 @@ import { useSelector } from "react-redux";
 import { selectUsername } from "../redux/selectors";
 import { useNavigate } from "react-router";
 
-const useAuthRedirect = (
-    pathIfAuth: string | null,
-    pathIfUnauth?: string,
-    isCallback?: boolean
-) => {
+const useAuthRedirect = (pathIfAuth: string | null, pathIfUnauth?: string) => {
     const navigate = useNavigate();
     let isAuthorized = useSelector(selectUsername);
 
     useEffect(() => {
-        if (isAuthorized === null || isCallback) return;
+        if (isAuthorized === null) return;
 
         if (pathIfAuth && isAuthorized) {
             navigate(pathIfAuth);

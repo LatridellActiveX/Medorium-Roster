@@ -1,7 +1,5 @@
 import axios from 'axios';
-//what is formik?
 import { useFormik } from 'formik';
-//Yup is for schema validation
 import * as Yup from 'yup';
 import Input from '../../ui/input';
 import { Link, useNavigate } from 'react-router-dom';
@@ -19,13 +17,11 @@ const LoginForm: React.FC = () => {
             username: '',
             password: '',
         },
-        /**Validation Schema Description
-         * -apart of the Yup libary, throws 
-         * 
-         */
+        // Yup validation schema description
+        // These error strings will be available in formik.errors.username or formik.errors.password if these fields fail the validation
         validationSchema: Yup.object({
             username: Yup.string()
-                .max(15, 'Must be 15 characters or less') //where does this string get sent to
+                .max(15, 'Must be 15 characters or less')
                 .min(4, 'Your name is too short')
                 .required('Required'),
             password: Yup.string()
@@ -40,7 +36,7 @@ const LoginForm: React.FC = () => {
                     {
                         pending: 'Loading...',
                         success: 'Success!',
-                        error: 'Incorrect email or password'
+                        error: 'Incorrect username or password'
                     }
                 )
 
@@ -84,17 +80,23 @@ const LoginForm: React.FC = () => {
         </div>
 
         <button
-            className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded cursor-pointer transition-colors"
+            className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded cursor-pointer transition-colors mt-5"
             disabled={!!formik.errors.password || !!formik.errors.username} //double negation is fast way to convert a string to boolean
             type="submit"
             aria-label='Submit your login credentials' //for accessibility 
         >
             Submit
         </button>
-        <p>First Time?</p>
-        <div className="bg-blue-400 hover:bg-blue-600 text-white font-bold px-4 rounded transition-colors">
+        <div className='flex items-center justify-around gap-x-2 w-full mt-5'>
+            <p>First Time?</p>
             <Link to='/regestration'>Register</Link>
         </div>
+        <small className='mt-5'>
+            <span>First time here? </span>
+            <Link className='text-blue-400 transition-colors underline hover:text-blue-600' to='/FAQ#registrationCode'>
+                Ask you admin to give you a regestration link.
+            </Link>
+        </small>
     </form>
 };
 

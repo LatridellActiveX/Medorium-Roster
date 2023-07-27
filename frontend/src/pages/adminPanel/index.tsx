@@ -2,10 +2,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Roster, { RosterType } from './roster';
 import PageInitialization from '../../ui/pageInitialization';
-import useAuthRedirect from '../../hooks/useAuthRedirect';
 
 const AdminPanelPage: React.FC = () => {
-    useAuthRedirect(null, '/login');
     const [roster, setRoster] = useState<RosterType[]>([]);
 
     useEffect(() => {
@@ -41,8 +39,8 @@ const AdminPanelPage: React.FC = () => {
 
     let rosters = roster.map(r => <Roster {...r} key={r.label} />);
 
-    return <PageInitialization>
-        <main id="aPanelContainer">
+    return <PageInitialization className='bg-img1' pathIfUnauth='/login'>
+        <main className='bg-img1' id="aPanelContainer">
             <h2 id="aPanelTitle">Admin Panel</h2>
             <form>
                 <h3>Upload New Character</h3>
