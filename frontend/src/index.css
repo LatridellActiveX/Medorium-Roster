@@ -15,19 +15,21 @@
 
 @layer base {
 	body {
-		@apply leading-[1.3] text-black tracking-wide;
+		@apply container leading-[1.3] tracking-wide bg-smoke px-2.5 sm:px-5;
 	}
 	main {
-		@apply mt-28 md:mt-36;
-		flex: 1 0 auto;
+		@apply flex-[1_0_auto] mt-10 sm:mt-20
 	}
 	html, body, #root {
 		@apply min-h-screen
 	}
-	html, body {
-    	overflow-x: hidden;
+	html {
+    	@apply overflow-x-hidden
 	}
 
+	.text30-48 {
+		@apply text-3xl md:text-4xl lg:text-5xl
+	}
 	.text20-36 {
 		@apply text-[20px] md:text-[30px] lg:text-[36px]
 	}
@@ -40,11 +42,11 @@
 	.text18-30 {
 		@apply text-[18px] md:text-[30px]
 	}
-	.text14-26 {
-		@apply text-[14px] md:text-[26px]
-	}
 	.text16-28 {
 		@apply text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px]
+	}
+	.text14-26 {
+		@apply text-[14px] md:text-[26px]
 	}
 	.text18-24 {
 		@apply text-[18px] sm:text-[20px] lg:text-[24px]
@@ -129,18 +131,22 @@
 
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    border: var(--border-size) solid green;
-    position: relative;
-    height: 100%;
-    overflow-x: hidden;
+body:has(.bg-img1) {
     background-image: url("./assets/Mining.png");
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+}
+body:has(.without-img-as-bg-footer) footer {
+	@apply text-black;
+}
+body:has(.without-img-as-bg-footer) footer .bg-screen {
+	@apply bg-fog;
+}
+
+body {
+    border: var(--border-size) solid green;
 }
 
 #root {
@@ -187,7 +193,7 @@ input {
 }
 
 #formArea {
-    border: var(--border-size) solid black;
+    border: 0;
     background-color: rgba(59, 50, 50, 0.774);
     border-radius: 3%;
 }
