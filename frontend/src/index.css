@@ -193,7 +193,7 @@ input {
 }
 
 #formArea {
-    border: var(--border-size) solid black;
+    border: 0;
     background-color: rgba(59, 50, 50, 0.774);
     border-radius: 3%;
 }
