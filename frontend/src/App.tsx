@@ -1,6 +1,4 @@
 import MainPage from './pages/main';
-import Footer from './layout/footer';
-import Header from './layout/header';
 import { Route, Routes } from "react-router-dom";
 import LoginPage from './pages/login';
 import RegestrationPage from './pages/regestration';
@@ -15,7 +13,6 @@ const App: React.FC = () => {
     useAuth();
 
     return <>
-        <Header />
         <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
@@ -23,7 +20,6 @@ const App: React.FC = () => {
             <Route path="/adminPanel" element={<AdminPanelPage />} />
             <Route path="/FAQ" element={<FAQPage />} />
         </Routes>
-        <Footer />
 
         <ToastContainer
             position="bottom-right"

@@ -39,8 +39,8 @@ const AdminPanelPage: React.FC = () => {
 
     let rosters = roster.map(r => <Roster {...r} key={r.label} />);
 
-    return <PageInitialization className='bg-img1' pathIfUnauth='/login'>
-        <main className='bg-img1' id="aPanelContainer">
+    return <PageInitialization pathIfUnauth='/login'>
+        <main id="aPanelContainer">
             <h2 id="aPanelTitle">Admin Panel</h2>
             <form>
                 <h3>Upload New Character</h3>
