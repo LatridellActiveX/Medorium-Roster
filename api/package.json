@@ -29,6 +29,7 @@
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.0",
     "morgan": "^1.10.0",
-    "resultat": "^1.0.5"
+    "resultat": "^1.0.5",
+    "zod": "^3.21.4"
   }
 }
