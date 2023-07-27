@@ -1,5 +1,21 @@
 # Auth
 
+### Note: Request with invalid body/query/params will error in this data format
+
+```json
+[
+  {
+    "code": "too_small",
+    "minimum": 6,
+    "type": "string",
+    "inclusive": true,
+    "exact": false,
+    "message": "String must contain at least 6 character(s)",
+    "path": ["username"]
+  }
+]
+```
+
 <br>
 
 ## POST /auth/register?accessCode=
@@ -22,6 +38,22 @@ Registers user if name is not in use
 | :--------: | :------: | :----: | :----: | :----: |
 | accessCode |    No    | string |   ?    |   ?    |
 
+### Example responses
+
+#### Success
+
+```json
+{ "message": "Successfully registered user with name 'testuser'" }
+```
+
+#### Error
+
+```json
+{
+  "error": "Invalid username or password"
+}
+```
+
 <br>
 
 ## POST /auth/login
@@ -37,8 +69,51 @@ Sends authToken cookie
 
 <br>
 
+### Example responses
+
+#### Success
+
+```json
+{
+  "authenticated": true
+}
+```
+
+#### Error
+
+```json
+{
+  "error": "Invalid username or password"
+}
+```
+
 ## GET /auth
 
-Responds with 200 if authorized, otherwise responds with 401
+Responds with status `200` if authorized, otherwise responds with status `401`
 
-<br>
+### Example responses
+
+#### Success
+
+```json
+{
+  "authorized": true,
+  "username": "testuser"
+}
+```
+
+#### Error
+
+```json
+{
+  "error": "Not Authorized"
+}
+```
+
+# Roster
+
+## GET /api/roster
+
+Returns data of all members in the roster
+
+TODO
