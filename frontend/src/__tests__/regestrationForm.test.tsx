@@ -3,7 +3,7 @@ import user from '@testing-library/user-event';
 import axios from 'axios';
 import { vi, expect, it, describe, beforeEach } from 'vitest'
 import { BrowserRouter } from 'react-router-dom';
-import RegForm from '../pages/regestration/regForm';
+import RegForm from '../pages/registration/regForm';
 
 vi.mock('axios');
 

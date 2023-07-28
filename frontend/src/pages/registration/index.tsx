@@ -2,7 +2,7 @@ import Header from '../../layout/header';
 import PageInitialization from '../../ui/pageInitialization';
 import RegForm from './regForm';
 
-const RegestrationPage: React.FC = () => {
+const RegistrationPage: React.FC = () => {
     return <PageInitialization pathIfAuth='/'>
         <main>
             <Header/>
@@ -12,4 +12,4 @@ const RegestrationPage: React.FC = () => {
     </PageInitialization>
 };
 
-export default RegestrationPage;
+export default RegistrationPage;

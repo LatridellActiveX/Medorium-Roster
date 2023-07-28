@@ -1,7 +1,7 @@
 import MainPage from './pages/main';
 import { Route, Routes } from "react-router-dom";
 import LoginPage from './pages/login';
-import RegestrationPage from './pages/regestration';
+import RegistrationPage from './pages/registration';
 import AdminPanelPage from './pages/adminPanel';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,7 +16,7 @@ const App: React.FC = () => {
         <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/regestration" element={<RegestrationPage />} />
+            <Route path="/registration" element={<RegistrationPage />} />
             <Route path="/adminPanel" element={<AdminPanelPage />} />
             <Route path="/FAQ" element={<FAQPage />} />
         </Routes>
