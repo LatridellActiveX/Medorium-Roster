@@ -15,7 +15,7 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        authorizeUser: (state, action: PayloadAction<string | null>) => {
+        authorizeUser: (state, action: PayloadAction<string | false>) => {
             state.username = action.payload; //username as payload
         },
     },
