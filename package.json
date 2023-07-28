@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "workspaces": [
+    "frontend/", "api/"
+  ],
   "scripts": {
     "api": "npm run dev -w api",
     "frontend": "npm run dev -w frontend",

@@ -5,9 +5,12 @@ import RegForm from './regForm';
 const RegestrationPage: React.FC = () => {
     return <PageInitialization pathIfAuth='/'>
         <main>
-            <Header/>
+            <Header/> 
+            <div className="flex flex-col items-center">
             <h2>Registration</h2>
             <RegForm />
+            </div>
+            
         </main>
     </PageInitialization>
 };

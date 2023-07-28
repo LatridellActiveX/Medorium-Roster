@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Roster, { RosterType } from './roster';
 import PageInitialization from '../../ui/pageInitialization';
+import Header from '../../layout/header';
 
 const AdminPanelPage: React.FC = () => {
     const [roster, setRoster] = useState<RosterType[]>([]);
@@ -39,9 +40,11 @@ const AdminPanelPage: React.FC = () => {
 
     let rosters = roster.map(r => <Roster {...r} key={r.label} />);
 
-    return <PageInitialization pathIfUnauth='/login'>
-        <main id="aPanelContainer">
-            <h2 id="aPanelTitle">Admin Panel</h2>
+    return <div>
+    <Header /> 
+    <PageInitialization pathIfUnauth='/login'>
+        <main className='flex flex-col items-center'>
+            <h2 className="my-3 ">Admin Panel</h2>
             <form>
                 <h3>Upload New Character</h3>
                 <div>
@@ -64,6 +67,7 @@ const AdminPanelPage: React.FC = () => {
             </form>
         </main>
     </PageInitialization >
+    </div>
 }
 
 export default AdminPanelPage;
