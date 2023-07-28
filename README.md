@@ -39,6 +39,21 @@ git clone git@github.com:LatridellActiveX/Medorium-Roster.git
 cd Medorium-Roster
 ```
 
+## Create .env file and generate a secret
+
+`NOTE: you don't have to generate a key in development`
+
+```bash
+# go into api directory
+cd api
+
+# copy .env.example -> .env
+  # on windows:
+copy .env.example .env
+  # on linux:
+cp .env.example .env
+```
+
 ### Installing dependencies
 
 ```bash
