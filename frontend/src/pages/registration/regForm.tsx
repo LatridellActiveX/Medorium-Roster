@@ -4,9 +4,14 @@ import { useFormik } from 'formik';
 import Input from '../../ui/input';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { authorizeUser } from '../../redux/reducers/authReducer';
 
 const RegForm: React.FC = () => {
+    const dispatch = useDispatch();
     let navigate = useNavigate();
+    const [serverError, setServerError] = useState<string | null>(null);
 
     const formik = useFormik({
         initialValues: {
@@ -15,12 +20,12 @@ const RegForm: React.FC = () => {
         },
         validationSchema: Yup.object({
             username: Yup.string()
-                .max(15, 'Must be 15 characters or less')
-                .min(4, 'Your name is too short')
+                .max(32, 'Must be 32 characters or less')
+                .min(6, 'Your name is too short')
                 .required('Required'),
             password: Yup.string()
-                .max(20, 'Must be 20 characters or less')
-                .min(4, 'Your password is too short')
+                .max(128, 'Must be 128 characters or less')
+                .min(8, 'Your password is too short')
                 .required('Required'),
         }),
         onSubmit: async (values, { resetForm }) => {
@@ -31,11 +36,12 @@ const RegForm: React.FC = () => {
                     {
                         pending: 'Pending...',
                         success: 'Success!',
-                        error: 'Incorrect username or password'
+                        error: 'Something went wrong.'
                     }
                 )
 
                 if (response.status === 200) {
+                    dispatch(authorizeUser(values.username));
                     navigate('/');
                     resetForm();
                 };
@@ -43,13 +49,24 @@ const RegForm: React.FC = () => {
             } catch (e) {
                 let err = e as AxiosError;
 
-                console.error(err.code)
+                let response = err.response?.data as { error: string } | undefined;
+
+                if (response?.error) { //custom errors from the api
+                    setServerError(response.error);
+                } else { //errors from zod
+                    let response = err.response?.data as { path: string[], message: string }[] | undefined;
+
+                    formik.setErrors({
+                        username: response?.find(i => i.path[0] === 'username')?.message,
+                        password: response?.find(i => i.path[0] === 'password')?.message,
+                    });
+                }
             }
 
         },
     });
 
-    return <form id='formArea' onSubmit={formik.handleSubmit}>
+    return <form className='flex flex-col' id='formArea' onSubmit={formik.handleSubmit}>
         <div>
             <Input
                 label='Username'
@@ -65,6 +82,9 @@ const RegForm: React.FC = () => {
                 handleChange={formik.handleChange}
             />
         </div>
+
+        {serverError && <small className='text-red-600'>{serverError}</small>}
+
         <button
             disabled={!!formik.errors.password || !!formik.errors.username} //double negation is fast way to convert a string to boolean
             type="submit"
@@ -74,3 +94,5 @@ const RegForm: React.FC = () => {
         </button>
     </form>
 };
+
+export default RegForm;
