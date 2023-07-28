@@ -1,6 +1,6 @@
 # Medorium-Roster
 
-What better way to keep track of our Evo Online membership than an entire website.
+What better way to keep track of our Eve Online membership than an entire website.
 
 ## Contribution Guidelines
 
