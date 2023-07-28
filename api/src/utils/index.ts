@@ -1,11 +1,8 @@
-export function splitInHalf (cookie: String) {
+export function splitInHalf (c: string){
 
-   let slicedTokenOn = cookie.slice(0, cookie.length / 2);
-   if (cookie.length % 2 === 0){
-       let slicedTokenOff = cookie.slice(cookie.length / 2, cookie.length);
-       return [ slicedTokenOn, slicedTokenOff ]
-    }
-   let slicedTokenOff = cookie.slice(cookie.length / 2, cookie.length + 1);
-   return [ slicedTokenOn, slicedTokenOff ]
+    let halfString = Math.round(c.length / 2);
+    let s1 = c.slice(0, halfString);
+    let s2 = c.slice(halfString, c.length);
 
+    return [s1, s2];
 }
