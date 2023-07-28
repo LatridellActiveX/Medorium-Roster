@@ -13,6 +13,10 @@
 } */
 
 @layer base {
+  html {
+    @apply overflow-x-hidden;
+  }
+
   body, main {
     @apply text-lg text-slate-200 bg-[#101010] min-h-screen;
   }

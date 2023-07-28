@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Input from '../../ui/input';
@@ -6,12 +6,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { authorizeUser } from '../../redux/reducers/authReducer';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
 const LoginForm: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [serverError, setServerError] = useState<string | null>(null);
 
-    //Dont know what formik is
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -21,23 +22,25 @@ const LoginForm: React.FC = () => {
         // These error strings will be available in formik.errors.username or formik.errors.password if these fields fail the validation
         validationSchema: Yup.object({
             username: Yup.string()
-                .max(15, 'Must be 15 characters or less')
-                .min(4, 'Your name is too short')
+                .max(32, 'Must be 32 characters or less')
+                .min(6, 'Your name is too short')
                 .required('Required'),
             password: Yup.string()
-                .max(20, 'Must be 20 characters or less')
-                .min(4, 'Your password is too short')
+                .max(128, 'Must be 128 characters or less')
+                .min(8, 'Your password is too short')
                 .required('Required'),
         }),
         //where does this pull the values parameter from?
         onSubmit: async (values, { resetForm }) => {
             try {
+                setServerError(null);
+
                 const response = await toast.promise(
                     axios.post('http://localhost:3000/auth/login', values, { withCredentials: true }),
                     {
                         pending: 'Loading...',
                         success: 'Success!',
-                        error: 'Incorrect username or password'
+                        error: 'Something went wrong.'
                     }
                 )
 
@@ -47,8 +50,22 @@ const LoginForm: React.FC = () => {
                     resetForm();
                 }
 
-            } catch (error) {
-                console.error('Error communicating with server: ', error);
+            } catch (e) {
+                let err = e as AxiosError;
+
+                let response = err.response?.data as { error: string } | undefined;
+
+                if (response?.error) { //custom errors from the api
+                    setServerError(response.error);
+                } else { //errors from zod
+                    let response = err.response?.data as { path: string[], message: string }[] | undefined;
+
+                    formik.setErrors({
+                        username: response?.find(i => i.path[0] === 'username')?.message,
+                        password: response?.find(i => i.path[0] === 'password')?.message,
+                    });
+                }
+
             }
         },
     });
@@ -81,9 +98,11 @@ const LoginForm: React.FC = () => {
             </table>
         </div>
 
+        {serverError && <small className='text-red-600'>{serverError}</small>}
+
         <button
             className="bg-blue-600 hover:bg-blue-500 text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5 mb-6"
-            disabled={!!formik.errors.password || !!formik.errors.username} 
+            disabled={!!formik.errors.password || !!formik.errors.username}
             type="submit"
             aria-label='Submit your login credentials' // for accessibility 
         >
@@ -91,8 +110,8 @@ const LoginForm: React.FC = () => {
         </button>
         <small>
             <p>
-            First time here? Ask your admin for
-            a <Link to="">Registration Link</Link> or <Link to="">Learn More</Link>
+                First time here? Ask your admin for
+                a <Link to="/registration">Registration Link</Link> or <Link to="/FAQ#registrationCode">Learn More</Link>
             </p>
         </small>
     </form>

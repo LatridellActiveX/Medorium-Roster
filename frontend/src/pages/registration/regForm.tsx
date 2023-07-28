@@ -49,7 +49,7 @@ const RegForm: React.FC = () => {
         },
     });
 
-    return <form id='formArea' onSubmit={formik.handleSubmit} className="flex flex-col items-center">
+    return <form id='formArea' onSubmit={formik.handleSubmit}>
         <div>
             <Input
                 label='Username'
@@ -66,7 +66,6 @@ const RegForm: React.FC = () => {
             />
         </div>
         <button
-            className="bg-blue-600 hover:bg-blue-500 text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5 mb-6 "
             disabled={!!formik.errors.password || !!formik.errors.username} //double negation is fast way to convert a string to boolean
             type="submit"
             aria-label='Submit your regestration credentials' //for accessibility 
@@ -75,5 +74,3 @@ const RegForm: React.FC = () => {
         </button>
     </form>
 };
-
-export default RegForm;

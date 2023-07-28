@@ -31,7 +31,7 @@ const Input: React.FC<Props> = ({ label, value, name, handleChange, error, type 
       disabled={isDisabled}
       required
     />
-    <small style={{color: 'red'}}>{error}</small>
+    <small className="text12-14 text-red-600">{error}</small>
   </div>
 };
 

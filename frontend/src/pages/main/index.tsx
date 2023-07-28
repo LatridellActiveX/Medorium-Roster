@@ -9,7 +9,7 @@ const MainPage: React.FC = () => {
             <h2>Content that user sees when logged in and not in the admin panel</h2>
             <div className="grid gap-y-5">
                 <Link to='/login'>Login</Link>
-                <Link to='/regestration'>Regestration</Link>
+                <Link to='/registration'>Registration</Link>
                 <Link to='/adminPanel'>Admin panel</Link>
                 <Link to='/FAQ'>FAQ</Link>
             </div>

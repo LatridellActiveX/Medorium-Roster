@@ -1,9 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import axios from 'axios';
 import { vi, expect, it, describe, beforeEach } from 'vitest'
 import { BrowserRouter } from 'react-router-dom';
-import RegForm from '../pages/regestration/regForm';
+import RegForm from '../pages/registration/regForm';
+import { renderWithProviders } from '../utils/renderWithProviders';
 
 vi.mock('axios');
 
@@ -11,7 +12,7 @@ describe('Regestration form', () => {
     beforeEach(() => {
         vi.clearAllMocks();
 
-        render(
+        renderWithProviders(
             <BrowserRouter>
                 <RegForm />
             </BrowserRouter>
@@ -22,8 +23,8 @@ describe('Regestration form', () => {
         const tooLongUsername = 'I'.repeat(50);
         const password = '1231';
 
-        let usernameInput = screen.getByText('Username:');
-        let passwordInput = screen.getByText('Password:');
+        let usernameInput = screen.getByRole('textbox', {name: /Username/i});
+        let passwordInput = screen.getByLabelText('Password');
         let submitBtn = screen.getByRole('button', {
             name: 'Submit your regestration credentials'
         });
@@ -44,8 +45,8 @@ describe('Regestration form', () => {
         const tooShortUsername = 'aa';
         const tooShortPassowrd = '11';
 
-        let usernameInput = screen.getByText('Username:');
-        let passwordInput = screen.getByText('Password:');
+        let usernameInput = screen.getByRole('textbox', {name: /Username/i});
+        let passwordInput = screen.getByLabelText('Password');
         let submitBtn = screen.getByRole('button', {
             name: 'Submit your regestration credentials'
         });
@@ -56,11 +57,11 @@ describe('Regestration form', () => {
         expect(submitBtn.getAttribute('disabled')).toBe('');
     });
     it('types the correct credentials and then submits them', async () => {
-        const tooShortUsername = 'aaaaaa';
-        const tooShortPassowrd = '11231';
+        const tooShortUsername = 'aaaaaaasdsad';
+        const tooShortPassowrd = '11231asdasd';
 
-        let usernameInput = screen.getByLabelText('Username:');
-        let passwordInput = screen.getByLabelText('Password:');
+        let usernameInput = screen.getByRole('textbox', {name: /Username/i});
+        let passwordInput = screen.getByLabelText('Password');
         let submitBtn = screen.getByRole('button', {
             name: 'Submit your regestration credentials'
         });
