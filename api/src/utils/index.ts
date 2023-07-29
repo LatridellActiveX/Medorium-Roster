@@ -1,8 +1,7 @@
-export function splitInHalf (c: string){
+export function splitInHalf(s: string) {
+  let halfString = Math.round(s.length / 2);
+  let s1 = s.slice(0, halfString);
+  let s2 = s.slice(halfString, s.length);
 
-    let halfString = Math.round(c.length / 2);
-    let s1 = c.slice(0, halfString);
-    let s2 = c.slice(halfString, c.length);
-
-    return [s1, s2];
+  return [s1, s2];
 }
