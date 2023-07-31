@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import useAuth from './hooks/useAuth';
 import FAQPage from './pages/FAQ';
 import ScrollToHashElement from "./ui/scrollToHashElement";
+import RosterPage from './pages/roster';
 
 const App: React.FC = () => {
     useAuth();
@@ -19,6 +20,7 @@ const App: React.FC = () => {
             <Route path="/registration" element={<RegistrationPage />} />
             <Route path="/adminPanel" element={<AdminPanelPage />} />
             <Route path="/FAQ" element={<FAQPage />} />
+            <Route path="/roster" element={<RosterPage />} />
         </Routes>
 
         <ToastContainer
