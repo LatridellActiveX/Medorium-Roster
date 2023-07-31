@@ -21,8 +21,8 @@ const AdminPanelPage: React.FC = () => {
             console.log(rosterData);
         }
 
-        console.log("Data has been populated in cache array: ", finishedData);
-        console.log("Pushing to state variable. ");
+        console.log("Data has been populated in cache array:", finishedData);
+        console.log("Pushing to state variable.");
         setRoster(finishedData);
         console.log("state variable contains data: ", roster);
     };
@@ -30,8 +30,9 @@ const AdminPanelPage: React.FC = () => {
 
     const pullRoster = async () => {
         try {
-            const rawData = await axios.get('http://localhost:3000/roster');
+            const rawData = await axios.get('http://localhost:3000/api/roster');
             parseRoster(rawData.data);
+            console.log(rawData.data.members);
         } catch (error) {
             console.error("Fatal Server Communication Error: ", error);
         }
@@ -40,8 +41,8 @@ const AdminPanelPage: React.FC = () => {
     let rosters = roster.map(r => <Roster {...r} key={r.label} />);
 
     return <PageInitialization pathIfUnauth='/login'>
-        <main id="aPanelContainer">
-            <h2 id="aPanelTitle">Admin Panel</h2>
+        <main>
+            <h2>Admin Panel</h2>
             <form>
                 <h3>Upload New Character</h3>
                 <div>
