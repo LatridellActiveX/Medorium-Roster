@@ -9,6 +9,7 @@ type Props = {
     itemClassNames?: {
         className?: string
         headingClassName?: string
+        textsContainerClassName?: string
         textClassName?: string
     }
 }
