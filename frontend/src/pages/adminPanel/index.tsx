@@ -66,7 +66,6 @@ const AdminPanelPage: React.FC = () => {
             </form>
         </main>
     </PageInitialization >
-    </div>
 }
 
 export default AdminPanelPage;

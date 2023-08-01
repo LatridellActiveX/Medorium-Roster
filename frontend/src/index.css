@@ -22,7 +22,7 @@
   }
 
   main {
-    @apply text-slate-200 px-4 sm:px-8 md:px-24 lg:px-32 flex flex-col items-center;
+    @apply text-slate-200 px-4 sm:px-8 md:px-24 lg:px-32 flex flex-col items-center justify-center;
   }
 
   a {
