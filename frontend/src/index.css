@@ -2,27 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* --toastify-color-light: #222222!important;
-	--toastify-text-color-light: #F2F2F2!important;
-	--toastify-toast-width: 330px!important; */
-}
-
-/* .Toastify__close-button {
-	color: #fff!important
-} */
-
 @layer base {
   html {
     @apply overflow-x-hidden;
   }
-
+  
   body, main {
     @apply text-lg text-slate-200 bg-[#101010] min-h-screen;
   }
 
   main {
-    @apply text-slate-200 px-4 sm:px-8 md:px-24 lg:px-32 flex flex-col items-center justify-center;
+    /* each main component can have different layout, avoid adding
+     global positioning, style them individually instead
+    */
   }
 
   a {
@@ -138,4 +130,8 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+}
+
+header + main {
+  padding-top: 6rem;
 }
