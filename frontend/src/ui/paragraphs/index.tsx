@@ -18,7 +18,7 @@ const Paragraphs: React.FC<Props> = ({ data, className, itemClassNames }) => {
     const location = useLocation();
 
     let Paragraphs = data.map((p, index) => <Paragraph
-        isActive={formatHash(location.hash) === (p.id || p.heading)}
+        isActive={formatHash(location.hash) === (p.id || p.heading.replaceAll(' ', '-'))}
         {...itemClassNames} {...p}
         key={index}
     />);
