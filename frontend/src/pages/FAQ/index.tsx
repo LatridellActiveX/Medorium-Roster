@@ -38,14 +38,14 @@ const data: ParagraphType[] = [
 const FAQPage: React.FC = () => {
     return <>
         <Header />
-        <main className="flex flex-col justify-center items-center">
-            <h1 className="text30-48 font-bold mt-5 sm:mt-10">Frequently Asked Questions (FAQ)</h1>
+        <main className="px-4 flex flex-col justify-center items-center">
+            <h1 className="text-2xl sm:text-3xl font-bold mt-5 sm:mt-10">Frequently Asked Questions (FAQ)</h1>
             <Paragraphs
-                className="gap-y-5 mt-5 sm:mt-10 max-w-4xl"
+                className="gap-y-5 mt-5 sm:mt-10 max-w-2xl"
                 itemClassNames={{
                     className: 'gap-y-2.5',
                     headingClassName: 'text18-20 font-semibold',
-                    textClassName: 'text16-18'
+                    textClassName: 'text14-18'
                 }}
                 data={data}
             />
