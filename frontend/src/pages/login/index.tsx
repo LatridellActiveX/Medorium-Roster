@@ -4,8 +4,8 @@ import LoginForm from "./loginForm";
 
 const LoginPage: React.FC = () => {
     return <PageInitialization pathIfAuth='/' className="bg-img--1">
-        <main className="flex flex-col items-center bg-img--1 gap-32">
-            <Header/>
+        <Header />
+        <main className="bg-img--1">
             <LoginForm />
         </main>
     </PageInitialization>

@@ -8,7 +8,7 @@ import { renderWithProviders } from '../utils/renderWithProviders';
 
 vi.mock('axios');
 
-describe('Regestration form', () => {
+describe('Registration form', () => {
     beforeEach(() => {
         vi.clearAllMocks();
 
@@ -26,7 +26,7 @@ describe('Regestration form', () => {
         let usernameInput = screen.getByRole('textbox', {name: /Username/i});
         let passwordInput = screen.getByLabelText('Password');
         let submitBtn = screen.getByRole('button', {
-            name: 'Submit your regestration credentials'
+            name: 'Submit your registration credentials'
         });
 
         await user.type(usernameInput, tooLongUsername);
@@ -36,7 +36,7 @@ describe('Regestration form', () => {
     });
     it('does not provide any credentials', () => {
         let submitBtn = screen.getByRole('button', {
-            name: 'Submit your regestration credentials'
+            name: 'Submit your registration credentials'
         });
 
         expect(submitBtn.getAttribute('disabled')).toBe(null);
@@ -48,7 +48,7 @@ describe('Regestration form', () => {
         let usernameInput = screen.getByRole('textbox', {name: /Username/i});
         let passwordInput = screen.getByLabelText('Password');
         let submitBtn = screen.getByRole('button', {
-            name: 'Submit your regestration credentials'
+            name: 'Submit your registration credentials'
         });
 
         await user.type(usernameInput, tooShortUsername);
@@ -63,7 +63,7 @@ describe('Regestration form', () => {
         let usernameInput = screen.getByRole('textbox', {name: /Username/i});
         let passwordInput = screen.getByLabelText('Password');
         let submitBtn = screen.getByRole('button', {
-            name: 'Submit your regestration credentials'
+            name: 'Submit your registration credentials'
         });
 
         await user.type(usernameInput, tooShortUsername);
