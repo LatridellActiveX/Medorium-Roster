@@ -70,10 +70,13 @@ const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, on
                 if ("error" in response) { // ServerErrorMessage
                     setServerError(response.error);
                 } else { // ServerZodError
-                    formik.setErrors({
-                        username: response.find(i => i.path[0] === 'username')?.message,
-                        password: response.find(i => i.path[0] === 'password')?.message,
+                    let errors: Props['initialValues'] = {};
+
+                    response?.forEach(e => {
+                        errors[e.path[0]] = e.message
                     });
+
+                    formik.setErrors(errors);
                 }
 
             }
@@ -91,28 +94,20 @@ const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, on
     };
 
     return <form id='formArea' className="flex flex-col items-center w-80 px-9 rounded-xl py-4 shadow-2xl bg-neutral-800 bg-opacity-90" onSubmit={formik.handleSubmit}>
-        <div className="w-full">
-            <table className="w-full">
-                <thead>
-                    <h2 className='text-center mb-4 text-2xl'>{heading}</h2>
-                </thead>
-                <tbody>
-                    {inputs.map((i, index) => {
-                        let inputName = typeof i === 'string' ? i : i.name;
+        <h1 className='text-center mb-4 text-2xl'>{heading}</h1>
+        <div className='w-full'>
+            {inputs.map((i, index) => {
+                let inputName = typeof i === 'string' ? i : i.name;
 
-                        return <tr key={index}>
-                            <Input
-                                label={inputName}
-                                error={formik.errors[inputName]}
-                                value={formik.values[inputName]}
-                                type={typeof i === 'object' ? i.type : undefined}
-                                handleChange={formik.handleChange}
-                            />
-                        </tr>
-
-                    })}
-                </tbody>
-            </table>
+                return <Input
+                    label={inputName}
+                    error={formik.errors[inputName]}
+                    value={formik.values[inputName]}
+                    type={typeof i === 'object' ? i.type : undefined}
+                    handleChange={formik.handleChange}
+                    key={index}
+                />
+            })}
         </div>
 
         {serverError && <small className='text-red-600'>{serverError}</small>}
