@@ -42,8 +42,12 @@ const RegForm: React.FC = () => {
         heading='Registration'
         inputs={inputs}
     >
-
+        <small>
+            <p>Already got an account? <Link to="/login">Log in</Link> here</p>
+        </small>
     </FormBase>
+
+    
 };
 
 export default RegForm;

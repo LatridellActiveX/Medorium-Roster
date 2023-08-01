@@ -4,9 +4,9 @@ import Header from "../../layout/header";
 
 const MainPage: React.FC = () => {
     return <PageInitialization pathIfUnauth="/login">
+        <Header />
         <main className="flex items-center flex-col text-lg">
-            <Header/>
-            <h2>Content that user sees when logged in and not in the admin panel</h2>
+            <h2>Logged in view</h2>
             <div className="grid gap-y-5">
                 <Link to='/roster'>Roster</Link>
                 <Link to='/adminPanel'>Admin panel</Link>

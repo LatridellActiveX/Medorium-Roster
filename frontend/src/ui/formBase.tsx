@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ReactNode, useState } from 'react';
 import Input from './input';
-import capitalize from '../helpers/capitalize';
 
 type InputType = {
     name: string
@@ -23,6 +22,20 @@ type Props = {
     navigateTo?: string
     children?: ReactNode
 }
+
+type ServerErrorMessage = {
+    error: string;
+}
+
+type ServerZodError = {
+    "code": string;
+    "minimum": number;
+    "type": string;
+    "inclusive": boolean;
+    "exact": boolean;
+    "message": string;
+    "path": string[];
+}[];
 
 const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, onSubmitSuccess, heading, inputs, navigateTo = '/', children }) => {
     const navigate = useNavigate();
@@ -52,17 +65,14 @@ const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, on
 
             } catch (e) {
                 let err = e as AxiosError;
+                let response = err.response?.data as ServerErrorMessage | ServerZodError;
 
-                let response = err.response?.data as { error: string } | undefined;
-
-                if (response?.error) { //custom errors from the api
+                if ("error" in response) { // ServerErrorMessage
                     setServerError(response.error);
-                } else { //errors from zod
-                    let response = err.response?.data as { path: string[], message: string }[] | undefined;
-
+                } else { // ServerZodError
                     formik.setErrors({
-                        username: response?.find(i => i.path[0] === 'username')?.message,
-                        password: response?.find(i => i.path[0] === 'password')?.message,
+                        username: response.find(i => i.path[0] === 'username')?.message,
+                        password: response.find(i => i.path[0] === 'password')?.message,
                     });
                 }
 
@@ -70,18 +80,14 @@ const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, on
         },
     });
 
-    const checkIfDisabled = () => {
-        let isDisabled = false;
-
-        inputs.forEach(i => {
-            let inputName = typeof i === 'string' ? i : i.name;
-
-            if (!!formik.errors[inputName]) {
-                isDisabled = true;
-            };
-        });
-
-        return isDisabled;
+    const isDisabled = () => {
+        for (const input of inputs) {
+            const inputName = typeof input === 'string' ? input : input.name;
+            if (formik.errors[inputName]) {
+                return true;
+            }
+        }
+        return false;
     };
 
     return <form id='formArea' className="flex flex-col items-center w-80 px-9 rounded-xl py-4 shadow-2xl bg-neutral-800 bg-opacity-90" onSubmit={formik.handleSubmit}>
@@ -96,7 +102,7 @@ const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, on
 
                         return <tr key={index}>
                             <Input
-                                label={capitalize(inputName)}
+                                label={inputName}
                                 error={formik.errors[inputName]}
                                 value={formik.values[inputName]}
                                 type={typeof i === 'object' ? i.type : undefined}
@@ -112,8 +118,8 @@ const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, on
         {serverError && <small className='text-red-600'>{serverError}</small>}
 
         <button
-            className="bg-blue-600 hover:bg-blue-500 text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5 mb-6"
-            disabled={checkIfDisabled()}
+            className="bg-blue-600 hover:bg-blue-500 disabled:bg-gray-500 disabled:cursor-not-allowed text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5 mb-6"
+            disabled={isDisabled()}
             type="submit"
             aria-label={`Submit your ${heading.toLowerCase()} credentials`} // for accessibility 
         >
