@@ -6,11 +6,7 @@ import { Err, Ok } from "resultat";
 export interface IUser {
   name: string;
   hash: string;
-  rank?: string;
-  division?: string;
-  payGrade?: string;
   timezone?: unknown;
-  rankAcquisitionTimestamp?: number; // Acquired the rank, time in rank can be calculated
   enlistedTimestamp?: number; // Joined the corporation, time in service can be calculated
 }
 
@@ -18,11 +14,7 @@ export interface IUser {
 export const UserSchema = new Schema<IUser>({
   name: { type: String, required: true, unique: true },
   hash: { type: String, required: true },
-  rank: { type: String, required: false },
-  division: { type: String, required: false },
-  payGrade: { type: String, required: false },
   timezone: { type: String, required: false },
-  rankAcquisitionTimestamp: { type: Number, required: false },
   enlistedTimestamp: { type: Number, required: false },
 });
 
@@ -30,8 +22,8 @@ export const UserModel = model("User", UserSchema);
 
 class User {
   static async findByUsername(name: string) {
-    const doc = await UserModel.findOne({ name });
-    return doc;
+    const user = await UserModel.findOne({ name }).lean();
+    return user;
   }
 
   /**
@@ -45,10 +37,11 @@ class User {
         name,
         hash,
       });
-      return Ok({ doc });
+      return Ok({ user: doc.toObject() });
     } catch (_e) {
       const error = _e as MongoError;
       if (error.code === 11000) {
+        // Duplicate key error
         return Err("Name is already in use");
       }
       console.error("UNHANDLED ERROR:", error);
@@ -56,12 +49,8 @@ class User {
     }
   }
 
-  /**
-   * Need a default user/pass so that we can login in development and edit other pages
-   */
   static async login(name: string, password: string) {
-    // TODO: query the database for the user
-    const user = await UserModel.findOne({ name });
+    const user = await UserModel.findOne({ name }).lean();
 
     if (user === null) {
       return Err("Incorrect username");
@@ -72,6 +61,7 @@ class User {
     if (!passwordIsCorrect) {
       return Err("Incorrect password");
     }
+
     return Ok(1);
   }
 }

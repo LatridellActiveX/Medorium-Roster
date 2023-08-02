@@ -10,7 +10,6 @@
   "scripts": {
     "api": "cd .\\api && npm run dev",
     "frontend": "cd .\\frontend && npm run dev",
-    "postinstall": "cd .\\api && npm i && cd ..\\frontend && npm i",
     "full": "concurrently \"npm run dev -w frontend\" \"npm run dev -w api\""
   },
   "keywords": [],
