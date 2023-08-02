@@ -56,11 +56,12 @@ const RosterPage: React.FC = () => {
 
               <div className="flex">
                 <p className="w-80 gap-2">
-                  <span className="text-gray-500">[R]</span> {character.rank}
+                  <span className="text-gray-500">[R]</span>{" "}
+                  {character.rank ?? "N/A"}
                 </p>
                 <p>
                   <span className="text-gray-500">[D]</span>{" "}
-                  {character.division}
+                  {character.division ?? "N/A"}
                 </p>
               </div>
             </li>
