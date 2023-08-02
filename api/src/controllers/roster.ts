@@ -52,15 +52,11 @@ export async function getFullRoster(req: Request, res: Response) {
       name: "Josaline Thomson",
       username: "latridell",
       main: false,
-      rank: "N/A",
-      division: "N/A",
     },
     {
       name: "Jericho Thomson",
       username: "latridell",
       main: false,
-      rank: "N/A",
-      division: "N/A",
     },
   ];
 
