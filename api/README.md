@@ -114,6 +114,6 @@ Responds with status `200` if authorized, otherwise responds with status `401`
 
 ## GET /api/roster
 
-Returns data of all members in the roster
+Returns data of all characters in the roster
 
 TODO

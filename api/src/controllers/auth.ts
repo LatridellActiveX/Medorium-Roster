@@ -9,8 +9,6 @@ const usernameAndPasswordSchema = z.object({
   password: z.string().min(8).max(128).trim(),
 });
 
-const authTokenSchema = z.string().min(100).max(200);
-
 export async function register(req: Request, res: Response) {
   const validation = usernameAndPasswordSchema.safeParse(req.body);
   if (!validation.success) {
@@ -27,11 +25,11 @@ export async function register(req: Request, res: Response) {
     return res.status(400).json({ error: result.err });
   }
 
-  const { doc } = result.val;
+  const { user } = result.val;
 
   return res
     .status(200)
-    .json({ message: `Successfully registered user with name '${doc.name}'` });
+    .json({ message: `Successfully registered user with name '${user.name}'` });
 }
 
 export async function login(req: Request, res: Response) {
@@ -51,6 +49,9 @@ export async function login(req: Request, res: Response) {
 
   const authToken = createAuthToken(username);
 
+  // Split token into two cookies, second one is httpOnly: false to allow
+  // client side logout, without exposing the first half to javascript,
+  // or implementing server side logout with token invalidation.
   const [firstHalf, secondHalf] = splitInHalf(authToken);
 
   res.cookie("authToken1", firstHalf, {
@@ -72,6 +73,5 @@ export async function login(req: Request, res: Response) {
 
 export async function isAuthorized(req: Request, res: Response) {
   const { username } = res.locals;
-
   return res.status(200).json({ authorized: true, username });
 }

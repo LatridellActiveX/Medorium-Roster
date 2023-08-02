@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { getMembersData } from "../controllers/roster.js";
+import { getFullRoster } from "../controllers/roster.js";
 
 const router = Router();
 
-router.get("/roster", getMembersData);
+router.get("/roster", getFullRoster);
 
 export default router;

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Roster, { RosterType } from './roster';
 import PageInitialization from '../../ui/pageInitialization';
-import Header from '../../layout/header';
 
 const AdminPanelPage: React.FC = () => {
     const [roster, setRoster] = useState<RosterType[]>([]);
@@ -33,7 +32,6 @@ const AdminPanelPage: React.FC = () => {
         try {
             const rawData = await axios.get('http://localhost:3000/api/roster');
             parseRoster(rawData.data);
-            console.log(rawData.data.members);
         } catch (error) {
             console.error("Fatal Server Communication Error: ", error);
         }
