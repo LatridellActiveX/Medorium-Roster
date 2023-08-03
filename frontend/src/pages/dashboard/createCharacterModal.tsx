@@ -40,7 +40,7 @@ const CreateCharacterModal: React.FC<Props> = ({ isOpen, onClose }) => {
     };
 
     const onSubmitSuccess = (values: { [key: string]: string }) => {
-        console.log(values)
+        onClose();
     };
 
     return <ModalBase className='bg-neutral-800 p-2 pb-0' title='some title' isOpen={isOpen} onClose={onClose}>

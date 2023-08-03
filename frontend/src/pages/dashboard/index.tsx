@@ -26,7 +26,7 @@ const DashboardPage: React.FC = () => {
                     <PlusIcon />
                 </button>
             </div>
-            <Characters className="mt10-20" roster={roster} />
+            <Characters className="mt10-20" data={roster || []} />
         </section>
     </main>
 };
