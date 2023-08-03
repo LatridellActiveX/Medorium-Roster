@@ -1,39 +1,14 @@
-import axios from "axios";
 import cn from "classnames";
-import { useEffect, useState } from "react";
-
-interface Character {
-  name: string;
-  username: string;
-  main: boolean;
-  rank?: string;
-  rankAcquisitionTimestamp?: number;
-  division?: string;
-  payGrade?: string;
-}
+import useGetRoster from "../../api/roster/useGetRoster";
 
 const RosterPage: React.FC = () => {
-  const [roster, setRoster] = useState<Character[]>([]);
-
-  useEffect(() => {
-    pullRoster();
-  }, []);
-
-  const pullRoster = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/api/roster");
-      const roster: Character[] = response.data.roster;
-      setRoster(roster);
-    } catch (error) {
-      console.error("Fatal Server Communication Error: ", error);
-    }
-  };
+  const { data: roster } = useGetRoster();
 
   return (
     <main>
       <div className="w-[600px]">
         <ul className="flex flex-col gap-1">
-          {roster.map((character, i) => (
+          {roster?.map((character, i) => (
             <li
               key={i}
               className="flex justify-between p-2 flex-col h-24 bg-[#202325] border-[#2F3438] border-2"
