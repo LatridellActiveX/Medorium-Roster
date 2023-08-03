@@ -1,4 +1,5 @@
 import useGetRoster from "../../api/roster/useGetRoster";
+import Characters from "./characters";
 
 const RosterPage: React.FC = () => {
   const { data: roster } = useGetRoster();
