@@ -6,7 +6,8 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsc-watch --onSuccess \"node .\" ",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -17,8 +18,10 @@
     "@types/cors": "^2.8.13",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/morgan": "^1.9.4",
+    "mongodb-memory-server": "^8.13.0",
     "tsc-watch": "^6.0.4",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "vitest": "^0.34.1"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
