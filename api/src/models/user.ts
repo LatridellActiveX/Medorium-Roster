@@ -2,15 +2,8 @@ import { Schema, model } from "mongoose";
 import * as bcrypt from "bcrypt";
 import { MongoError } from "mongodb";
 import { Err, Ok } from "resultat";
+import type { User as IUser } from "../../types.js";
 
-export interface IUser {
-  name: string;
-  hash: string;
-  timezone?: unknown;
-  enlistedTimestamp?: number; // Joined the corporation, time in service can be calculated
-}
-
-//Mongoose schema for user
 export const UserSchema = new Schema<IUser>({
   name: { type: String, required: true, unique: true },
   hash: { type: String, required: true },

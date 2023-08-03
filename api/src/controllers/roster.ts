@@ -1,18 +1,9 @@
 import type { Request, Response } from "express";
-
-interface ICharacter {
-  name: string;
-  username: string;
-  main: boolean;
-  rank?: string;
-  rankAcquisitionTimestamp?: number;
-  division?: string;
-  payGrade?: string;
-}
+import type { Character } from "../../types.js";
 
 export async function getFullRoster(req: Request, res: Response) {
   // this hard-coded data should be replaced with Character.getAllCharacter()
-  const mockCharacters: ICharacter[] = [
+  const characters: Character[] = [
     {
       name: "Wingedminer",
       username: "wingedguy",
@@ -60,5 +51,5 @@ export async function getFullRoster(req: Request, res: Response) {
     },
   ];
 
-  res.status(200).json({ roster: mockCharacters });
+  res.status(200).json(characters);
 }
