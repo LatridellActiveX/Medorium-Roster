@@ -18,7 +18,7 @@
 
 <br>
 
-## POST /auth/register?accessCode=
+## `POST /auth/register?accessCode=`
 
 Registers user if name is not in use
 (and the accessCode is valid)
@@ -32,7 +32,7 @@ Registers user if name is not in use
 
 ### Query
 
-`Note: accessCode is not implemented yet`
+Note: accessCode is not implemented yet
 
 |   Field    | Required |  Type  | minLen | maxLen |
 | :--------: | :------: | :----: | :----: | :----: |
@@ -56,7 +56,7 @@ Registers user if name is not in use
 
 <br>
 
-## POST /auth/login
+## `POST /auth/login`
 
 Sends authToken cookie
 
@@ -87,7 +87,7 @@ Sends authToken cookie
 }
 ```
 
-## GET /auth
+## `GET /auth`
 
 Responds with status `200` if authorized, otherwise responds with status `401`
 
@@ -112,13 +112,46 @@ Responds with status `200` if authorized, otherwise responds with status `401`
 
 # Roster
 
-## GET /api/roster
+## `GET /api/roster`
 
-Returns data of all characters in the roster
+Returns all characters of all users
 
 ### Example Responses
 
-#### Success - ResponseFullRoster
+#### Success - ResponseCharacters
+
+```json
+[
+  {
+    "name": "Wingedfaith",
+    "username": "wingedguy",
+    "main": true,
+    "rank": "Section Foreman",
+    "division": "Mining"
+  },
+  {
+    "name": "Benjamin Thomson",
+    "username": "latridell",
+    "main": true,
+    "rank": "Chief Financial Officer (CFO)",
+    "division": "Front Office"
+  },
+
+  {
+    "name": "Josaline Thomson",
+    "username": "latridell",
+    "main": false
+  }
+]
+```
+
+## `GET /api/characters`
+
+Returns all characters of the logged in user
+
+### Example Responses
+
+#### Success - ResponseCharacters
 
 ```json
 [
@@ -131,6 +164,11 @@ Returns data of all characters in the roster
   },
   {
     "name": "Josaline Thomson",
+    "username": "latridell",
+    "main": false
+  },
+  {
+    "name": "Jericho Thomson",
     "username": "latridell",
     "main": false
   }

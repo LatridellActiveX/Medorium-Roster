@@ -1,9 +1,9 @@
-import { ResponseFullRoster } from "api/types";
+import { ResponseCharacters } from "api/types";
 import Character from "./character";
 import cn from 'classnames';
 
 type Props = {
-    roster: ResponseFullRoster
+    roster: ResponseCharacters
     className?: string
 }
 
