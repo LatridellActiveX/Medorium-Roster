@@ -11,11 +11,15 @@ import ScrollToHashElement from "./ui/scrollToHashElement";
 import RosterPage from './pages/roster';
 import PrivacyPolicyPage from './pages/privacyPolicy';
 import DashboardPage from './pages/dashboard';
+import { QueryClientProvider } from '@tanstack/react-query';
+import queryClient from './api/queryClient';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const App: React.FC = () => {
     useAuth();
 
-    return <>
+    return (
+    <QueryClientProvider client={queryClient}>
         <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/adminPanel" element={<AdminPanelPage />} />
@@ -31,9 +35,11 @@ const App: React.FC = () => {
 
         <ToastContainer
             position="bottom-right"
-        />
+            />
         <ScrollToHashElement />
-    </>
+        <ReactQueryDevtools initialIsOpen={false}/>
+    </QueryClientProvider>
+    )
 };
 
 export default App;

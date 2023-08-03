@@ -1,8 +1,8 @@
+import useGetRoster from "../../api/roster/useGetRoster";
 import Characters from "../../ui/characters";
-import useRoster from "../../hooks/useRoster";
 
 const RosterPage: React.FC = () => {
-  const roster = useRoster();
+  const { data: roster } = useGetRoster();
 
   return <main className="py-5">
     <section className="w-[600px] mx-auto">
