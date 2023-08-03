@@ -174,3 +174,28 @@ Returns all characters of the logged in user
   }
 ]
 ```
+
+## `POST /api/characters`
+
+Creates a character for the logged in user
+
+### Example Responses
+
+#### Success - ResponseCharacters
+
+```json
+{
+  "username": "testuser",
+  "name": "testcharacter",
+  "main": true,
+  "_id": "64cbe570a8c889cce780f9d1"
+}
+```
+
+#### Error
+
+```json
+{
+  "error": "Name is already in use"
+}
+```
