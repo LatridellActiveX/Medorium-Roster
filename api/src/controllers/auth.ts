@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import User from "../models/user.js";
-import { createAuthToken, decodeAuthToken } from "../utils/authToken.js";
+import { createAuthToken } from "../utils/authToken.js";
 import { z } from "zod";
 import { splitInHalf } from "../utils/index.js";
 import { ResponseErrorMessage, ResponseZodError } from "../../types.js";

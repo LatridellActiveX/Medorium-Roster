@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
-import type { Character } from "../../types.js";
+import type { ResponseCharacters } from "../../types.js";
 
 export async function getFullRoster(req: Request, res: Response) {
   // this hard-coded data should be replaced with Character.getAllCharacter()
-  const characters: Character[] = [
+  const characters: ResponseCharacters = [
     {
       name: "Wingedminer",
       username: "wingedguy",
@@ -52,4 +52,28 @@ export async function getFullRoster(req: Request, res: Response) {
   ];
 
   res.status(200).json(characters);
+}
+
+export async function getUserCharacters(req: Request, res: Response) {
+  const characters: ResponseCharacters = [
+    {
+      name: "Benjamin Thomson",
+      username: "latridell",
+      main: true,
+      rank: "Chief Financial Officer (CFO)",
+      division: "Front Office",
+    },
+    {
+      name: "Josaline Thomson",
+      username: "latridell",
+      main: false,
+    },
+    {
+      name: "Jericho Thomson",
+      username: "latridell",
+      main: false,
+    },
+  ];
+
+  return res.status(200).json(characters);
 }

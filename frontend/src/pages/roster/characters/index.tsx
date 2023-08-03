@@ -1,8 +1,8 @@
-import { ResponseFullRoster } from "api/types";
+import { ResponseCharacters } from "api/types";
 import Character from "./character";
 
 type Props = {
-    roster: ResponseFullRoster
+    roster: ResponseCharacters
 }
 
 const Characters: React.FC<Props> = ({ roster }) => {
