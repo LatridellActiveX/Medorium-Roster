@@ -29,4 +29,4 @@ export type ResponseZodError = {
   path: string[];
 }[];
 
-export type ResponseFullRoster = Character[];
+export type ResponseCharacters = Character[];
