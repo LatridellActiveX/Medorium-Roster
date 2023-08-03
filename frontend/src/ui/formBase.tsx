@@ -5,10 +5,14 @@ import { toast } from 'react-toastify';
 import { ReactNode, useState } from 'react';
 import Input from './input';
 import type { ResponseZodError, ResponseErrorMessage } from 'api/types';
+import cn from 'classnames';
+import Select from './select';
 
-type InputType = {
+export type FormInputType = {
     name: string
     type?: string
+    variant?: 'default' | 'select'
+    selectItems?: string[]
 } | string
 
 type Props = {
@@ -19,12 +23,14 @@ type Props = {
     apiUrl: string
     onSubmitSuccess: (values: Props['initialValues']) => void
     heading: string
-    inputs: InputType[]
+    inputs: FormInputType[]
+    submitBtnSign?: string
     navigateTo?: string
     children?: ReactNode
+    className?: string
 }
 
-const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, onSubmitSuccess, heading, inputs, navigateTo = '/', children }) => {
+const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, onSubmitSuccess, heading, inputs, submitBtnSign = 'Submit', navigateTo = '/', children, className }) => {
     const navigate = useNavigate();
     const [serverError, setServerError] = useState<string | null>(null);
 
@@ -80,11 +86,15 @@ const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, on
         return false;
     };
 
-    return <form id='formArea' className="flex flex-col items-center w-80 px-9 rounded-xl py-4 shadow-2xl bg-neutral-800 bg-opacity-90" onSubmit={formik.handleSubmit}>
+    return <form className={cn("flex flex-col items-center w-80 px-9 rounded-xl py-4 bg-neutral-800 bg-opacity-90", className)} onSubmit={formik.handleSubmit}>
         <h1 className='text-center mb-4 text-2xl'>{heading}</h1>
         <div className='w-full'>
             {inputs.map((i, index) => {
-                let inputName = typeof i === 'string' ? i : i.name;
+                let inputName = typeof i === 'string' ? i.toLowerCase() : i.name.toLowerCase();
+
+                if (typeof i === 'object' && i.variant === 'select' && i.selectItems) {
+                    return <Select data={i.selectItems} name={inputName} onChange={formik.handleChange} key={index} />
+                }
 
                 return <Input
                     label={inputName}
@@ -105,7 +115,7 @@ const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, on
             type="submit"
             aria-label={`Submit your ${heading.toLowerCase()} credentials`} // for accessibility 
         >
-            Submit
+            {submitBtnSign}
         </button>
         {children}
     </form>

@@ -35,6 +35,7 @@ const LoginForm: React.FC = () => {
     };
 
     return <FormBase
+        className='shadow-2xl'
         initialValues={initialValues}
         validationSchema={validationSchema}
         apiUrl='http://localhost:3000/auth/login'

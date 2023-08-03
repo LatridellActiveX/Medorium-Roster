@@ -35,6 +35,7 @@ const RegForm: React.FC = () => {
     };
 
     return <FormBase
+        className='shadow-2xl'
         initialValues={initialValues}
         validationSchema={validationSchema}
         apiUrl='http://localhost:3000/auth/register'
@@ -47,7 +48,7 @@ const RegForm: React.FC = () => {
         </small>
     </FormBase>
 
-    
+
 };
 
 export default RegForm;

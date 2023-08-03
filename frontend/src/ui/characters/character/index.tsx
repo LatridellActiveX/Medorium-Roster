@@ -9,7 +9,7 @@ type Props = {
 const Character: React.FC<Props> = ({ name, username, main, rank, division, payGrade, rankAcquisitionTimestamp }) => {
 
     return <li
-        className="flex justify-between p-2 flex-col h-24 bg-[#202325] border-[#2F3438] border-2"
+        className="flex justify-between p-2 flex-col h-24 bg-c-primary border-c-border border-2"
     >
         <div className="flex">
             <div className="flex w-80 gap-2">
