@@ -2,10 +2,10 @@ import Characters from "../../ui/characters";
 import { useState } from 'react';
 import CreateCharacterModal from "./createCharacterModal";
 import PlusIcon from "../../icons/plus";
-import useRoster from "../../hooks/useRoster";
+import useGetRoster from "../../api/roster/useGetRoster";
 
 const DashboardPage: React.FC = () => {
-    const roster = useRoster();
+    const { data: roster } = useGetRoster();
     const [isModal, setIsModal] = useState(false);
 
     const handleModalStatus = () => {

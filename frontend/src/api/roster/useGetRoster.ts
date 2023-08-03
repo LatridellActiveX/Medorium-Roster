@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "../axios";
-import type { ResponseFullRoster } from "api/types";
+import type { ResponseCharacters } from "api/types";
 
 function useGetRoster() {
   return useQuery({
     queryFn: async () => {
-      const { data } = await axios.get<ResponseFullRoster>("/api/roster");
+      const { data } = await axios.get<ResponseCharacters>("/api/roster");
       return data;
     },
   });
