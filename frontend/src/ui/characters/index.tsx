@@ -3,12 +3,12 @@ import Character from "./character";
 import cn from 'classnames';
 
 type Props = {
-    roster: ResponseCharacters
+    data: ResponseCharacters
     className?: string
 }
 
-const Characters: React.FC<Props> = ({ roster, className }) => {
-    let Characters = roster.map((c, index) => <Character {...c} key={index} />);
+const Characters: React.FC<Props> = ({ data, className }) => {
+    let Characters = data.map((c, index) => <Character {...c} key={index} />);
 
     return <ul className={cn("flex flex-col gap-1", className)}>
         {Characters}
