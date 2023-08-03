@@ -3,6 +3,7 @@ import User from "../models/user.js";
 import { createAuthToken, decodeAuthToken } from "../utils/authToken.js";
 import { z } from "zod";
 import { splitInHalf } from "../utils/index.js";
+import { ResponseErrorMessage, ResponseZodError } from "../../types.js";
 
 const usernameAndPasswordSchema = z.object({
   username: z.string().min(6).max(30).trim(),
@@ -12,7 +13,7 @@ const usernameAndPasswordSchema = z.object({
 export async function register(req: Request, res: Response) {
   const validation = usernameAndPasswordSchema.safeParse(req.body);
   if (!validation.success) {
-    return res.status(400).json(validation.error.issues);
+    return res.status(400).json(validation.error.issues as ResponseZodError);
   }
 
   const { username, password } = validation.data;
@@ -22,7 +23,7 @@ export async function register(req: Request, res: Response) {
 
   if (!result.ok) {
     console.log("Registration failed.", result.err);
-    return res.status(400).json({ error: result.err });
+    return res.status(400).json({ error: result.err } as ResponseErrorMessage);
   }
 
   const { user } = result.val;
@@ -35,7 +36,7 @@ export async function register(req: Request, res: Response) {
 export async function login(req: Request, res: Response) {
   const validation = usernameAndPasswordSchema.safeParse(req.body);
   if (!validation.success) {
-    return res.status(400).json(validation.error.issues);
+    return res.status(400).json(validation.error.issues as ResponseZodError);
   }
 
   const { username, password } = validation.data;
@@ -44,7 +45,9 @@ export async function login(req: Request, res: Response) {
 
   if (!result.ok) {
     console.log("Login failed.", result.err);
-    return res.status(400).json({ error: "Invalid username or password" });
+    return res
+      .status(400)
+      .json({ error: "Invalid username or password" } as ResponseErrorMessage);
   }
 
   const authToken = createAuthToken(username);

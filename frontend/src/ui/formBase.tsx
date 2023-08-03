@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ReactNode, useState } from 'react';
 import Input from './input';
+import type { ResponseZodError, ResponseErrorMessage } from 'api/types';
 
 type InputType = {
     name: string
@@ -22,20 +23,6 @@ type Props = {
     navigateTo?: string
     children?: ReactNode
 }
-
-type ServerErrorMessage = {
-    error: string;
-}
-
-type ServerZodError = {
-    "code": string;
-    "minimum": number;
-    "type": string;
-    "inclusive": boolean;
-    "exact": boolean;
-    "message": string;
-    "path": string[];
-}[];
 
 const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, onSubmitSuccess, heading, inputs, navigateTo = '/', children }) => {
     const navigate = useNavigate();
@@ -65,11 +52,11 @@ const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, on
 
             } catch (e) {
                 let err = e as AxiosError;
-                let response = err.response?.data as ServerErrorMessage | ServerZodError;
+                let response = err.response?.data as ResponseErrorMessage | ResponseZodError;
 
-                if ("error" in response) { // ServerErrorMessage
+                if ("error" in response) { // ResponseErrorMessage
                     setServerError(response.error);
-                } else { // ServerZodError
+                } else { // ResponseZodError
                     let errors: Props['initialValues'] = {};
 
                     response?.forEach(e => {

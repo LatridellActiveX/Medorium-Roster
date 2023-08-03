@@ -1,19 +1,10 @@
 import axios from "axios";
 import cn from "classnames";
 import { useEffect, useState } from "react";
-
-interface Character {
-  name: string;
-  username: string;
-  main: boolean;
-  rank?: string;
-  rankAcquisitionTimestamp?: number;
-  division?: string;
-  payGrade?: string;
-}
+import type { ResponseFullRoster } from "api/types";
 
 const RosterPage: React.FC = () => {
-  const [roster, setRoster] = useState<Character[]>([]);
+  const [roster, setRoster] = useState<ResponseFullRoster>([]);
 
   useEffect(() => {
     pullRoster();
@@ -22,7 +13,7 @@ const RosterPage: React.FC = () => {
   const pullRoster = async () => {
     try {
       const response = await axios.get("http://localhost:3000/api/roster");
-      const roster: Character[] = response.data.roster;
+      const roster = response.data as ResponseFullRoster;
       setRoster(roster);
     } catch (error) {
       console.error("Fatal Server Communication Error: ", error);

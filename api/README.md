@@ -1,6 +1,6 @@
 # Auth
 
-### Note: Request with invalid body/query/params will error in this data format
+### Note: Request with invalid body/query/params will error with ResponseZodError
 
 ```json
 [
@@ -79,7 +79,7 @@ Sends authToken cookie
 }
 ```
 
-#### Error
+#### ResponseErrorMessage
 
 ```json
 {
@@ -102,7 +102,7 @@ Responds with status `200` if authorized, otherwise responds with status `401`
 }
 ```
 
-#### Error
+#### ResponseErrorMessage
 
 ```json
 {
@@ -116,4 +116,23 @@ Responds with status `200` if authorized, otherwise responds with status `401`
 
 Returns data of all characters in the roster
 
-TODO
+### Example Responses
+
+#### Success - ResponseFullRoster
+
+```json
+[
+  {
+    "name": "Benjamin Thomson",
+    "username": "latridell",
+    "main": true,
+    "rank": "Chief Financial Officer (CFO)",
+    "division": "Front Office"
+  },
+  {
+    "name": "Josaline Thomson",
+    "username": "latridell",
+    "main": false
+  }
+]
+```
