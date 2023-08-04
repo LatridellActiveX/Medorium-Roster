@@ -27,8 +27,8 @@ Registers user if name is not in use
 
 |  Field   | Required |  Type  | minLen | maxLen |
 | :------: | :------: | :----: | :----: | :----: |
-| username |   Yes    | string |   ?    |   ?    |
-| password |   Yes    | string |   ?    |   ?    |
+| username |   Yes    | string |   6    |   30   |
+| password |   Yes    | string |   8    |  128   |
 
 ### Query
 
@@ -64,8 +64,8 @@ Sends authToken cookie
 
 |  Field   | Required |  Type  | minLen | maxLen |
 | :------: | :------: | :----: | :----: | :----: |
-| username |   Yes    | string |   ?    |   ?    |
-| password |   Yes    | string |   ?    |   ?    |
+| username |   Yes    | string |   6    |   30   |
+| password |   Yes    | string |   8    |  128   |
 
 <br>
 
@@ -173,4 +173,38 @@ Returns all characters of the logged in user
     "main": false
   }
 ]
+```
+
+## `POST /api/characters`
+
+Creates a character for the logged in user
+
+### Body
+
+| Field | Required |  Type   | minLen | maxLen |
+| :---: | :------: | :-----: | :----: | :----: |
+| name  |   Yes    | string  |   3    |   37   |
+| main  |   Yes    | boolean |  N/A   |  N/A   |
+
+<br>
+
+### Example Responses
+
+#### Success - ResponseCharacters
+
+```json
+{
+  "username": "testuser",
+  "name": "testcharacter",
+  "main": true,
+  "_id": "64cbe570a8c889cce780f9d1"
+}
+```
+
+#### Error
+
+```json
+{
+  "error": "Name is already in use"
+}
 ```

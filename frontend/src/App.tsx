@@ -10,13 +10,18 @@ import FAQPage from './pages/FAQ';
 import ScrollToHashElement from "./ui/scrollToHashElement";
 import RosterPage from './pages/roster';
 import PrivacyPolicyPage from './pages/privacyPolicy';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { useSelector } from 'react-redux';
+import { selectUsername } from './redux/selectors';
+import GuestPage from './pages/guest';
 
 const App: React.FC = () => {
     useAuth();
+    let isAuth = useSelector(selectUsername);
 
     return <>
         <Routes>
-            <Route path="/" element={<MainPage />} />
+            <Route path="/" element={isAuth ? <MainPage /> : <GuestPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/registration" element={<RegistrationPage />} />
             <Route path="/adminPanel" element={<AdminPanelPage />} />
@@ -29,6 +34,7 @@ const App: React.FC = () => {
             position="bottom-right"
         />
         <ScrollToHashElement />
+        <ReactQueryDevtools initialIsOpen={false} />
     </>
 };
 

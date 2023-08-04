@@ -1,10 +1,16 @@
 import { Schema, model } from "mongoose";
 import * as bcrypt from "bcrypt";
-import { MongoError } from "mongodb";
 import { Err, Ok } from "resultat";
-import type { User as IUser } from "../../types.js";
+import type { MongoError } from "mongodb";
 
-export const UserSchema = new Schema<IUser>({
+type UserType = {
+  name: string;
+  hash: string;
+  timezone?: string;
+  enlistedTimestamp?: number;
+};
+
+export const UserSchema = new Schema<UserType>({
   name: { type: String, required: true, unique: true },
   hash: { type: String, required: true },
   timezone: { type: String, required: false },
