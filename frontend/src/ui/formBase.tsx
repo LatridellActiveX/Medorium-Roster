@@ -77,8 +77,9 @@ const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, on
     });
 
     const isDisabled = () => {
-        for (const input of inputs) {
-            const inputName = typeof input === 'string' ? input : input.name;
+        for (let input of inputs) {
+            let inputName = typeof input === 'string' ? input.toLowerCase() : input.name.toLowerCase();
+
             if (formik.errors[inputName]) {
                 return true;
             }
@@ -86,7 +87,7 @@ const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, on
         return false;
     };
 
-    return <form className={cn("flex flex-col items-center w-80 px-9 rounded-xl py-4 bg-neutral-800 bg-opacity-90", className)} onSubmit={formik.handleSubmit}>
+    return <form className={cn("flex flex-col items-center max-w-xs px-4 rounded-xl py-4 bg-neutral-800 bg-opacity-90 sm:px-9", className)} onSubmit={formik.handleSubmit}>
         <h1 className='text-center mb-4 text-2xl'>{heading}</h1>
         <div className='w-full'>
             {inputs.map((i, index) => {

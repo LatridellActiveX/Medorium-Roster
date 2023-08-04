@@ -9,7 +9,7 @@ type Props = {
 
 const initialValues = {
     name: '',
-    main: '',
+    main: 'alt',
 }
 const validationSchema = Yup.object({
     name: Yup.string()

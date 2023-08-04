@@ -13,10 +13,22 @@ type Props = {
 const ModalBase: React.FC<Props> = ({ title, children, isOpen, onClose, className }) => {
 
     return <div className="relative z-10" aria-labelledby={title} role="dialog" aria-modal="true">
-        <div className={cn("flex justify-center items-center w-full h-full fixed top-0 left-0 z-50 transition-all", !isOpen && 'opacity-0 invisible')}>
-            <div className='absolute w-screen h-screen left-0 top-0 bg-[#181818]/70' style={{ backdropFilter: 'blur(4.5px)' }} onClick={onClose} />
+        <div
+            className={cn(
+                "flex justify-center items-center w-full h-full fixed top-0 left-0 z-50 transition-all",
+                !isOpen && 'opacity-0 invisible'
+            )}
+        >
+            <div
+                className='absolute w-screen h-screen left-0 top-0 bg-[#181818]/70'
+                style={{ backdropFilter: 'blur(4.5px)' }}
+                onClick={onClose}
+            />
             <div className={cn("relative rounded-xl", className)}>
-                <CloseIcon className="absolute right-3 top-3 z-10 cursor-pointer transition-opacity hover:opacity-80" onClick={onClose} />
+                <CloseIcon
+                    className="absolute right-2 top-2 z-10 cursor-pointer transition-opacity sm:right-3 sm:top-3 hover:opacity-80"
+                    onClick={onClose}
+                />
                 {children}
             </div>
         </div>
