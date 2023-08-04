@@ -12,13 +12,18 @@ import RosterPage from './pages/roster';
 import PrivacyPolicyPage from './pages/privacyPolicy';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import DashboardPage from './pages/dashboard';
+import { useSelector } from 'react-redux';
+import { selectUsername } from './redux/selectors';
+import GuestPage from './pages/guest';
 
 const App: React.FC = () => {
     useAuth();
+    let isAuth = useSelector(selectUsername);
 
     return <>
         <Routes>
-            <Route path="/" element={<MainPage />} />
+            <Route path="/" element={isAuth ? <MainPage /> : <GuestPage />} />
+            
             <Route path="/adminPanel" element={<AdminPanelPage />} />
             <Route path="/roster" element={<RosterPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
