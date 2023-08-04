@@ -1,10 +1,10 @@
-import type { Character as CharacterType } from 'api/types';
 import cn from 'classnames';
 import Role from "./role";
+import { ResponseCharacter } from 'api/types';
 
 type Props = {
 
-} & CharacterType;
+} & ResponseCharacter;
 
 const Character: React.FC<Props> = ({ name, username, main, rank, division, payGrade, rankAcquisitionTimestamp }) => {
 

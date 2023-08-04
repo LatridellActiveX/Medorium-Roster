@@ -1,12 +1,12 @@
-import useFetch from "../../api/hooks/useFetch";
+import useGetRoster from "../../api/roster/useGetRoster";
 import Characters from "../../ui/characters";
 
 const RosterPage: React.FC = () => {
-  const { data } = useFetch("/api/roster");
+  const { data, isLoading } = useGetRoster();
 
   return <main className="py-5">
     <section className="w-[600px] mx-auto">
-      <Characters data={data || []} />
+      <Characters data={data || []} isLoading={isLoading} />
     </section>
   </main>
 };
