@@ -11,6 +11,7 @@ export type ParagraphType = {
     id?: string
 }
 
+//Intersection type between Props and ParagraphType
 type Props = {
     isActive: boolean
     className?: string
