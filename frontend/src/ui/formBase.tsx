@@ -1,6 +1,5 @@
 import axios, { AxiosError } from 'axios';
 import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ReactNode, useState } from 'react';
 import Input from './input';
@@ -10,6 +9,7 @@ import Select from './select';
 
 export type FormInputType = {
     name: string
+    label?: string
     type?: string
     variant?: 'default' | 'select'
     selectItems?: string[]
@@ -24,14 +24,14 @@ type Props = {
     onSubmitSuccess: (values: Props['initialValues']) => void
     heading: string
     inputs: FormInputType[]
+    formatRequestData?: (data: Props['initialValues']) => { [key: string]: string | boolean }
     submitBtnSign?: string
     navigateTo?: string
     children?: ReactNode
     className?: string
 }
 
-const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, onSubmitSuccess, heading, inputs, submitBtnSign = 'Submit', navigateTo = '/', children, className }) => {
-    const navigate = useNavigate();
+const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, onSubmitSuccess, heading, inputs, formatRequestData, submitBtnSign = 'Submit', children, className }) => {
     const [serverError, setServerError] = useState<string | null>(null);
 
     const formik = useFormik({
@@ -40,9 +40,10 @@ const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, on
         onSubmit: async (values, { resetForm }) => {
             try {
                 setServerError(null);
+                let formattedValues = formatRequestData ? formatRequestData(values) : values;
 
                 const response = await toast.promise(
-                    axios.post(apiUrl, values, { withCredentials: true }),
+                    axios.post(apiUrl, formattedValues, { withCredentials: true }),
                     {
                         pending: 'Loading...',
                         success: 'Success!',
@@ -52,7 +53,6 @@ const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, on
 
                 if (response.status === 200) {
                     onSubmitSuccess(values);
-                    navigate(navigateTo);
                     resetForm();
                 }
 
@@ -91,13 +91,20 @@ const FormBase: React.FC<Props> = ({ initialValues, validationSchema, apiUrl, on
         <div className='w-full'>
             {inputs.map((i, index) => {
                 let inputName = typeof i === 'string' ? i.toLowerCase() : i.name.toLowerCase();
+                let inputLabel = (typeof i === 'object' && i.label) ? i.label : inputName;
 
                 if (typeof i === 'object' && i.variant === 'select' && i.selectItems) {
-                    return <Select data={i.selectItems} name={inputName} onChange={formik.handleChange} key={index} />
+                    return <Select
+                        label={inputLabel}
+                        data={i.selectItems}
+                        name={inputName}
+                        onChange={formik.handleChange}
+                        key={index}
+                    />
                 }
 
                 return <Input
-                    label={inputName}
+                    label={inputLabel}
                     error={formik.errors[inputName]}
                     value={formik.values[inputName]}
                     type={typeof i === 'object' ? i.type : undefined}

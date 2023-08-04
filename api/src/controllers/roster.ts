@@ -5,8 +5,9 @@ import type {
   ResponseErrorMessage,
   ResponseZodError,
 } from "../../types.js";
-import Character from "../models/character.js";
+import Character, { CharacterType } from "../models/character.js";
 import { z } from "zod";
+import { ResultOk } from "resultat";
 
 export async function getFullRoster(req: Request, res: Response) {
   const characters: ResponseCharacters = await Character.getFullRoster();

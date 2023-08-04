@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { authorizeUser } from '../../redux/reducers/authReducer';
 import { useDispatch } from 'react-redux';
 import FormBase from '../../ui/formBase';
@@ -28,10 +28,11 @@ const inputs = [
 
 const LoginForm: React.FC = () => {
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
 
     const onSubmitSuccess = (values: { [key: string]: string }) => {
         dispatch(authorizeUser(values?.username));
+        navigate('/');
     };
 
     return <FormBase

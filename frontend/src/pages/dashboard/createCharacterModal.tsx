@@ -9,21 +9,22 @@ type Props = {
 
 const initialValues = {
     name: '',
-    'main/alt': '',
+    main: '',
 }
 const validationSchema = Yup.object({
     name: Yup.string()
-        .max(32, 'Must be 32 characters or less')
-        .min(6, 'Your name is too short')
+        .max(37, 'Must be 37 characters or less')
+        .min(3, 'Your name is too short')
         .required('Required'),
-        'main/alt': Yup.string()
+    main: Yup.string()
         .oneOf(["alt", "main"])
         .required('Required'),
 })
 const inputs: FormInputType[] = [
     'Name',
     {
-        name: 'Main/Alt',
+        label: 'Main/Alt',
+        name: 'main',
         variant: 'select',
         selectItems: [
             'alt',
@@ -39,19 +40,27 @@ const CreateCharacterModal: React.FC<Props> = ({ isOpen, onClose }) => {
         return <></>
     };
 
-    const onSubmitSuccess = (values: { [key: string]: string }) => {
+    const onSubmitSuccess = async (values: { [key: string]: string }) => {
         onClose();
+    };
+    const formatRequestData = (data: { [key: string]: string }) => {
+
+        return {
+            name: data.name,
+            main: data.main === 'main'
+        };
     };
 
     return <ModalBase className='bg-neutral-800 p-2 pb-0' title='some title' isOpen={isOpen} onClose={onClose}>
         <FormBase
+            apiUrl='http://localhost:3000/api/characters'
+            heading='Create a new character'
+            submitBtnSign="Add character"
             initialValues={initialValues}
             validationSchema={validationSchema}
-            apiUrl='http://localhost:3000/api/character'
-            onSubmitSuccess={onSubmitSuccess}
-            heading='Create a new character'
-            submitBtnSign="Create"
             inputs={inputs}
+            onSubmitSuccess={onSubmitSuccess}
+            formatRequestData={formatRequestData}
         >
         </FormBase>
     </ModalBase>

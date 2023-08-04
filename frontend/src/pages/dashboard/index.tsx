@@ -2,10 +2,11 @@ import Characters from "../../ui/characters";
 import { useState } from 'react';
 import CreateCharacterModal from "./createCharacterModal";
 import PlusIcon from "../../icons/plus";
-import useGetRoster from "../../api/roster/useGetRoster";
+import useFetch from "../../api/hooks/useFetch";
+import { CharacterType } from "api/src/models/character";
 
 const DashboardPage: React.FC = () => {
-    const { data: roster } = useGetRoster();
+    const { data: characters, isFetching } = useFetch<CharacterType>('/api/characters');
     const [isModal, setIsModal] = useState(false);
 
     const handleModalStatus = () => {
@@ -26,7 +27,7 @@ const DashboardPage: React.FC = () => {
                     <PlusIcon />
                 </button>
             </div>
-            <Characters className="mt10-20" data={roster || []} />
+            <Characters className="mt10-20" data={characters || []} isLoading={isFetching} />
         </section>
     </main>
 };
