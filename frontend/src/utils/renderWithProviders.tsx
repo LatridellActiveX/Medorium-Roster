@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import type { AppStore, RootState } from '../redux/store'
 import authReducer from '../redux/reducers/authReducer'
 
-//sourse: https://redux.js.org/usage/writing-tests#setting-up-a-reusable-test-render-function
+//source: https://redux.js.org/usage/writing-tests#setting-up-a-reusable-test-render-function
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.

@@ -1,10 +1,12 @@
 import cn from 'classnames';
 
+//Paragraph formatting types
 export type ParagraphEffectedTextType = {
     text: string
     effect?: 'bold' | 'link' | 'email'
     shouldAddSpace?: boolean
 }
+
 
 type Props = {
     text: ParagraphEffectedTextType
