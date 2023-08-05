@@ -1,9 +1,11 @@
 import PageInitialization from '../../ui/pageInitialization';
+import RequestCode from './requestCode';
 
 const AdminPanelPage: React.FC = () => {
     return <PageInitialization pathIfUnauth='/login'>
-        <main>
-            <h2>Admin Panel</h2>
+        <main className='p-2'>
+            <h1>Admin Panel</h1>
+            <RequestCode />
         </main>
     </PageInitialization >
 }
