@@ -14,7 +14,7 @@ const Tooltip: React.FC<Props> = ({ children, text, shouldHide, className }) => 
         {children}
         <div
             className={cn(
-                "absolute -top-16 -right-12 bg-c-primary p-2.5 rounded-lg text-white invisible transition-all group-hover/tooltip:visible",
+                "absolute -top-14 left-1/2 -translate-x-1/2 bg-c-primary p-2.5 rounded-lg text-white invisible transition-all group-hover/tooltip:visible",
                 shouldHide && 'hidden'
             )}
             role="tooltip"

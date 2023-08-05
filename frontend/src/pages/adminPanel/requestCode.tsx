@@ -60,8 +60,21 @@ const RequestCode: React.FC = () => {
             >
                 Request registration code
             </button>
-            <div className="grid gap-y-1">
-                <label htmlFor='regCode'>Registration code:</label>
+            <div className="flex items-center gap-x-2">
+                <h6 className="text-[22px] font-bold">Registration code:</h6>
+                <Tooltip text="Click to copy the code" shouldHide={!!regCode === false}>
+                    <p
+                        className={cn(
+                            'max-w-[500px] overflow-hidden whitespace-nowrap text-ellipsis',
+                            !!regCode && 'cursor-pointer text-blue-700'
+                        )}
+                        onClick={handleCodeClick}
+                    > {regCode || 'Click "Request Registration Code" to get the code.'}
+                    </p>
+                </Tooltip>
+            </div>
+
+            {/* <label htmlFor='regCode'>Registration code:</label>
                 <Tooltip
                     className="w-full max-w-lg"
                     text={
@@ -82,8 +95,7 @@ const RequestCode: React.FC = () => {
                         />
                         <div className="absolute w-full h-full top-0 left-0" onClick={handleCodeClick} />
                     </div>
-                </Tooltip>
-            </div>
+                </Tooltip> */}
         </div>
     </section>
 };
