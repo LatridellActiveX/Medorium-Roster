@@ -51,7 +51,7 @@ const CreateCharacterModal: React.FC<Props> = ({ isOpen, onClose }) => {
         };
     };
 
-    return <ModalBase className='bg-neutral-800 p-2 pb-0' title='some title' isOpen={isOpen} onClose={onClose}>
+    return <ModalBase className='bg-neutral-800 p-2 pb-0' isOpen={isOpen} onClose={onClose}>
         <FormBase
             apiUrl='http://localhost:3000/api/characters'
             heading='Create a new character'
