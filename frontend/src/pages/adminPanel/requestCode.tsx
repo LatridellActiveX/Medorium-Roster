@@ -60,42 +60,25 @@ const RequestCode: React.FC = () => {
             >
                 Request registration code
             </button>
-            <div className="flex items-center gap-x-2">
-                <h6 className="text-[22px] font-bold">Registration code:</h6>
-                <Tooltip text="Click to copy the code" shouldHide={!!regCode === false}>
-                    <p
+            <div className="flex flex-col gap-y-2.5">
+                <label htmlFor='regCode'>Registration code:</label>
+                <Tooltip
+                    containerClassName='w-full max-w-lg'
+                    text='Click to copy the code'
+                    shouldHide={!!regCode === false}
+                >
+                    <textarea
                         className={cn(
-                            'max-w-[500px] overflow-hidden whitespace-nowrap text-ellipsis',
-                            !!regCode && 'cursor-pointer text-blue-700'
+                            "w-full min-h-[90px] rounded-md bg-[#535353] p-1",
+                            !!regCode && 'cursor-pointer',
                         )}
+                        value={regCode}
+                        onChange={() => {}}
                         onClick={handleCodeClick}
-                    > {regCode || 'Click "Request Registration Code" to get the code.'}
-                    </p>
+                        id='regCode'
+                    />
                 </Tooltip>
             </div>
-
-            {/* <label htmlFor='regCode'>Registration code:</label>
-                <Tooltip
-                    className="w-full max-w-lg"
-                    text={
-                        !!regCode === false
-                            ? 'Click "Request Registration Code" to get the code'
-                            : 'Click to copy the code'
-                    }
-                >
-                    <div className="relative">
-                        <textarea
-                            className={cn(
-                                "w-full min-h-[90px]",
-                                !!regCode && 'cursor-pointer',
-                            )}
-                            value={regCode}
-                            id='regCode'
-                            disabled
-                        />
-                        <div className="absolute w-full h-full top-0 left-0" onClick={handleCodeClick} />
-                    </div>
-                </Tooltip> */}
         </div>
     </section>
 };
