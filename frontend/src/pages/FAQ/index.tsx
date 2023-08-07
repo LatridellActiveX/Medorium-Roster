@@ -1,5 +1,4 @@
 import Footer from "../../layout/footer";
-import Header from "../../layout/header";
 import Paragraphs from "../../ui/paragraphs";
 import { ParagraphType } from "../../ui/paragraphs/paragraph";
 
@@ -37,7 +36,6 @@ const data: ParagraphType[] = [
 
 const FAQPage: React.FC = () => {
     return <>
-        <Header />
         <main className="px-4 flex flex-col justify-center items-center">
             <h1 className="text-2xl sm:text-3xl font-bold mt-5 sm:mt-10">Frequently Asked Questions (FAQ)</h1>
             <Paragraphs
