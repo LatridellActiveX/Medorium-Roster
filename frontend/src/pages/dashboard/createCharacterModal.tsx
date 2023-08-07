@@ -22,8 +22,6 @@ const validationSchema = Yup.object({
 });
 
 const CreateCharacterModal: React.FC<Props> = ({ isOpen, onClose, isThereMain }) => {
-  // const inputs: FormInputType[] = 
-
   const inputs: FormInputType[] = useMemo(() => {
     return [
       "Name",
