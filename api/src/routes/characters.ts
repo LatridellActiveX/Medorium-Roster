@@ -4,7 +4,7 @@ import authorized from "../middlewares/authorized.js";
 
 const router = Router();
 
-router.get("/characters", getUserCharacters);
+router.get("/characters", authorized, getUserCharacters);
 router.post("/characters", authorized, createCharacter);
 
 export default router;
