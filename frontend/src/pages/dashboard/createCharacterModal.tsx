@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import FormBase, { FormInputType } from "../../ui/formBase";
 import ModalBase from "../../ui/modalBase";
 import * as Yup from "yup";
@@ -21,21 +22,25 @@ const validationSchema = Yup.object({
 });
 
 const CreateCharacterModal: React.FC<Props> = ({ isOpen, onClose, isThereMain }) => {
-  const inputs: FormInputType[] = [
-    "Name",
-    {
-      label: "Main/Alt",
-      name: "main",
-      variant: "select",
-      selectItems: [
-        "alt",
-        {
-          text: "main",
-          isDisabled: isThereMain,
-        },
-      ],
-    },
-  ];
+  // const inputs: FormInputType[] = 
+
+  const inputs: FormInputType[] = useMemo(() => {
+    return [
+      "Name",
+      {
+        label: "Main/Alt",
+        name: "main",
+        variant: "select",
+        selectItems: [
+          "alt",
+          {
+            text: "main",
+            isDisabled: isThereMain,
+          },
+        ],
+      },
+    ];
+  }, [isThereMain]);
 
   if (!isOpen) {
     return <></>;
