@@ -3,7 +3,7 @@ import LoginOrLogout from '../ui/loginOrLogout';
 
 const Header: React.FC = () => {
     return <header className="w-full fixed text-2xl px-4">
-        <div className="h-12 sm:w-[32rem] md:w-[42rem] mx-auto flex justify-between items-center">
+        <div className="h-16 sm:w-[32rem] md:w-[42rem] mx-auto flex justify-between items-center">
             <div className="">
                 <div className="flex items-center cursor-pointer">
                     <Link to="/" className="text-slate-200">
@@ -13,9 +13,11 @@ const Header: React.FC = () => {
             </div>
             <div className="flex gap-4">
                 <LoginOrLogout />
-                <div className="">
-                    *DD*
-                </div>
+                <button className="space-y-2">
+                    <span className="block w-5 h-[3px] rounded-sm bg-slate-100"></span>
+                    <span className="block w-8 h-[3px] rounded-sm bg-slate-100"></span>
+                    <span className="block w-8 h-[3px] rounded-sm bg-slate-100"></span>
+                </button>
             </div>
         </div>
         <Link className="transition-opacity hover:opacity-70" to="/">

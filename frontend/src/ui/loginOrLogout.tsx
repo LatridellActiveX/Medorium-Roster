@@ -15,7 +15,7 @@ const LoginOrLogout: React.FC = () => {
 
     return (
         <Link to={isAuth ? "/" : "/login"} onClick={isAuth ? logout : undefined} className={cn(
-            "btn bg- rounded-md text-black px-2 text-lg hover:text-black",
+            "btn bg- rounded-md text-black px-3 py-[1px] text-lg hover:text-black",
             isAuth ? "bg-red-400" : "bg-blue-400"
         )
         }>

@@ -1,6 +1,6 @@
 import PageInitialization from "../../ui/pageInitialization";
 import LoginForm from "./loginForm";
-import background from "../../assets/backgrounds/Mining.png";
+import background from "../../assets/backgrounds/Eve-Atmosphere2.png";
 
 const LoginPage: React.FC = () => {
     return <PageInitialization pathIfAuth='/'>

@@ -125,5 +125,6 @@
 }
 
 header + main {
-  padding-top: 3rem;
+  /* account for header height, while maintaining the background image height: 100vh */
+  padding-top: 4rem !important;
 }

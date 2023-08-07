@@ -13,7 +13,7 @@ import PrivacyPolicyPage from './pages/privacyPolicy';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useSelector } from 'react-redux';
 import { selectUsername } from './redux/selectors';
-import LandingPage from './pages/guest';
+import LandingPage from './pages/landing';
 import Header from './layout/header';
 
 const App: React.FC = () => {
