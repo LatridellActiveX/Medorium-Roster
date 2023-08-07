@@ -1,4 +1,3 @@
-import Header from "../../layout/header";
 import Paragraphs from "../../ui/paragraphs";
 import { ParagraphType } from "../../ui/paragraphs/paragraph";
 import moment from 'moment';
@@ -86,7 +85,6 @@ const PrivacyPolicyPage: React.FC = () => {
     let editTime = moment(lastEditTime).format('MMMM Do YYYY, hh:mm:ss a');
 
     return <main>
-        <Header />
         <section className="max-w-4xl">
             <div className="flex flex-col items-center">
                 <h1 className="text30-48 font-bold mt-5 sm:mt-10">Privacy policy</h1>

@@ -13,8 +13,9 @@ const useAuth = () => {
         if (resp.status === 200) {
           dispatch(authorizeUser(resp.data.username));
         }
-      }).catch(e => {
-        dispatch(authorizeUser(false))
+      })
+      .catch((_) => {
+        dispatch(authorizeUser(false));
       });
   }, []);
 };
