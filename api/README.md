@@ -208,3 +208,31 @@ Creates a character for the logged in user
   "error": "Name is already in use"
 }
 ```
+
+## `DELETE /api/characters`
+
+Deletes a character of the logged in user
+
+### Body
+
+| Field | Required |  Type  | minLen | maxLen |
+| :---: | :------: | :----: | :----: | :----: |
+| name  |   Yes    | string |   3    |   37   |
+
+<br>
+
+### Example Responses
+
+#### Success - TODO: response type (respond in this format: { message: "" })
+
+```json
+"Successfully deleted \"characterName\""
+```
+
+#### Error
+
+```json
+{
+  "error": "Character does not exist"
+}
+```

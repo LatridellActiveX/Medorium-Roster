@@ -76,7 +76,7 @@ class Character {
       })
 
       if (result.deletedCount !== 1) {
-        return Err('No such character');
+        return Err("Character does not exist");
       }
        
       return Ok({ deleted: true });
