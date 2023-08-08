@@ -1,0 +1,1 @@
+since these tests are e2e, you need to create a real user with the credentials provided by the support/commands.ts login function.
