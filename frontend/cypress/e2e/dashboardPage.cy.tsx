@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import './../support';
 
 const newCharacterName = "Admin N";
 
