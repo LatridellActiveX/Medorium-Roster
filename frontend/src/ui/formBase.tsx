@@ -136,7 +136,7 @@ const FormBase: React.FC<Props> = ({
         <h2 className="text-center mb-4 text-2xl">{heading}</h2>
       )}
       <div className="w-full">
-        {inputs.map((i, index) => {
+        {inputs.map((i) => {
           let inputName =
             typeof i === "string" ? i.toLowerCase() : i.name.toLowerCase();
           let inputLabel =
@@ -153,7 +153,7 @@ const FormBase: React.FC<Props> = ({
                 data={i.selectItems}
                 name={inputName}
                 onChange={formik.handleChange}
-                key={index}
+                key={inputName}
               />
             );
           }
@@ -165,7 +165,7 @@ const FormBase: React.FC<Props> = ({
               value={formik.values[inputName]}
               type={typeof i === "object" ? i.type : undefined}
               handleChange={formik.handleChange}
-              key={index}
+              key={inputName}
             />
           );
         })}

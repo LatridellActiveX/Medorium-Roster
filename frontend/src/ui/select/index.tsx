@@ -23,11 +23,11 @@ const Select: React.FC<Props> = ({
   label = name,
   onChange,
 }) => {
-  let Items = data.map((d, index) => (
+  let Items = data.map((d, i) => (
     <Option
       text={typeof d === "string" ? d : d.text}
       isDisabled={typeof d === "object" ? d.isDisabled : undefined}
-      key={index}
+      key={typeof d === "string" ? d : d.text}
     />
   ));
 

@@ -51,7 +51,7 @@ export async function login(req: Request, res: Response) {
   }
 
   const authToken = createAuthToken(username);
-
+  
   // Split token into two cookies, second one is httpOnly: false to allow
   // client side logout, without exposing the first half to javascript,
   // or implementing server side logout with token invalidation.
