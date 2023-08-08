@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { ReactNode, useState } from "react";
@@ -9,6 +9,8 @@ import type {
 } from "./../../../api/types"; //'api/types throws me an error for some reason: Cannot find module 'api/types' or its corresponding type declarations.'
 import cn from "classnames";
 import Select, { OptionType } from "./select";
+import axios from "../api/axios";
+import concatenateApiUrl from "../helpers/concatenateApiUrl";
 
 export type FormInputType =
   | {
@@ -32,6 +34,7 @@ type Props = {
   formatRequestData?: (data: Props["initialValues"]) => {
     [key: string]: string | boolean;
   };
+  apiMethod?: "post" | "delete" | "get";
   submitBtnSign?: string;
   navigateTo?: string;
   children?: ReactNode;
@@ -39,12 +42,11 @@ type Props = {
   isH1Heading?: boolean;
 };
 
-const baseUrl = "http://localhost:3000"; //from .env file
-
 const FormBase: React.FC<Props> = ({
   initialValues,
   validationSchema,
   apiUrl,
+  apiMethod = 'post',
   onSubmitSuccess,
   heading,
   inputs,
@@ -67,8 +69,10 @@ const FormBase: React.FC<Props> = ({
           : values;
 
         const response = await toast.promise(
-          axios.post(`${baseUrl}/${apiUrl}`, formattedValues, {
-            withCredentials: true,
+          axios({
+            url: concatenateApiUrl(apiUrl),
+            method: apiMethod,
+            data: formattedValues,
           }),
           {
             pending: "Loading...",

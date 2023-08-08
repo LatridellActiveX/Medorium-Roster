@@ -4,6 +4,8 @@ import CreateCharacterModal from "./createCharacterModal";
 import PlusIcon from "../../icons/plus";
 import useGetCharacters from "../../api/characters/useGetCharacters";
 import PageInitialization from "../../ui/pageInitialization";
+import axios from "../../api/axios";
+import concatenateApiUrl from "../../helpers/concatenateApiUrl";
 
 const DashboardPage: React.FC = () => {
   const { data: characters, isFetching, refetch } = useGetCharacters();
@@ -12,6 +14,15 @@ const DashboardPage: React.FC = () => {
   const handleModalStatus = () => {
     refetch();
     setIsModal((prev) => !prev);
+  };
+
+  const deleteCharacter = (name: string) => {
+    axios.delete(concatenateApiUrl("api/characters"), {
+      data: {
+        name,
+      },
+    });
+    refetch();
   };
 
   return (
@@ -23,7 +34,6 @@ const DashboardPage: React.FC = () => {
             isOpen={isModal}
             onClose={handleModalStatus}
           />
-
           <div className="flex items-center justify-between gap-x-2">
             <h1 className="text20-36">Your characters</h1>
             <button
@@ -38,6 +48,7 @@ const DashboardPage: React.FC = () => {
             className="mt10-20"
             data={characters || []}
             isLoading={isFetching}
+            deleteCharacter={deleteCharacter}
           />
         </section>
       </main>

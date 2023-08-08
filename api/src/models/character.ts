@@ -67,6 +67,23 @@ class Character {
       return Err("Something went wrong");
     }
   }
+
+  static async deleteCharacter(username: string, name: string) {
+    try {
+      await CharacterModel.deleteOne({
+        username,
+        name
+      })
+
+      return Ok({ deleted: true });
+    } catch (_e) {
+      const error = _e as MongoError;
+      console.log(error);
+
+      console.error("UNHANDLED ERROR:", error);
+      return Err("Something went wrong");
+    }
+  }
 }
 
 export default Character;
