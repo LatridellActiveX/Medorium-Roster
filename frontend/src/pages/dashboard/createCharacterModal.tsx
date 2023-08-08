@@ -9,10 +9,6 @@ type Props = {
   isThereMain: boolean;
 };
 
-const initialValues = {
-  name: "",
-  main: "alt",
-};
 const validationSchema = Yup.object({
   name: Yup.string()
     .max(37, "Must be 37 characters or less")
@@ -21,7 +17,17 @@ const validationSchema = Yup.object({
   main: Yup.string().oneOf(["alt", "main"]).required("Required"),
 });
 
-const CreateCharacterModal: React.FC<Props> = ({ isOpen, onClose, isThereMain }) => {
+const CreateCharacterModal: React.FC<Props> = ({
+  isOpen,
+  onClose,
+  isThereMain,
+}) => {
+  const initialValues = useMemo(() => {
+    return {
+      name: "",
+      main: isThereMain ? "alt" : 'main',
+    };
+  }, [isThereMain]);
   const inputs: FormInputType[] = useMemo(() => {
     return [
       "Name",
@@ -30,7 +36,10 @@ const CreateCharacterModal: React.FC<Props> = ({ isOpen, onClose, isThereMain })
         name: "main",
         variant: "select",
         selectItems: [
-          "alt",
+          {
+            text: "alt",
+            isDisabled: !isThereMain,
+          },
           {
             text: "main",
             isDisabled: isThereMain,

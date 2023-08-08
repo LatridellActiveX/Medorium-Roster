@@ -6,10 +6,11 @@ import useGetCharacters from "../../api/characters/useGetCharacters";
 import PageInitialization from "../../ui/pageInitialization";
 
 const DashboardPage: React.FC = () => {
-  const { data: characters, isFetching } = useGetCharacters();
+  const { data: characters, isFetching, refetch } = useGetCharacters();
   const [isModal, setIsModal] = useState(false);
 
   const handleModalStatus = () => {
+    refetch();
     setIsModal((prev) => !prev);
   };
 
