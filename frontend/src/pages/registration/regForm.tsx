@@ -39,7 +39,7 @@ const RegForm: React.FC = () => {
         className='shadow-2xl'
         initialValues={initialValues}
         validationSchema={validationSchema}
-        apiUrl='http://localhost:3000/auth/register'
+        apiUrl='auth/register'
         onSubmitSuccess={onSubmitSuccess}
         heading='Registration'
         inputs={inputs}

@@ -39,7 +39,7 @@ const LoginForm: React.FC = () => {
         className='shadow-2xl'
         initialValues={initialValues}
         validationSchema={validationSchema}
-        apiUrl='http://localhost:3000/auth/login'
+        apiUrl='auth/login'
         onSubmitSuccess={onSubmitSuccess}
         heading='Login'
         inputs={inputs}

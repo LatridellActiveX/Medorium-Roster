@@ -70,7 +70,7 @@ const CreateCharacterModal: React.FC<Props> = ({
       onClose={onClose}
     >
       <FormBase
-        apiUrl="http://localhost:3000/api/characters"
+        apiUrl="api/characters"
         heading="Create a new character"
         submitBtnSign="Add character"
         initialValues={initialValues}

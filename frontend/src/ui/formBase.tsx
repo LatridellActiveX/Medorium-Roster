@@ -35,6 +35,8 @@ type Props = {
   className?: string;
 };
 
+const baseUrl = 'http://localhost:3000'; //from .env file
+
 const FormBase: React.FC<Props> = ({
   initialValues,
   validationSchema,
@@ -60,7 +62,7 @@ const FormBase: React.FC<Props> = ({
           : values;
 
         const response = await toast.promise(
-          axios.post(apiUrl, formattedValues, { withCredentials: true }),
+          axios.post(`${baseUrl}/${apiUrl}`, formattedValues, { withCredentials: true }),
           {
             pending: "Loading...",
             success: "Success!",
