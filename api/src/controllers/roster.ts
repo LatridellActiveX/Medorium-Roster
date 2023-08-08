@@ -9,34 +9,27 @@ import Character, { CharacterType } from "../models/character.js";
 import { z } from "zod";
 import { ResultOk } from "resultat";
 
-export async function getFullRoster(req: Request, res: Response) {
-  const characters: ResponseCharacters = await Character.getFullRoster();
+export async function getAllCharacters(req: Request, res: Response) {
+  const result = await Character.getAllCharacters();
 
-  res.status(200).json(characters);
+  console.log(result);
+  if (!result.ok) {
+    return res.status(400).json({ error: result.err });
+  }
+
+  res.status(200).json(result.val.characters);
 }
 
 export async function getUserCharacters(req: Request, res: Response) {
-  const characters: ResponseCharacters = [
-    {
-      name: "Benjamin Thomson",
-      username: "latridell",
-      main: true,
-      rank: "Chief Financial Officer (CFO)",
-      division: "Front Office",
-    },
-    {
-      name: "Josaline Thomson",
-      username: "latridell",
-      main: false,
-    },
-    {
-      name: "Jericho Thomson",
-      username: "latridell",
-      main: false,
-    },
-  ];
+  const { username } = res.locals;
+  const result = await Character.getAllUserCharacters(username);
+  if (!result.ok) {
+    return res.status(400).json({ error: result.err });
+  }
 
-  return res.status(200).json(characters);
+  const { characters } = result.val;
+
+  res.status(200).json(characters as ResponseCharacters);
 }
 
 export async function createCharacter(req: Request, res: Response) {
@@ -55,9 +48,8 @@ export async function createCharacter(req: Request, res: Response) {
 
   const { username } = res.locals;
 
-  console.log({ username, name, main });
   const result = await Character.createCharacter(username, name, main);
-  console.log(result);
+
   if (!result.ok) {
     return res.status(400).json({ error: result.err } as ResponseErrorMessage);
   }
