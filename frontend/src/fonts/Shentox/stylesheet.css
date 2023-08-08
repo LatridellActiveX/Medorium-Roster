@@ -1,0 +1,182 @@
+@font-face {
+    font-family: 'Shentox';
+    src: url('Shentox-Light.eot');
+    src: local('Shentox Light'), local('Shentox-Light'),
+        url('Shentox-Light.eot?#iefix') format('embedded-opentype'),
+        url('Shentox-Light.woff2') format('woff2'),
+        url('Shentox-Light.woff') format('woff'),
+        url('Shentox-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shentox';
+    src: url('Shentox-RegularItalic.eot');
+    src: local('Shentox Italic'), local('Shentox-RegularItalic'),
+        url('Shentox-RegularItalic.eot?#iefix') format('embedded-opentype'),
+        url('Shentox-RegularItalic.woff2') format('woff2'),
+        url('Shentox-RegularItalic.woff') format('woff'),
+        url('Shentox-RegularItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shentox';
+    src: url('Shentox-BoldItalic.eot');
+    src: local('Shentox Bold Italic'), local('Shentox-BoldItalic'),
+        url('Shentox-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('Shentox-BoldItalic.woff2') format('woff2'),
+        url('Shentox-BoldItalic.woff') format('woff'),
+        url('Shentox-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shentox';
+    src: url('Shentox-Bold.eot');
+    src: local('Shentox Bold'), local('Shentox-Bold'),
+        url('Shentox-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Shentox-Bold.woff2') format('woff2'),
+        url('Shentox-Bold.woff') format('woff'),
+        url('Shentox-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shentox';
+    src: url('Shentox-LightItalic.eot');
+    src: local('Shentox Light Italic'), local('Shentox-LightItalic'),
+        url('Shentox-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('Shentox-LightItalic.woff2') format('woff2'),
+        url('Shentox-LightItalic.woff') format('woff'),
+        url('Shentox-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shentox';
+    src: url('Shentox-UltraLight.eot');
+    src: local('Shentox UltraLight'), local('Shentox-UltraLight'),
+        url('Shentox-UltraLight.eot?#iefix') format('embedded-opentype'),
+        url('Shentox-UltraLight.woff2') format('woff2'),
+        url('Shentox-UltraLight.woff') format('woff'),
+        url('Shentox-UltraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shentox';
+    src: url('Shentox-UltraLightItalic.eot');
+    src: local('Shentox UltraLight Italic'), local('Shentox-UltraLightItalic'),
+        url('Shentox-UltraLightItalic.eot?#iefix') format('embedded-opentype'),
+        url('Shentox-UltraLightItalic.woff2') format('woff2'),
+        url('Shentox-UltraLightItalic.woff') format('woff'),
+        url('Shentox-UltraLightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shentox';
+    src: url('Shentox-Medium.eot');
+    src: local('Shentox Medium'), local('Shentox-Medium'),
+        url('Shentox-Medium.eot?#iefix') format('embedded-opentype'),
+        url('Shentox-Medium.woff2') format('woff2'),
+        url('Shentox-Medium.woff') format('woff'),
+        url('Shentox-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shentox';
+    src: url('Shentox-SemiBoldItalic.eot');
+    src: local('Shentox SemiBold Italic'), local('Shentox-SemiBoldItalic'),
+        url('Shentox-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('Shentox-SemiBoldItalic.woff2') format('woff2'),
+        url('Shentox-SemiBoldItalic.woff') format('woff'),
+        url('Shentox-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shentox';
+    src: url('Shentox-Thin.eot');
+    src: local('Shentox Thin'), local('Shentox-Thin'),
+        url('Shentox-Thin.eot?#iefix') format('embedded-opentype'),
+        url('Shentox-Thin.woff2') format('woff2'),
+        url('Shentox-Thin.woff') format('woff'),
+        url('Shentox-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shentox';
+    src: url('Shentox-ThinItalic.eot');
+    src: local('Shentox Thin Italic'), local('Shentox-ThinItalic'),
+        url('Shentox-ThinItalic.eot?#iefix') format('embedded-opentype'),
+        url('Shentox-ThinItalic.woff2') format('woff2'),
+        url('Shentox-ThinItalic.woff') format('woff'),
+        url('Shentox-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shentox';
+    src: url('Shentox-SemiBold.eot');
+    src: local('Shentox SemiBold'), local('Shentox-SemiBold'),
+        url('Shentox-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('Shentox-SemiBold.woff2') format('woff2'),
+        url('Shentox-SemiBold.woff') format('woff'),
+        url('Shentox-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shentox';
+    src: url('Shentox-MediumItalic.eot');
+    src: local('Shentox Medium Italic'), local('Shentox-MediumItalic'),
+        url('Shentox-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('Shentox-MediumItalic.woff2') format('woff2'),
+        url('Shentox-MediumItalic.woff') format('woff'),
+        url('Shentox-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Shentox';
+    src: url('Shentox-Regular.eot');
+    src: local('Shentox'), local('Shentox-Regular'),
+        url('Shentox-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Shentox-Regular.woff2') format('woff2'),
+        url('Shentox-Regular.woff') format('woff'),
+        url('Shentox-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
