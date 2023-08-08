@@ -1,16 +1,14 @@
 import useGetRoster from "../../api/roster/useGetRoster";
-import Characters from "./characters";
+import Characters from "../../ui/characters";
 
 const RosterPage: React.FC = () => {
-  const { data: roster } = useGetRoster();
+  const { data, isLoading } = useGetRoster();
 
   return (
-    <main className="">
-      <div className="my-5">
-        <section className="w-[600px] mx-auto">
-          <Characters roster={roster} />
-        </section>
-      </div>
+    <main className="py-5">
+      <section className="w-[600px] mx-auto my-5">
+        <Characters data={data || []} isLoading={isLoading} />
+      </section>
     </main>
   );
 };

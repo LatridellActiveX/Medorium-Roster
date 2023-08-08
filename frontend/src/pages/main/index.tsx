@@ -8,6 +8,7 @@ const MainPage: React.FC = () => {
             <div className="grid gap-y-5">
                 <Link to='/roster'>Roster</Link>
                 <Link to='/adminPanel'>Admin panel</Link>
+                <Link to='/dashboard'>Dashboard</Link>
             </div>
         </main>
     </PageInitialization>

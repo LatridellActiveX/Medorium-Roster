@@ -57,8 +57,8 @@ describe('Registration form', () => {
         expect(submitBtn.getAttribute('disabled')).toBe('');
     });
     it('types the correct credentials and then submits them', async () => {
-        const tooShortUsername = 'aaaaaaasdsad';
-        const tooShortPassowrd = '11231asdasd';
+        const username = 'aaaaaaasdsad';
+        const passowrd = '11231asdasd';
 
         let usernameInput = screen.getByRole('textbox', {name: /Username/i});
         let passwordInput = screen.getByLabelText('Password');
@@ -66,8 +66,8 @@ describe('Registration form', () => {
             name: 'Submit your registration credentials'
         });
 
-        await user.type(usernameInput, tooShortUsername);
-        await user.type(passwordInput, tooShortPassowrd);
+        await user.type(usernameInput, username);
+        await user.type(passwordInput, passowrd);
         expect(submitBtn.getAttribute('disabled')).toBe(null);
 
         await user.click(submitBtn);

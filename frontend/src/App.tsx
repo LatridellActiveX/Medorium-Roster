@@ -11,6 +11,7 @@ import ScrollToHashElement from "./ui/scrollToHashElement";
 import RosterPage from './pages/roster';
 import PrivacyPolicyPage from './pages/privacyPolicy';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import DashboardPage from './pages/dashboard';
 import { useSelector } from 'react-redux';
 import { selectUsername } from './redux/selectors';
 import LandingPage from './pages/landing';
@@ -23,12 +24,15 @@ const App: React.FC = () => {
     return <>
         <Header />
         <Routes>
+            <Route path="/adminPanel" element={<AdminPanelPage />} />
+            <Route path="/roster" element={<RosterPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+
             <Route path="/" element={isAuth ? <MainPage /> : <LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/registration" element={<RegistrationPage />} />
-            <Route path="/adminPanel" element={<AdminPanelPage />} />
+
             <Route path="/FAQ" element={<FAQPage />} />
-            <Route path="/roster" element={<RosterPage />} />
             <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
         </Routes>
 

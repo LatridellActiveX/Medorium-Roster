@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { authorizeUser } from '../../redux/reducers/authReducer';
 import { useDispatch } from 'react-redux';
 import FormBase from '../../ui/formBase';
@@ -28,19 +28,22 @@ const inputs = [
 
 const LoginForm: React.FC = () => {
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
 
     const onSubmitSuccess = (values: { [key: string]: string }) => {
         dispatch(authorizeUser(values?.username));
+        navigate('/');
     };
 
     return <FormBase
+        className='max-w-xs shadow-2xl'
         initialValues={initialValues}
         validationSchema={validationSchema}
-        apiUrl='http://localhost:3000/auth/login'
+        apiUrl='auth/login'
         onSubmitSuccess={onSubmitSuccess}
         heading='Login'
         inputs={inputs}
+        isH1Heading
     >
         <small>
             <p>

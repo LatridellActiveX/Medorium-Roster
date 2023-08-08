@@ -56,3 +56,16 @@ export async function createCharacter(req: Request, res: Response) {
   const { character } = result.val;
   return res.status(200).json(character as ResponseCharacter);
 }
+
+export async function deleteUserCharacters(req: Request, res: Response) {
+  const { name }  = req.body;
+  const { username } = res.locals;
+
+  const result = await Character.deleteCharacter(username, name);
+
+  if (!result.ok) {
+    return res.status(400).json({ error: result.err } as ResponseErrorMessage);
+  }
+
+  return res.status(200).json(`Successfully deleted "${name}"`);
+}
