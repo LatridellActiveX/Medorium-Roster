@@ -14,20 +14,21 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import DashboardPage from './pages/dashboard';
 import { useSelector } from 'react-redux';
 import { selectUsername } from './redux/selectors';
-import GuestPage from './pages/guest';
+import LandingPage from './pages/landing';
+import Header from './layout/header';
 
 const App: React.FC = () => {
     useAuth();
     let isAuth = useSelector(selectUsername);
 
     return <>
+        <Header />
         <Routes>
-            <Route path="/" element={isAuth ? <MainPage /> : <GuestPage />} />
-            
             <Route path="/adminPanel" element={<AdminPanelPage />} />
             <Route path="/roster" element={<RosterPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
 
+            <Route path="/" element={isAuth ? <MainPage /> : <LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/registration" element={<RegistrationPage />} />
 

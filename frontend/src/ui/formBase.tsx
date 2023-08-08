@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { ReactNode, useState } from "react";
 import Input from "./input";
-import type { ResponseZodError, ResponseErrorMessage } from "api/types";
+import type { ResponseZodError, ResponseErrorMessage } from "./../../../api/types"; //'api/types throws me an error for some reason: Cannot find module 'api/types' or its corresponding type declarations.'
 import cn from "classnames";
 import Select, { OptionType } from "./select";
 
