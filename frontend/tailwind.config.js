@@ -14,7 +14,8 @@ module.exports = {
                 center: true
             },
             fontFamily: {
-                'shentox': ['Shentox']
+                'shentox': ['Shentox'],
+                'shentox-medium': ['Shentox-Medium'],
             }
         },
     },

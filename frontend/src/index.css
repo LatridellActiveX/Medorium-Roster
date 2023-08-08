@@ -1,20 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("./fonts/Shentox/stylesheet.css");
+
+@font-face {
+  font-family: Shentox;
+  src: url("./fonts/Shentox/Shentox-Regular.ttf");
+}
+
+@font-face {
+  font-family: Shentox-Medium;
+  src: url("./fonts/Shentox/Shentox-Medium.ttf");
+}
 
 @layer base {
   html {
     @apply overflow-x-hidden;
   }
-  
-  body, main {
+
+  body,
+  main {
     @apply text-lg text-slate-200 bg-[#101010] min-h-screen font-shentox;
   }
 
   main {
-    /* each main component can have different layout, avoid adding
-     global positioning, style them individually instead
+    /* 
+      each main component can have different layout, avoid adding
+      global positioning, style them individually instead
     */
   }
 
