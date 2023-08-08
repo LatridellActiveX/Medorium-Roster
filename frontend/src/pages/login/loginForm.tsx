@@ -36,13 +36,14 @@ const LoginForm: React.FC = () => {
     };
 
     return <FormBase
-        className='shadow-2xl'
+        className='max-w-xs shadow-2xl'
         initialValues={initialValues}
         validationSchema={validationSchema}
         apiUrl='auth/login'
         onSubmitSuccess={onSubmitSuccess}
         heading='Login'
         inputs={inputs}
+        isH1Heading
     >
         <small>
             <p>

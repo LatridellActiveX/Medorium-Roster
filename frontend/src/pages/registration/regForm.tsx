@@ -36,13 +36,14 @@ const RegForm: React.FC = () => {
     };
 
     return <FormBase
-        className='shadow-2xl'
+        className='smax-w-xs hadow-2xl'
         initialValues={initialValues}
         validationSchema={validationSchema}
         apiUrl='auth/register'
         onSubmitSuccess={onSubmitSuccess}
         heading='Registration'
         inputs={inputs}
+        isH1Heading
     >
         <small>
             <p>Already got an account? <Link to="/login">Log in</Link> here</p>

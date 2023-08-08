@@ -3,7 +3,10 @@ import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { ReactNode, useState } from "react";
 import Input from "./input";
-import type { ResponseZodError, ResponseErrorMessage } from "./../../../api/types"; //'api/types throws me an error for some reason: Cannot find module 'api/types' or its corresponding type declarations.'
+import type {
+  ResponseZodError,
+  ResponseErrorMessage,
+} from "./../../../api/types"; //'api/types throws me an error for some reason: Cannot find module 'api/types' or its corresponding type declarations.'
 import cn from "classnames";
 import Select, { OptionType } from "./select";
 
@@ -33,9 +36,10 @@ type Props = {
   navigateTo?: string;
   children?: ReactNode;
   className?: string;
+  isH1Heading?: boolean;
 };
 
-const baseUrl = 'http://localhost:3000'; //from .env file
+const baseUrl = "http://localhost:3000"; //from .env file
 
 const FormBase: React.FC<Props> = ({
   initialValues,
@@ -48,6 +52,7 @@ const FormBase: React.FC<Props> = ({
   submitBtnSign = "Submit",
   children,
   className,
+  isH1Heading,
 }) => {
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -62,7 +67,9 @@ const FormBase: React.FC<Props> = ({
           : values;
 
         const response = await toast.promise(
-          axios.post(`${baseUrl}/${apiUrl}`, formattedValues, { withCredentials: true }),
+          axios.post(`${baseUrl}/${apiUrl}`, formattedValues, {
+            withCredentials: true,
+          }),
           {
             pending: "Loading...",
             success: "Success!",
@@ -114,12 +121,16 @@ const FormBase: React.FC<Props> = ({
   return (
     <form
       className={cn(
-        "flex flex-col items-center max-w-xs px-4 rounded-xl py-4 bg-neutral-800 bg-opacity-90 sm:px-9",
+        "flex flex-col items-center px-4 rounded-xl py-4 bg-neutral-800 bg-opacity-90 sm:px-9",
         className
       )}
       onSubmit={formik.handleSubmit}
     >
-      <h1 className="text-center mb-4 text-2xl">{heading}</h1>
+      {isH1Heading ? (
+        <h1 className="text-center mb-4 text-2xl">{heading}</h1>
+      ) : (
+        <h2 className="text-center mb-4 text-2xl">{heading}</h2>
+      )}
       <div className="w-full">
         {inputs.map((i, index) => {
           let inputName =
