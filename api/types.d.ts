@@ -1,4 +1,4 @@
-import Character from "./src/models/character.ts";
+import type { CharacterType as Character } from "./src/models/character.ts";
 
 export type ResponseErrorMessage = {
   error: string;
