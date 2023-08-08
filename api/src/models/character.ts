@@ -74,12 +74,12 @@ class Character {
         username,
         name
       })
-      
-      if (result.deletedCount === 1) {
-        return Ok({ deleted: true });
+
+      if (result.deletedCount !== 1) {
+        return Err('No such character');
       }
-      
-      return Err('No such character');
+       
+      return Ok({ deleted: true });
     } catch (_e) {
       const error = _e as MongoError;
       console.log(error);
