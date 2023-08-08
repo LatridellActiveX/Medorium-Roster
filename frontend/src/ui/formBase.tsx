@@ -6,7 +6,7 @@ import Input from "./input";
 import type {
   ResponseZodError,
   ResponseErrorMessage,
-} from "./../../../api/types"; //'api/types throws me an error for some reason: Cannot find module 'api/types' or its corresponding type declarations.'
+} from "api/types"; 
 import cn from "classnames";
 import Select, { OptionType } from "./select";
 import axios from "../api/axios";
