@@ -36,7 +36,7 @@ const RegForm: React.FC = () => {
     };
 
     return <FormBase
-        className='smax-w-xs hadow-2xl'
+        className='max-w-xs shadow-2xl'
         initialValues={initialValues}
         validationSchema={validationSchema}
         apiUrl='auth/register'
