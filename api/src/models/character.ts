@@ -70,12 +70,16 @@ class Character {
 
   static async deleteCharacter(username: string, name: string) {
     try {
-      await CharacterModel.deleteOne({
+      let result = await CharacterModel.deleteOne({
         username,
         name
       })
-
-      return Ok({ deleted: true });
+      
+      if (result.deletedCount === 1) {
+        return Ok({ deleted: true });
+      }
+      
+      return Err('No such character');
     } catch (_e) {
       const error = _e as MongoError;
       console.log(error);
