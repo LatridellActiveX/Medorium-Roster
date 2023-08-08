@@ -30,7 +30,7 @@ const DashboardPage: React.FC = () => {
       <main className="py-5">
         <section className="max-w-[600px] mx-auto">
           <CreateCharacterModal
-            isThereMain={(characters || []).length > 1} //the first character must be main, right?
+            isThereMain={(characters || []).length >= 1} //the first character must be main, right?
             isOpen={isModal}
             onClose={handleModalStatus}
           />

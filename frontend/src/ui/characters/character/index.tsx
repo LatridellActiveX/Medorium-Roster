@@ -46,6 +46,7 @@ const Character: React.FC<Props> = ({
           <Tooltip text="Click to delete the character">
             <button
               className="transition-opacity hover:opacity-70"
+              aria-label={`Delete ${name} character`}
               onClick={handleDeleteCharacter}
             >
               <TrashIcon />
