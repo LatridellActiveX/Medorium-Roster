@@ -9,7 +9,7 @@ import type { NextFunction, Request, Response } from "express";
  * app.get("/adminRestrictedContent", authorized, admin, getUserCharacters);
  *
  */
-function isAdmin(req: Request, res: Response, next: NextFunction) {
+function admin(req: Request, res: Response, next: NextFunction) {
   const { admin } = res.locals;
   if (!admin) {
     return res.status(401).json({ error: "Not Authorized" });
@@ -18,4 +18,4 @@ function isAdmin(req: Request, res: Response, next: NextFunction) {
   next();
 }
 
-export default isAdmin;
+export default admin;
