@@ -8,4 +8,6 @@ router.get("/characters", authorized, getUserCharacters);
 router.delete("/characters", authorized, deleteUserCharacters);
 router.post("/characters", authorized, createCharacter);
 
+// router.post("/characters", authorized, admin, createCharacter);
+
 export default router;

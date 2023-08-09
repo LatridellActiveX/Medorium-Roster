@@ -50,8 +50,10 @@ export async function login(req: Request, res: Response) {
       .json({ error: "Invalid username or password" } as ResponseErrorMessage);
   }
 
-  const authToken = createAuthToken(username);
-  
+  const { user } = result.val;
+
+  const authToken = createAuthToken(username, user.admin);
+
   // Split token into two cookies, second one is httpOnly: false to allow
   // client side logout, without exposing the first half to javascript,
   // or implementing server side logout with token invalidation.
@@ -77,4 +79,15 @@ export async function login(req: Request, res: Response) {
 export async function isAuthorized(req: Request, res: Response) {
   const { username } = res.locals;
   return res.status(200).json({ authorized: true, username });
+}
+
+// GET /auth/accessCode
+
+// 200 { token: "blahblahblah" }
+// 400 { error: "Not an admin" }
+
+// http://localhost:5173/register?accessCode={token}
+
+export async function generateAccessCode(req: Request, res: Response) {
+  // 
 }
