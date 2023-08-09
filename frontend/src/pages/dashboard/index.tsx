@@ -25,12 +25,14 @@ const DashboardPage: React.FC = () => {
     refetch();
   };
 
+  let isThereMain = (characters || []).find(c => c.main);
+
   return (
     <PageInitialization pathIfUnauth="/login">
       <main className="py-5">
         <section className="max-w-[600px] mx-auto">
           <CreateCharacterModal
-            isThereMain={(characters || []).length >= 1} //the first character must be main, right?
+            isThereMain={isThereMain !== undefined}
             isOpen={isModal}
             onClose={handleModalStatus}
           />

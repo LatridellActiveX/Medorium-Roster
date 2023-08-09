@@ -36,10 +36,7 @@ const CreateCharacterModal: React.FC<Props> = ({
         name: "main",
         variant: "select",
         selectItems: [
-          {
-            text: "alt",
-            isDisabled: !isThereMain,
-          },
+          "alt",
           {
             text: "main",
             isDisabled: isThereMain,
