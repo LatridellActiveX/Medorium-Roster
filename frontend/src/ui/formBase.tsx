@@ -7,7 +7,6 @@ import type { ResponseZodError, ResponseErrorMessage } from "api/types";
 import cn from "classnames";
 import Select, { OptionType } from "./select";
 import axios from "../api/axios";
-import concatenateApiUrl from "../helpers/concatenateApiUrl";
 
 export type FormInputType =
   | {
@@ -84,7 +83,7 @@ const FormBase: React.FC<Props> = ({
 
         const response = await toast.promise(
           axios({
-            url: concatenateApiUrl(apiUrl),
+            url: apiUrl,
             method: apiMethod,
             data: formattedValues,
           }),
