@@ -1,6 +1,6 @@
 import cn from "classnames";
 import Role from "./role";
-import { ResponseCharacter } from "../../../../../api/types";
+import { ResponseCharacter } from "api/types";
 import TrashIcon from "../../../icons/trash";
 import Tooltip from "../../tooltip";
 

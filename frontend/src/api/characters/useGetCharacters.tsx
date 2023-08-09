@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "../axios";
-import { ResponseCharacters } from "../../../../api/types";
+import { ResponseCharacters } from "api/types";
 
 function useGetCharacters() {
     const url = '/api/characters';
