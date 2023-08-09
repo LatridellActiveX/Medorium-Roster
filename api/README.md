@@ -110,6 +110,29 @@ Responds with status `200` if authorized, otherwise responds with status `401`
 }
 ```
 
+## `GET /auth/accessCode`
+
+Returns a one time use code that can be used for registration.
+Requires being logged in as an admin.
+
+### Example responses
+
+#### Success
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTE2MDcyNjUsImV4cCI6MTY5MTYwOTA2NX0.f913ovw2kvORgs50R8w2KWFdN96XW6pQeU29U-P-Bq8"
+}
+```
+
+#### Error
+
+```json
+{
+  "error": "Not Authorized"
+}
+```
+
 # Roster
 
 ## `GET /api/roster`
