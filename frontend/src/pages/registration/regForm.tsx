@@ -38,12 +38,12 @@ const RegForm: React.FC = () => {
         navigate('/');
     };
 
-    if (accessCode.length < 100 || accessCode.length > 200) {
-        // TODO: nicely handle the error
-        return <>
-            <h1>Invalid access code</h1>
-        </>
-    }
+    // if (accessCode.length < 100 || accessCode.length > 200) {
+    //     // TODO: nicely handle the error
+    //     return <>
+    //         <h1>Invalid access code</h1>
+    //     </>
+    // }
 
     return <FormBase
         className='max-w-xs shadow-2xl'

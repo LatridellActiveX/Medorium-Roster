@@ -18,7 +18,7 @@
 
 <br>
 
-## `POST /auth/register?accessCode=`
+## `POST /auth/register?accessCode=${accessCode}`
 
 Registers user if name is not in use
 (and the accessCode is valid)
@@ -36,7 +36,7 @@ Note: accessCode is not implemented yet
 
 |   Field    | Required |  Type  | minLen | maxLen |
 | :--------: | :------: | :----: | :----: | :----: |
-| accessCode |    No    | string |   ?    |   ?    |
+| accessCode |   Yes    | string |  100   |  200   |
 
 ### Example responses
 
