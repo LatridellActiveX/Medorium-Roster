@@ -27,7 +27,7 @@ const Character: React.FC<Props> = ({
   return (
     <li className="relative flex justify-between p-2 flex-col h-24 bg-c-primary border-c-border border-2">
       <div className="flex">
-        <div className="flex w-80 gap-2">
+        <div className="flex w-[316px] gap-2">
           <p className="">{name}</p>
           <p className="text-gray-400">({username})</p>
         </div>
@@ -43,7 +43,7 @@ const Character: React.FC<Props> = ({
 
       {deleteCharacter && (
         <div className="absolute top-2 right-2">
-          <Tooltip text="Click to delete the character">
+          <Tooltip text="Delete the character">
             <button
               className="transition-opacity hover:opacity-70"
               aria-label={`Delete ${name} character`}

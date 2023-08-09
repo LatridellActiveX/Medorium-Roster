@@ -9,9 +9,9 @@ const TrashIcon: React.FC<Props> = ({ className, ...props }) => {
     <svg
       className={cn("", className)}
       xmlns="http://www.w3.org/2000/svg"
-      width="30"
-      height="30"
-      fill="currentColor"
+      width="22"
+      height="22"
+      fill="#F87171"
       viewBox="0 0 16 16"
       {...props}
     >

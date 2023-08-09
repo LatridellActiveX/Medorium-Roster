@@ -5,7 +5,6 @@ import PlusIcon from "../../icons/plus";
 import useGetCharacters from "../../api/characters/useGetCharacters";
 import PageInitialization from "../../ui/pageInitialization";
 import axios from "../../api/axios";
-import concatenateApiUrl from "../../helpers/concatenateApiUrl";
 
 const DashboardPage: React.FC = () => {
   const { data: characters, isFetching, refetch } = useGetCharacters();
@@ -17,7 +16,7 @@ const DashboardPage: React.FC = () => {
   };
 
   const deleteCharacter = (name: string) => {
-    axios.delete(concatenateApiUrl("api/characters"), {
+    axios.delete("api/characters", {
       data: {
         name,
       },

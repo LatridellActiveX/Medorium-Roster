@@ -6,7 +6,7 @@ type Props = {
 
 const PlusIcon: React.FC<Props> = ({ className, ...props }) => {
     return <svg className={cn('', className)} fill="#FFFFFF" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-        width="18px" height="18px" viewBox="0 0 45.402 45.402"
+        width="16px" height="16px" viewBox="0 0 45.402 45.402"
         {...props}
     >
         <g>
