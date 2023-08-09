@@ -26,7 +26,7 @@ async function authorized(req: Request, res: Response, next: NextFunction) {
     return res.status(401).json({ error: "Not Authorized" });
   }
 
-  const { username } = payload;
+  const { username, admin } = payload;
 
   const user = await User.findByUsername(username);
 
@@ -35,7 +35,9 @@ async function authorized(req: Request, res: Response, next: NextFunction) {
     return res.status(401).json({ error: "Not Authorized" });
   }
 
-  res.locals.username = username
+  // TODO: add whole user object to the res.locals (?)
+  res.locals.username = username;
+  res.locals.admin = admin;
   next();
 }
 

@@ -5,6 +5,7 @@ dotenv.config();
 declare module "jsonwebtoken" {
   export interface JwtPayload {
     username: string;
+    admin: boolean;
   }
 }
 
@@ -13,8 +14,8 @@ if (JWT_SECRET === undefined) {
   throw new Error("JWT_SECRET must contain a secret key in .env");
 }
 
-export const createAuthToken = (username: string): string => {
-  const token = jwt.sign({ username }, JWT_SECRET, {
+export const createAuthToken = (username: string, admin: boolean): string => {
+  const token = jwt.sign({ username, admin }, JWT_SECRET, {
     expiresIn: "7d",
   });
   return token;

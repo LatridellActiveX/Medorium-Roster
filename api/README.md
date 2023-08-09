@@ -18,7 +18,7 @@
 
 <br>
 
-## `POST /auth/register?accessCode=`
+## `POST /auth/register?accessCode=${accessCode}`
 
 Registers user if name is not in use
 (and the accessCode is valid)
@@ -36,7 +36,7 @@ Note: accessCode is not implemented yet
 
 |   Field    | Required |  Type  | minLen | maxLen |
 | :--------: | :------: | :----: | :----: | :----: |
-| accessCode |    No    | string |   ?    |   ?    |
+| accessCode |   Yes    | string |  100   |  200   |
 
 ### Example responses
 
@@ -103,6 +103,29 @@ Responds with status `200` if authorized, otherwise responds with status `401`
 ```
 
 #### ResponseErrorMessage
+
+```json
+{
+  "error": "Not Authorized"
+}
+```
+
+## `GET /auth/accessCode`
+
+Returns a one time use code that can be used for registration.
+Requires being logged in as an admin.
+
+### Example responses
+
+#### Success
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTE2MDcyNjUsImV4cCI6MTY5MTYwOTA2NX0.f913ovw2kvORgs50R8w2KWFdN96XW6pQeU29U-P-Bq8"
+}
+```
+
+#### Error
 
 ```json
 {
