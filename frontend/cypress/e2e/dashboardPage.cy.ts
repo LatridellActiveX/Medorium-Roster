@@ -1,12 +1,13 @@
 /// <reference types="cypress" />
-import './../support';
+import "../support/commands";
 
 const newCharacterName = "Admin N";
 
-Cypress.Commands.add("addCharacter", () => {
+Cypress.Commands.add("addCharacter", (isMain = true) => {
   cy.get("button").contains("Add new").click();
 
   cy.get('input[name="name"]').type(newCharacterName);
+  cy.get("select").select(isMain ? "main" : "alt");
   cy.get('button[type="submit"]').click();
 });
 
@@ -19,7 +20,7 @@ Cypress.Commands.add("closeDialog", () => {
 });
 
 describe("Dashboard page", () => {
-  beforeEach(() => {
+  beforeEach('Environment setup', () => {
     cy.login();
     cy.visit("http://localhost:5173/dashboard");
   });
@@ -33,8 +34,8 @@ describe("Dashboard page", () => {
   });
 
   it("Try to create two identical characters", () => {
-    cy.addCharacter();
-    cy.addCharacter();
+    cy.addCharacter(false);
+    cy.addCharacter(false);
 
     cy.get("form > small").should("have.class", "text-red-600");
 
@@ -43,16 +44,7 @@ describe("Dashboard page", () => {
     cy.deleteCharacter();
   });
 
-  it("Confirm that the alt option is disabled when there is no characters", () => {
-    //characters list must be empty
-
-    cy.get("button").contains("Add new").click();
-    cy.get('input[name="name"]').type(newCharacterName);
-
-    cy.get("select").get('[value="alt"]').should("be.disabled");
-  });
-
-  it("Confirm that the main option is disabled when there is 1 character or more", () => {
+  it("Confirm that the main option is disabled when there is a main character", () => {
     cy.addCharacter();
 
     cy.get("button").contains("Add new").click();

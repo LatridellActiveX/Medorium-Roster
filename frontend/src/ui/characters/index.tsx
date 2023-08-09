@@ -9,13 +9,20 @@ type Props = {
   deleteCharacter?: (name: string) => void;
 };
 
-const Characters: React.FC<Props> = ({ data = [], isLoading, className, deleteCharacter }) => {
-  let Characters = data.map((c) => <Character {...c} deleteCharacter={deleteCharacter} key={c.name} />);
+const Characters: React.FC<Props> = ({
+  data = [],
+  isLoading,
+  className,
+  deleteCharacter,
+}) => {
+  let Characters = data.map((c) => (
+    <Character {...c} deleteCharacter={deleteCharacter} key={c.name} />
+  ));
 
   return (
     <ul className={cn("flex flex-col gap-1", className)}>
-      {isLoading && <p>Loading...</p>}
-      {!isLoading && data.length === 0 && (
+      {(isLoading && data.length === 0) && <p>Loading...</p>}
+      {(!isLoading && data.length === 0) && (
         <h6 className="text18-20 text-center">
           There are currently no characters at your disposal.
         </h6>

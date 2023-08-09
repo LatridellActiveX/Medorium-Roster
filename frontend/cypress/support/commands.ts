@@ -1,5 +1,4 @@
 /// <reference types="cypress" />
-import './../support';
 
 // ***********************************************
 // This example commands.ts shows you how to
@@ -27,23 +26,32 @@ import './../support';
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+
+export {}
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      login(): Chainable<() => void>;
+      addCharacter(isMain?: boolean): Chainable<() => void>;
+      deleteCharacter(): Chainable<() => void>;
+      closeDialog(): Chainable<() => void>;
+    }
+  }
+}
 
 Cypress.Commands.add('login', () => {
-  cy.visit("http://localhost:5173/login");
-
-  cy.get('a[href*="/login"]').click();
+  cy.session('loginId', () => {
+    cy.visit("http://localhost:5173/login");
   
-  cy.get('input[name="username"]').type("useruser11");
-  cy.get('input[name="password"]').type("user1user1");
-  cy.get('button[type="submit"]').click();
+    cy.get('a[href*="/login"]').click();
+    
+    cy.get('input[name="username"]').type("useruser11");
+    cy.get('input[name="password"]').type("user1user1");
+    cy.get('button[type="submit"]').click();
+
+  }, {
+    validate: () => {
+      cy.getCookie('authToken2').should('exist');
+    }
+  });
 })
