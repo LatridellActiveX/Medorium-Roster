@@ -4,7 +4,10 @@ import { createAuthToken } from "../utils/authToken.js";
 import { z } from "zod";
 import { splitInHalf } from "../utils/index.js";
 import { ResponseErrorMessage, ResponseZodError } from "../../types.js";
-import { createRegistrationToken } from "../utils/registrationToken.js";
+import {
+  createRegistrationToken,
+  verifyRegistrationToken,
+} from "../utils/registrationToken.js";
 
 const usernameAndPasswordSchema = z.object({
   username: z.string().min(6).max(30).trim(),
@@ -16,7 +19,7 @@ const accessCodeSchema = z.object({
 
 export async function register(req: Request, res: Response) {
   const bodyValidation = usernameAndPasswordSchema.safeParse(req.body);
-  const queryValidation = accessCodeSchema.safeParse(req.query.accessCode);
+  const queryValidation = accessCodeSchema.safeParse(req.query);
 
   // TODO: find cleaner way to do validate two schemas, or combine them into one
   if (!bodyValidation.success || !queryValidation.success) {
@@ -30,6 +33,12 @@ export async function register(req: Request, res: Response) {
 
   const { username, password } = bodyValidation.data;
   const { accessCode } = queryValidation.data;
+
+  const codeIsValid = verifyRegistrationToken(accessCode);
+
+  if (!codeIsValid) {
+    return res.status(401).json({ error: "Invalid access code" });
+  }
 
   const result = await User.register(username, password);
 
