@@ -8,7 +8,7 @@ import axios from "../../api/axios";
 import { ResponseCharacters } from "api/types";
 
 const DashboardPage: React.FC = () => {
-  const { data, isFetching, refetch, isFetched } = useGetCharacters();
+  const { data, isFetching, refetch } = useGetCharacters();
   const [isModal, setIsModal] = useState(false);
   const [characters, setCharacters] = useState<ResponseCharacters>([]);
 
