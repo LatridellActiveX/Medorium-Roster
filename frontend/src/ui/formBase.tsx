@@ -3,10 +3,7 @@ import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { ReactNode, useState } from "react";
 import Input from "./input";
-import type {
-  ResponseZodError,
-  ResponseErrorMessage,
-} from "api/types"; 
+import type { ResponseZodError, ResponseErrorMessage } from "api/types";
 import cn from "classnames";
 import Select, { OptionType } from "./select";
 import axios from "../api/axios";
@@ -40,13 +37,29 @@ type Props = {
   children?: ReactNode;
   className?: string;
   isH1Heading?: boolean;
+  toastMessages?: {
+    pending?: string | null;
+    success?: string | null;
+    error?: string | null;
+  };
+};
+
+const getToastMessage = (
+  defaultMessage: string,
+  customMessage?: string | null
+) => {
+  if (customMessage === undefined) {
+    return defaultMessage;
+  }
+
+  return customMessage || undefined;
 };
 
 const FormBase: React.FC<Props> = ({
   initialValues,
   validationSchema,
   apiUrl,
-  apiMethod = 'post',
+  apiMethod = "post",
   onSubmitSuccess,
   heading,
   inputs,
@@ -55,6 +68,7 @@ const FormBase: React.FC<Props> = ({
   children,
   className,
   isH1Heading,
+  toastMessages,
 }) => {
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -75,9 +89,12 @@ const FormBase: React.FC<Props> = ({
             data: formattedValues,
           }),
           {
-            pending: "Loading...",
-            success: "Success!",
-            error: "Something went wrong.",
+            pending: getToastMessage("Loading...", toastMessages?.pending),
+            success: getToastMessage('Success!"', toastMessages?.success),
+            error: getToastMessage(
+              "Something went wrong.",
+              toastMessages?.error
+            ),
           }
         );
 
