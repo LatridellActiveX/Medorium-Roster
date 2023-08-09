@@ -43,6 +43,9 @@ const LoginForm: React.FC = () => {
         onSubmitSuccess={onSubmitSuccess}
         heading='Login'
         inputs={inputs}
+        toastMessages={{
+            success: null
+        }}
         isH1Heading
     >
         <small>
