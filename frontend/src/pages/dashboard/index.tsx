@@ -8,12 +8,12 @@ import axios from "../../api/axios";
 import { ResponseCharacters } from "api/types";
 
 const DashboardPage: React.FC = () => {
-  const { data, isFetching, refetch } = useGetCharacters();
+  const { data, isFetching, refetch, isFetched } = useGetCharacters();
   const [isModal, setIsModal] = useState(false);
   const [characters, setCharacters] = useState<ResponseCharacters>([]);
 
   useEffect(() => {
-    if (!data || data.length === characters.length) return;
+    if (!data) return;
     if (data.length > characters.length && characters.length === 0) {
       setCharacters(data);
       return;

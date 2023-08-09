@@ -27,7 +27,7 @@ const CreateCharacterModal: React.FC<Props> = ({
   const initialValues = useMemo(() => {
     return {
       name: "",
-      main: isThereMain ? "alt" : "main",
+      main: "alt",
     };
   }, [isThereMain]);
   const inputs: FormInputType[] = useMemo(() => {
