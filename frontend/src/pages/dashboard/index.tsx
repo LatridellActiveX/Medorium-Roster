@@ -1,18 +1,46 @@
 import Characters from "../../ui/characters";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateCharacterModal from "./createCharacterModal";
 import PlusIcon from "../../icons/plus";
 import useGetCharacters from "../../api/characters/useGetCharacters";
 import PageInitialization from "../../ui/pageInitialization";
 import axios from "../../api/axios";
 import concatenateApiUrl from "../../helpers/concatenateApiUrl";
+import { ResponseCharacters } from "api/types";
 
 const DashboardPage: React.FC = () => {
-  const { data: characters, isFetching, refetch } = useGetCharacters();
+  const { data, isFetching, refetch } = useGetCharacters();
   const [isModal, setIsModal] = useState(false);
+  const [characters, setCharacters] = useState<ResponseCharacters>([]);
+
+  useEffect(() => {
+    if (!data || data.length === characters.length) return;
+    if (data.length > characters.length && characters.length === 0) {
+      setCharacters(data);
+      return;
+    }
+
+    let operation: "add" | "delete" =
+      data.length > characters.length ? "add" : "delete";
+
+    if (operation === "add") {
+      let newCharacter = data.filter(
+        (dataItem) =>
+          !characters.some((character) => dataItem.name === character.name)
+      )[0];
+
+      setCharacters((prev) => [...prev, newCharacter]);
+    } else {
+      let deletedCharacter = characters.filter(
+        (dataItem) =>
+          !data.some((character) => dataItem.name === character.name)
+      )[0];
+      
+      setCharacters((prev) => prev.filter((i) => i.name !== deletedCharacter.name));
+    }
+  }, [data]);
 
   const handleModalStatus = () => {
-    refetch();
     setIsModal((prev) => !prev);
   };
 
@@ -25,17 +53,12 @@ const DashboardPage: React.FC = () => {
     refetch();
   };
 
-  let isThereMain = (characters || []).find(c => c.main);
+  let isThereMain = characters.find((c) => c.main);
 
   return (
     <PageInitialization pathIfUnauth="/login">
       <main className="py-5">
         <section className="max-w-[600px] mx-auto">
-          <CreateCharacterModal
-            isThereMain={isThereMain !== undefined}
-            isOpen={isModal}
-            onClose={handleModalStatus}
-          />
           <div className="flex items-center justify-between gap-x-2">
             <h1 className="text20-36">Your characters</h1>
             <button
@@ -51,6 +74,13 @@ const DashboardPage: React.FC = () => {
             data={characters || []}
             isLoading={isFetching}
             deleteCharacter={deleteCharacter}
+          />
+
+          <CreateCharacterModal
+            isThereMain={isThereMain !== undefined}
+            isOpen={isModal}
+            onClose={handleModalStatus}
+            refetch={refetch}
           />
         </section>
       </main>

@@ -5,8 +5,9 @@ import * as Yup from "yup";
 
 type Props = {
   isOpen: boolean;
-  onClose: () => void;
   isThereMain: boolean;
+  onClose: () => void;
+  refetch: () => void;
 };
 
 const validationSchema = Yup.object({
@@ -19,13 +20,14 @@ const validationSchema = Yup.object({
 
 const CreateCharacterModal: React.FC<Props> = ({
   isOpen,
-  onClose,
   isThereMain,
+  onClose,
+  refetch,
 }) => {
   const initialValues = useMemo(() => {
     return {
       name: "",
-      main: isThereMain ? "alt" : 'main',
+      main: isThereMain ? "alt" : "main",
     };
   }, [isThereMain]);
   const inputs: FormInputType[] = useMemo(() => {
@@ -51,6 +53,7 @@ const CreateCharacterModal: React.FC<Props> = ({
   }
 
   const onSubmitSuccess = async (values: { [key: string]: string }) => {
+    refetch();
     onClose();
   };
   const formatRequestData = (data: { [key: string]: string }) => {
