@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import './../support/commands'
+import "../support/commands";
 
 const newCharacterName = "Admin N";
 
@@ -7,7 +7,7 @@ Cypress.Commands.add("addCharacter", (isMain = true) => {
   cy.get("button").contains("Add new").click();
 
   cy.get('input[name="name"]').type(newCharacterName);
-  cy.get('select').select(isMain ? 'main' : 'alt');
+  cy.get("select").select(isMain ? "main" : "alt");
   cy.get('button[type="submit"]').click();
 });
 
@@ -20,7 +20,7 @@ Cypress.Commands.add("closeDialog", () => {
 });
 
 describe("Dashboard page", () => {
-  beforeEach(() => {
+  beforeEach('Environment setup', () => {
     cy.login();
     cy.visit("http://localhost:5173/dashboard");
   });

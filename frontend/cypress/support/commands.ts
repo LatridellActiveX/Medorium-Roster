@@ -40,11 +40,18 @@ declare global {
 }
 
 Cypress.Commands.add('login', () => {
-  cy.visit("http://localhost:5173/login");
-
-  cy.get('a[href*="/login"]').click();
+  cy.session('loginId', () => {
+    cy.visit("http://localhost:5173/login");
   
-  cy.get('input[name="username"]').type("useruser11");
-  cy.get('input[name="password"]').type("user1user1");
-  cy.get('button[type="submit"]').click();
+    cy.get('a[href*="/login"]').click();
+    
+    cy.get('input[name="username"]').type("useruser11");
+    cy.get('input[name="password"]').type("user1user1");
+    cy.get('button[type="submit"]').click();
+
+  }, {
+    validate: () => {
+      cy.getCookie('authToken2').should('exist');
+    }
+  });
 })
