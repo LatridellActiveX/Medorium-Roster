@@ -4,6 +4,7 @@ import { createAuthToken } from "../utils/authToken.js";
 import { z } from "zod";
 import { splitInHalf } from "../utils/index.js";
 import { ResponseErrorMessage, ResponseZodError } from "../../types.js";
+import { createRegistrationToken } from "../utils/registrationToken.js";
 
 const usernameAndPasswordSchema = z.object({
   username: z.string().min(6).max(30).trim(),
@@ -81,13 +82,7 @@ export async function isAuthorized(req: Request, res: Response) {
   return res.status(200).json({ authorized: true, username });
 }
 
-// GET /auth/accessCode
-
-// 200 { token: "blahblahblah" }
-// 400 { error: "Not an admin" }
-
-// http://localhost:5173/register?accessCode={token}
-
 export async function generateAccessCode(req: Request, res: Response) {
-  // 
+  const token = createRegistrationToken();
+  res.status(200).json({ token });
 }

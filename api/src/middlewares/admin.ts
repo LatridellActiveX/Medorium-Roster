@@ -19,5 +19,3 @@ function isAdmin(req: Request, res: Response, next: NextFunction) {
 }
 
 export default isAdmin;
-
-// BRB
