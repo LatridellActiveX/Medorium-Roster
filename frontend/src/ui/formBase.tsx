@@ -90,7 +90,7 @@ const FormBase: React.FC<Props> = ({
           }),
           {
             pending: getToastMessage("Loading...", toastMessages?.pending),
-            success: getToastMessage('Success!"', toastMessages?.success),
+            success: getToastMessage('Success!', toastMessages?.success),
             error: getToastMessage(
               "Something went wrong.",
               toastMessages?.error
