@@ -17,10 +17,10 @@ type Props = {
 const Paragraphs: React.FC<Props> = ({ data, className, itemClassNames }) => {
     const location = useLocation();
 
-    let Paragraphs = data.map((p, index) => <Paragraph
+    let Paragraphs = data.map((p) => <Paragraph
         isActive={formatHash(location.hash) === (p.id || p.heading.replaceAll(' ', '-'))}
         {...itemClassNames} {...p}
-        key={index}
+        key={p.heading}
     />);
 
     return <div className={cn('flex flex-col', className)}>

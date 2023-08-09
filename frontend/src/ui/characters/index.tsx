@@ -1,4 +1,4 @@
-import { ResponseCharacters } from "./../../../../api/types";
+import { ResponseCharacters } from "api/types";
 import Character from "./character";
 import cn from "classnames";
 
@@ -10,7 +10,7 @@ type Props = {
 };
 
 const Characters: React.FC<Props> = ({ data = [], isLoading, className, deleteCharacter }) => {
-  let Characters = data.map((c, index) => <Character {...c} deleteCharacter={deleteCharacter} key={index} />);
+  let Characters = data.map((c) => <Character {...c} deleteCharacter={deleteCharacter} key={c.name} />);
 
   return (
     <ul className={cn("flex flex-col gap-1", className)}>
