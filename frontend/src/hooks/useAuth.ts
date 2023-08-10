@@ -1,21 +1,25 @@
-import axios from "axios";
 import { useEffect } from "react";
-import { authorizeUser } from "../redux/reducers/authReducer";
-import { useDispatch } from "react-redux";
+import axios from "../api/axios";
+import useCurrentUser from "./useCurrentUser";
 
 const useAuth = () => {
-  const dispatch = useDispatch();
+  const { setCurrentUser } = useCurrentUser();
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/auth", { withCredentials: true })
+      .get("auth")
       .then((resp) => {
         if (resp.status === 200) {
-          dispatch(authorizeUser(resp.data.username));
+          setCurrentUser({
+            username: resp.data.username,
+            isAdmin: resp.data?.admin
+          })
         }
       })
       .catch((_) => {
-        dispatch(authorizeUser(false));
+        setCurrentUser({
+          username: false,
+        });
       });
   }, []);
 };

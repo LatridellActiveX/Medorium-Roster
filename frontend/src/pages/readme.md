@@ -1,4 +1,5 @@
-we can store pages and their components here like so:
+The ui folder is for components that will be used across multiple files (e.g. input, formBase, characters);
+We can store pages and their components here like so:
 
 src
   pages

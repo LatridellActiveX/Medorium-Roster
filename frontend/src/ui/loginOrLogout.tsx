@@ -1,16 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
-import { authorizeUser } from "../redux/reducers/authReducer";
-import { selectUsername } from "../redux/selectors";
 import { Link } from "react-router-dom";
 import cn from "classnames";
 import deleteCookie from "../helpers/deleteCookie";
+import useCurrentUser from "../hooks/useCurrentUser";
 
 const LoginOrLogout: React.FC = () => {
-  const isAuth = useSelector(selectUsername);
-  const dispatch = useDispatch();
+  let { currentUser, setCurrentUser } = useCurrentUser();
+  const isAuth = !!currentUser.username;
   function logout() {
     deleteCookie("authToken2");
-    dispatch(authorizeUser(false));
+    setCurrentUser({
+      username: false
+    });
   }
 
   return (
