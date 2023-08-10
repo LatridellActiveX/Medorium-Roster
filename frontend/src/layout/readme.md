@@ -1,1 +1,1 @@
-the layout folder is for header and footer 
+The layout folder is for UI components that we will only use once (e.g. footer, header, contexts)

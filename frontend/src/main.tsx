@@ -1,18 +1,17 @@
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-import { Provider } from 'react-redux';
-import { setupStore } from './redux/store';
-import { BrowserRouter } from 'react-router-dom';
-import { QueryClientProvider } from '@tanstack/react-query';
-import queryClient from './api/queryClient';
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import { BrowserRouter } from "react-router-dom";
+import { QueryClientProvider } from "@tanstack/react-query";
+import queryClient from "./api/queryClient";
+import Contexts from "./layout/contexts/index.tsx";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <Contexts>
     <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-            <Provider store={setupStore()}>
-                <App />
-            </Provider>
-        </BrowserRouter>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </QueryClientProvider>
+  </Contexts>
 );
