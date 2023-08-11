@@ -98,7 +98,8 @@ Responds with status `200` if authorized, otherwise responds with status `401`
 ```json
 {
   "authorized": true,
-  "username": "testuser"
+  "username": "testuser",
+  "isAdmin": false
 }
 ```
 

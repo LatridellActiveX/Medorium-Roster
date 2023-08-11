@@ -1,9 +1,13 @@
 import type { Request, Response } from "express";
+import type {
+  ResponseErrorMessage,
+  ResponseIsAuthorized,
+  ResponseZodError,
+} from "../../types.js";
 import User from "../models/user.js";
 import { createAuthToken } from "../utils/authToken.js";
 import { z } from "zod";
 import { splitInHalf } from "../utils/index.js";
-import { ResponseErrorMessage, ResponseZodError } from "../../types.js";
 import {
   createRegistrationToken,
   verifyRegistrationToken,
@@ -76,7 +80,7 @@ export async function login(req: Request, res: Response) {
 
   const { user } = result.val;
 
-  const authToken = createAuthToken(username, user.admin);
+  const authToken = createAuthToken(username, user.isAdmin);
 
   // Split token into two cookies, second one is httpOnly: false to allow
   // client side logout, without exposing the first half to javascript,
@@ -102,7 +106,11 @@ export async function login(req: Request, res: Response) {
 
 export async function isAuthorized(req: Request, res: Response) {
   const { username } = res.locals;
-  return res.status(200).json({ authorized: true, username });
+  return res.status(200).json({
+    authorized: true,
+    username,
+    isAdmin: true,
+  } as ResponseIsAuthorized);
 }
 
 export async function generateAccessCode(req: Request, res: Response) {

@@ -5,7 +5,6 @@ import {
   isAuthorized,
   generateAccessCode,
 } from "../controllers/auth.js";
-// TODO: put middlewares together in index.js
 import authorized from "../middlewares/authorized.js";
 import admin from "../middlewares/admin.js";
 
