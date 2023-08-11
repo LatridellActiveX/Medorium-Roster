@@ -43,8 +43,6 @@ Cypress.Commands.add('login', () => {
   cy.session('loginId', () => {
     cy.visit("http://localhost:5173/login");
   
-    cy.get('a[href*="/login"]').click();
-    
     cy.get('input[name="username"]').type("username");
     cy.get('input[name="password"]').type("password");
     cy.get('button[type="submit"]').click();
