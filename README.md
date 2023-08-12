@@ -26,7 +26,6 @@ Make sure the tests pass and make sure the feature works by testing manually.
 
 - TypeScript
 - React
-- Redux toolkit
 - TanStack Query
 - Tailwind CSS
 - Vitest
