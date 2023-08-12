@@ -6,7 +6,7 @@ import type { MongoError } from "mongodb";
 type UserType = {
   name: string;
   hash: string;
-  admin: boolean;
+  isAdmin: boolean;
   timezone?: string;
   enlistedTimestamp?: number;
 };
@@ -14,7 +14,7 @@ type UserType = {
 export const UserSchema = new Schema<UserType>({
   name: { type: String, required: true, unique: true },
   hash: { type: String, required: true },
-  admin: { type: Boolean, required: true, default: false },
+  isAdmin: { type: Boolean, required: true, default: false },
   timezone: { type: String, required: false },
   enlistedTimestamp: { type: Number, required: false },
 });
@@ -41,7 +41,7 @@ class User {
       const doc = await UserModel.create({
         name: name,
         hash,
-        admin: options?.admin,
+        isAdmin: options?.admin,
       });
       return Ok({ user: doc.toObject() });
     } catch (_e) {
