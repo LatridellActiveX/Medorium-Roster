@@ -22,6 +22,7 @@ Cypress.Commands.add("closeDialog", () => {
 describe("Dashboard page", () => {
   beforeEach('Environment setup', () => {
     cy.login();
+
     cy.visit("http://localhost:5173/dashboard");
   });
 
