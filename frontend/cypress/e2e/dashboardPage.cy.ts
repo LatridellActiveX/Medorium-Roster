@@ -23,8 +23,7 @@ describe("Dashboard page", () => {
   beforeEach('Environment setup', () => {
     cy.login();
 
-    cy.visit("http://localhost:5173/dashboard"); //cy.visit(dashboard) does not work without cy.get(a/dashboard).click() 0_0
-    cy.get('a[href*="/dashboard"]').click();
+    cy.visit("http://localhost:5173/dashboard");
   });
 
   it("Add a new character", () => {

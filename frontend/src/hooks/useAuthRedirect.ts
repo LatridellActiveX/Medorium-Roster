@@ -5,7 +5,7 @@ import useCurrentUser from "./useCurrentUser";
 const useAuthRedirect = (pathIfAuth: string | null, pathIfUnauth?: string) => {
   const navigate = useNavigate();
   let { currentUser } = useCurrentUser();
-  let isAuthorized = !!currentUser.username;
+  let isAuthorized = currentUser.username;
 
   useEffect(() => {
     if (isAuthorized === null) return;

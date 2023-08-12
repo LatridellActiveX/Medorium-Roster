@@ -1,12 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
 import LoginForm from "../pages/login/loginForm";
-import { vi, expect, it, describe, beforeEach } from "vitest";
+import { expect, it, describe, beforeEach } from "vitest";
 import { BrowserRouter } from "react-router-dom";
 
 describe("Login form", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
 
     render(
       <BrowserRouter>
@@ -30,6 +29,7 @@ describe("Login form", () => {
 
     expect(submitBtn.getAttribute("disabled")).toBe("");
   });
+
   it("does not provide any credentials", () => {
     let submitBtn = screen.getByRole("button", {
       name: "Submit your login credentials",
@@ -37,6 +37,7 @@ describe("Login form", () => {
 
     expect(submitBtn.getAttribute("disabled")).toBe(null);
   });
+
   it("types too short username and password", async () => {
     const tooShortUsername = "aa";
     const tooShortPassowrd = "11";
