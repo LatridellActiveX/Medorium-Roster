@@ -27,16 +27,18 @@ const LoginOrLogout: React.FC<Props> = ({ handleOpenStatus }) => {
   };
 
   return (
-    <Link
-      to={isAuth ? "/" : "/login"}
-      onClick={handleClick}
-      className={cn(
-        "btn bg- rounded-md text-black px-3 text-lg h-fit py-1.5 hover:text-black",
-        isAuth ? "bg-red-400" : "bg-blue-400"
-      )}
-    >
-      {isAuth ? "Log out" : "Log in"}
-    </Link>
+    <>
+      <Link
+        to={isAuth ? "/" : "/login"}
+        onClick={handleClick}
+        className={cn(
+          "rounded-md text-black font-bold px-3 text-lg h-fit py-0.5 hover:text-black",
+          isAuth ? "bg-red-400" : "bg-blue-400"
+        )}
+      >
+        {isAuth ? "Log out" : "Log in"}
+      </Link>
+    </>
   );
 };
 

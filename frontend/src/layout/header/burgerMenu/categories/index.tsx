@@ -4,16 +4,24 @@ import useCurrentUser from "../../../../hooks/useCurrentUser";
 
 const categories: BurgerMenuCategoryType[] = [
   {
-    category: "unauth",
-    pages: ["FAQ", "privacy policy"],
+    group: "unauth",
+    pages: [
+      { name: "Home", route: "/" },
+      { name: "Faq", route: "/faq" },
+      { name: "Privacy Policy", route: "/privacyPolicy" }
+    ]
   },
   {
-    category: "auth",
-    pages: ["roster", "dashboard"],
+    group: "auth",
+    pages: [
+      { name: "Roster", route: "/roster" },
+    ]
   },
   {
-    category: "admin",
-    pages: ["admin panel"],
+    group: "admin",
+    pages: [
+      { name: "Admin Panel", route: "/adminPanel" }
+    ]
   },
 ];
 
@@ -35,8 +43,8 @@ const Categories: React.FC<Props> = ({
   let Categories = useMemo(() => {
     let availableCategories = categories.filter((c) => {
       if (
-        (c.category === "auth" && typeof currentUser.username !== "string") ||
-        (c.category === "admin" && currentUser.isAdmin !== true)
+        (c.group === "auth" && typeof currentUser.username !== "string") ||
+        (c.group === "admin" && currentUser.isAdmin !== true)
       ) {
         return false;
       }
@@ -45,7 +53,7 @@ const Categories: React.FC<Props> = ({
     });
 
     return availableCategories.map((p) => (
-      <Category {...p} onItemClick={handleOpenStatus} key={p.category} />
+      <Category {...p} onItemClick={handleOpenStatus} key={p.group} />
     ));
   }, [currentUser]);
 
@@ -71,7 +79,7 @@ const Categories: React.FC<Props> = ({
     };
   }, [burgerRef, burgerIconRef, isOpen]);
 
-  return <div className="grid gap-y-2.5">{Categories}</div>;
+  return <div className="grid gap-y-2.5 text-lg">{Categories}</div>;
 };
 
 export default Categories;
