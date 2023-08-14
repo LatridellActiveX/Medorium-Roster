@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { ReactNode, useState } from "react";
@@ -24,7 +24,7 @@ type Props = {
   };
   validationSchema: any;
   apiUrl: string;
-  onSubmitSuccess: (values: Props["initialValues"]) => void;
+  onSubmitSuccess: (values: Props["initialValues"], response: AxiosResponse<any, any>) => void;
   heading: string;
   inputs: FormInputType[];
   formatRequestData?: (data: Props["initialValues"]) => {
@@ -89,7 +89,7 @@ const FormBase: React.FC<Props> = ({
           }),
           {
             pending: getToastMessage("Loading...", toastMessages?.pending),
-            success: getToastMessage('Success!', toastMessages?.success),
+            success: getToastMessage("Success!", toastMessages?.success),
             error: getToastMessage(
               "Something went wrong.",
               toastMessages?.error
@@ -98,7 +98,7 @@ const FormBase: React.FC<Props> = ({
         );
 
         if (response.status === 200) {
-          onSubmitSuccess(values);
+          onSubmitSuccess(values, response);
           resetForm();
         }
       } catch (e) {

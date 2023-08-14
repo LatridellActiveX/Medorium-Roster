@@ -2,6 +2,7 @@ import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import FormBase from "../../ui/formBase";
 import useCurrentUser from "../../hooks/useCurrentUser";
+import { AxiosResponse } from "axios";
 
 const initialValues = {
   username: "",
@@ -29,9 +30,10 @@ const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   let { setCurrentUser } = useCurrentUser();
 
-  const onSubmitSuccess = (values: { [key: string]: string }) => {
+  const onSubmitSuccess = (values: { [key: string]: string }, response: AxiosResponse) => {
     setCurrentUser({
       username: values?.username,
+      isAdmin: response.data?.isAdmin,
     });
     navigate("/");
   };
