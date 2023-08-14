@@ -1,6 +1,6 @@
+import Footer from "../../layout/footer";
 import Paragraphs from "../../ui/paragraphs";
 import { ParagraphType } from "../../ui/paragraphs/paragraph";
-import moment from 'moment';
 
 const data: ParagraphType[] = [
     {
@@ -79,16 +79,12 @@ const data: ParagraphType[] = [
     },
 ];
 
-const lastEditTime = '2023-07-24T16:39:55.000Z'; //from the database
-
 const PrivacyPolicyPage: React.FC = () => {
-    let editTime = moment(lastEditTime).format('MMMM Do YYYY, hh:mm:ss a');
-
-    return <main>
-        <section className="max-w-4xl">
+    return <main className="px-4 flex flex-col justify-center items-center">
+        <section className="max-w-2xl">
             <div className="flex flex-col items-center">
-                <h1 className="text30-48 font-bold mt-5 sm:mt-10">Privacy policy</h1>
-                <p className="text16-18 text-center mt-2.5 sm:mt-5">This Privacy Policy describes how your personal information is collected, used, and shared when you visit the Medor Roster website</p>
+                <h1 className="text-2xl sm:text-3xl font-bold mt-5 sm:mt-10">Privacy Policy</h1>
+                <p className="text16-18 text-center mt-2.5 sm:mt-5 max-w-xl">This Privacy Policy describes how your personal information is collected, used, and shared when you visit the Medor Roster website</p>
             </div>
             <Paragraphs
                 className="gap-y-5 mt-5 sm:gap-y-8 sm:mt-10"
@@ -100,11 +96,8 @@ const PrivacyPolicyPage: React.FC = () => {
                 }}
                 data={data}
             />
-            <h6 className="mr-auto mt-5">
-                <span className="font-bold">Last edit time: </span>
-                <time>{editTime}</time>
-            </h6>
         </section>
+        <Footer />
     </main>
 };
 
