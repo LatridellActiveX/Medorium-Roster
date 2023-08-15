@@ -19,7 +19,7 @@ const BurgerMenu: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        "absolute top-12 right-0 z-20 border border-c-border min-w-[290px] bg-c-primary p-3",
+        "absolute top-12 right-0 z-30 border border-c-border min-w-[290px] bg-c-primary p-3",
         !isOpen && "hidden"
       )}
       ref={burgerRef}

@@ -23,6 +23,7 @@
   }
 
   main {
+    @apply relative
     /* 
       each main component can have different layout, avoid adding
       global positioning, style them individually instead

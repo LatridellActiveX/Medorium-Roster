@@ -1,5 +1,4 @@
 import { Link, LinkProps } from "react-router-dom";
-import textToURL from "../../../../../helpers/textToURL";
 import { PageRoute } from ".";
 
 type Props = {
@@ -10,7 +9,7 @@ const Page: React.FC<Props> = ({ page, ...props }) => {
   return (
     <Link
       className="w-full first-letter:capitalize"
-      to={`${textToURL(page.route)}`}
+      to={page.route}
       {...props}
     >
       {page.name}

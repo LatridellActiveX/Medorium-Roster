@@ -14,7 +14,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="w-full fixed text-2xl px-4">
+    <header className="w-full fixed text-2xl z-20 px-4">
       <div className="h-16 sm:w-[32rem] md:w-[42rem] mx-auto flex justify-between items-center">
         <div className="">
           <div className="flex items-center cursor-pointer">

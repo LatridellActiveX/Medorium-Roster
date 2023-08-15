@@ -17,15 +17,17 @@ const UserInfo: React.FC<Props> = ({ handleOpenStatus }) => {
           {isAuth ? (
             <>
               <span>Signed in as </span>
-              <span className="font-bold">{currentUser.username}</span>
+              <span className="font-bold block truncate max-w-[165px]">{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}</span>
             </>
           ) : (
             "You are not signed in"
           )}
         </p>
-        {isAuth ? null :
-          <Link to="registration" className="text-sm font-bold">Don't have an account?</Link>
-        }
+        {isAuth ? null : (
+          <Link to="registration" className="text-sm font-bold">
+            Don't have an account?
+          </Link>
+        )}
       </div>
       <LoginOrLogout handleOpenStatus={handleOpenStatus} />
     </div>
