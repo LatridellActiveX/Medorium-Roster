@@ -17,7 +17,7 @@ const UserInfo: React.FC<Props> = ({ handleOpenStatus }) => {
           {isAuth ? (
             <>
               <span>Signed in as </span>
-              <span className="font-bold block truncate max-w-[165px]">{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}{currentUser.username}</span>
+              <span className="font-bold block truncate max-w-[165px]">{currentUser.username}</span>
             </>
           ) : (
             "You are not signed in"
