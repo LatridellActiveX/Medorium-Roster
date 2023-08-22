@@ -24,7 +24,7 @@ const UserInfo: React.FC<Props> = ({ handleOpenStatus }) => {
           )}
         </p>
         {isAuth ? null : (
-          <Link to="registration" className="text-sm font-bold">
+          <Link to="/faq#registrationCode" className="text-sm font-bold" onClick={handleOpenStatus}>
             Don't have an account?
           </Link>
         )}
