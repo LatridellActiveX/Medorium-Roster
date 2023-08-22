@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import useCurrentUser from "../../../../hooks/useCurrentUser";
-import LoginOrLogout from "./loginOrLogout";
+import LoginOrLogout from "../../loginOrLogout";
 
 type Props = {
   handleOpenStatus: () => void;
