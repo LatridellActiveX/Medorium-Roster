@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import BurgerMenu from "./burgerMenu";
-import cn from 'classnames';
+import cn from "classnames";
 import useCurrentUser from "../../hooks/useCurrentUser";
+import LoginOrLogout from "./loginOrLogout";
 
 const Header: React.FC = () => {
   const { currentUser } = useCurrentUser();
@@ -14,7 +15,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="w-full fixed text-2xl px-4">
+    <header className="w-full fixed text-2xl z-20 px-4">
       <div className="h-16 sm:w-[32rem] md:w-[42rem] mx-auto flex justify-between items-center">
         <div className="">
           <div className="flex items-center cursor-pointer">
@@ -24,17 +25,9 @@ const Header: React.FC = () => {
           </div>
         </div>
         <div className="relative flex gap-4">
-          {/* TODO: this ideally should share same style as LoginOrLogout component */}
-          {isAuth ?
-            null :
-            <Link
-              to="/login"
-              className="btn bg- rounded-md text-black font-bold px-3 text-lg h-fit py-0.5 hover:text-black bg-blue-400"
-            >
-              Log in
-            </Link>
-          }
-
+          {isAuth ? null : (
+            <LoginOrLogout handleOpenStatus={handleBurgerStatus} />
+          )}
           <button
             className={cn(
               "space-y-2 transition-opacity hover:opacity-70",
