@@ -1,23 +1,48 @@
 import type { Request, Response } from "express";
+import type {
+  ResponseErrorMessage,
+  ResponseIsAuthorized,
+  ResponseZodError,
+} from "../../types.js";
 import User from "../models/user.js";
 import { createAuthToken } from "../utils/authToken.js";
 import { z } from "zod";
 import { splitInHalf } from "../utils/index.js";
-import { ResponseErrorMessage, ResponseZodError } from "../../types.js";
+import {
+  createRegistrationToken,
+  verifyRegistrationToken,
+} from "../utils/registrationToken.js";
 
 const usernameAndPasswordSchema = z.object({
   username: z.string().min(6).max(30).trim(),
   password: z.string().min(8).max(128).trim(),
 });
+const accessCodeSchema = z.object({
+  accessCode: z.string().min(100).max(200),
+});
 
 export async function register(req: Request, res: Response) {
-  const validation = usernameAndPasswordSchema.safeParse(req.body);
-  if (!validation.success) {
-    return res.status(400).json(validation.error.issues as ResponseZodError);
+  const bodyValidation = usernameAndPasswordSchema.safeParse(req.body);
+  const queryValidation = accessCodeSchema.safeParse(req.query);
+
+  // TODO: find cleaner way to do validate two schemas, or combine them into one
+  if (!bodyValidation.success || !queryValidation.success) {
+    const errors = [
+      ...(bodyValidation.success ? [] : bodyValidation.error.issues),
+      ...(queryValidation.success ? [] : queryValidation.error.issues),
+    ];
+
+    return res.status(400).json(errors as ResponseZodError);
   }
 
-  const { username, password } = validation.data;
-  // const { accessCode } = req.query;
+  const { username, password } = bodyValidation.data;
+  const { accessCode } = queryValidation.data;
+
+  const codeIsValid = verifyRegistrationToken(accessCode);
+
+  if (!codeIsValid) {
+    return res.status(401).json({ error: "Invalid access code" });
+  }
 
   const result = await User.register(username, password);
 
@@ -34,12 +59,15 @@ export async function register(req: Request, res: Response) {
 }
 
 export async function login(req: Request, res: Response) {
-  const validation = usernameAndPasswordSchema.safeParse(req.body);
-  if (!validation.success) {
-    return res.status(400).json(validation.error.issues as ResponseZodError);
+  const bodyValidation = usernameAndPasswordSchema.safeParse(req.body);
+
+  if (!bodyValidation.success) {
+    return res
+      .status(400)
+      .json(bodyValidation.error.issues as ResponseZodError);
   }
 
-  const { username, password } = validation.data;
+  const { username, password } = bodyValidation.data;
 
   const result = await User.login(username, password);
 
@@ -50,7 +78,9 @@ export async function login(req: Request, res: Response) {
       .json({ error: "Invalid username or password" } as ResponseErrorMessage);
   }
 
-  const authToken = createAuthToken(username);
+  const { user } = result.val;
+
+  const authToken = createAuthToken(username, user.isAdmin);
 
   // Split token into two cookies, second one is httpOnly: false to allow
   // client side logout, without exposing the first half to javascript,
@@ -71,10 +101,19 @@ export async function login(req: Request, res: Response) {
     sameSite: "lax",
   });
 
-  return res.status(200).json({ authenticated: true });
+  return res.status(200).json({ authenticated: true, isAdmin: true });
 }
 
 export async function isAuthorized(req: Request, res: Response) {
   const { username } = res.locals;
-  return res.status(200).json({ authorized: true, username });
+  return res.status(200).json({
+    authorized: true,
+    username,
+    isAdmin: true,
+  } as ResponseIsAuthorized);
+}
+
+export async function generateAccessCode(req: Request, res: Response) {
+  const token = createRegistrationToken();
+  res.status(200).json({ token });
 }

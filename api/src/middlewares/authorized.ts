@@ -11,7 +11,6 @@ async function authorized(req: Request, res: Response, next: NextFunction) {
   const validation = authTokenSchema.safeParse(req.cookies);
 
   if (!validation.success) {
-    // failed the validation
     return res.status(401).json({ error: "Not Authorized" });
   }
 
@@ -26,16 +25,18 @@ async function authorized(req: Request, res: Response, next: NextFunction) {
     return res.status(401).json({ error: "Not Authorized" });
   }
 
-  const { username } = payload;
+  const { username, isAdmin } = payload;
 
   const user = await User.findByUsername(username);
 
   if (!user) {
-    // user account does not exists with username from the token payload
+    // user account with this username does not exists
     return res.status(401).json({ error: "Not Authorized" });
   }
 
-  res.locals.username = username
+  res.locals.username = username;
+  res.locals.isAdmin = isAdmin;
+
   next();
 }
 

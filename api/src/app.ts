@@ -5,6 +5,14 @@ import authRouter from "./routes/auth.js";
 import rosterRouter from "./routes/roster.js";
 import charactersRouter from "./routes/characters.js";
 import morgan from "morgan";
+import User from "./models/user.js";
+
+if (process.env.NODE_ENV !== "production") {
+  // create a default admin account with credentials:
+  // username: "username"
+  // password: "password"
+  User.register("username", "password", { admin: true });
+}
 
 const app = express();
 

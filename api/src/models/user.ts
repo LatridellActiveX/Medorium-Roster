@@ -6,6 +6,7 @@ import type { MongoError } from "mongodb";
 type UserType = {
   name: string;
   hash: string;
+  isAdmin: boolean;
   timezone?: string;
   enlistedTimestamp?: number;
 };
@@ -13,6 +14,7 @@ type UserType = {
 export const UserSchema = new Schema<UserType>({
   name: { type: String, required: true, unique: true },
   hash: { type: String, required: true },
+  isAdmin: { type: Boolean, required: true, default: false },
   timezone: { type: String, required: false },
   enlistedTimestamp: { type: Number, required: false },
 });
@@ -28,13 +30,18 @@ class User {
   /**
    * Creates a new user if name is not taken
    */
-  static async register(name: string, password: string) {
+  static async register(
+    name: string,
+    password: string,
+    options?: { admin?: boolean }
+  ) {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
     try {
       const doc = await UserModel.create({
-        name,
+        name: name,
         hash,
+        isAdmin: options?.admin,
       });
       return Ok({ user: doc.toObject() });
     } catch (_e) {
@@ -61,7 +68,7 @@ class User {
       return Err("Incorrect password");
     }
 
-    return Ok(1);
+    return Ok({ user });
   }
 }
 

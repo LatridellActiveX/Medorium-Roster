@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { getFullRoster } from "../controllers/roster.js";
+import { getAllCharacters } from "../controllers/roster.js";
 
 const router = Router();
 
-router.get("/roster", getFullRoster);
+router.get("/roster", getAllCharacters);
 
 export default router;

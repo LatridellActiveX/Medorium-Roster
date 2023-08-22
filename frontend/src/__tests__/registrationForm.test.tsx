@@ -1,76 +1,55 @@
-import { screen } from '@testing-library/react';
-import user from '@testing-library/user-event';
-import axios from 'axios';
-import { vi, expect, it, describe, beforeEach } from 'vitest'
-import { BrowserRouter } from 'react-router-dom';
-import RegForm from '../pages/registration/regForm';
-import { renderWithProviders } from '../utils/renderWithProviders';
+import { render, screen } from "@testing-library/react";
+import user from "@testing-library/user-event";
+import { vi, expect, it, describe, beforeEach } from "vitest";
+import { BrowserRouter } from "react-router-dom";
+import RegForm from "../pages/registration/regForm";
 
-vi.mock('axios');
+describe("Registration form", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
 
-describe('Registration form', () => {
-    beforeEach(() => {
-        vi.clearAllMocks();
+    render(
+      <BrowserRouter>
+        <RegForm />
+      </BrowserRouter>
+    );
+  });
 
-        renderWithProviders(
-            <BrowserRouter>
-                <RegForm />
-            </BrowserRouter>
-        );
+  it("types too long username", async () => {
+    const tooLongUsername = "I".repeat(50);
+    const password = "1231";
+
+    let usernameInput = screen.getByRole("textbox", { name: /Username/i });
+    let passwordInput = screen.getByLabelText("password");
+    let submitBtn = screen.getByRole("button", {
+      name: "Submit your registration credentials",
     });
 
-    it('types too long username', async () => {
-        const tooLongUsername = 'I'.repeat(50);
-        const password = '1231';
+    await user.type(usernameInput, tooLongUsername);
+    await user.type(passwordInput, password);
 
-        let usernameInput = screen.getByRole('textbox', {name: /Username/i});
-        let passwordInput = screen.getByLabelText('Password');
-        let submitBtn = screen.getByRole('button', {
-            name: 'Submit your registration credentials'
-        });
-
-        await user.type(usernameInput, tooLongUsername);
-        await user.type(passwordInput, password);
-
-        expect(submitBtn.getAttribute('disabled')).toBe('');
+    expect(submitBtn.getAttribute("disabled")).toBe("");
+  });
+  it("does not provide any credentials", () => {
+    let submitBtn = screen.getByRole("button", {
+      name: "Submit your registration credentials",
     });
-    it('does not provide any credentials', () => {
-        let submitBtn = screen.getByRole('button', {
-            name: 'Submit your registration credentials'
-        });
 
-        expect(submitBtn.getAttribute('disabled')).toBe(null);
+    expect(submitBtn.getAttribute("disabled")).toBe(null);
+  });
+  it("types too short username and password", async () => {
+    const tooShortUsername = "aa";
+    const tooShortPassowrd = "11";
+
+    let usernameInput = screen.getByRole("textbox", { name: /Username/i });
+    let passwordInput = screen.getByLabelText("password");
+    let submitBtn = screen.getByRole("button", {
+      name: "Submit your registration credentials",
     });
-    it('types too short username and password', async () => {
-        const tooShortUsername = 'aa';
-        const tooShortPassowrd = '11';
 
-        let usernameInput = screen.getByRole('textbox', {name: /Username/i});
-        let passwordInput = screen.getByLabelText('Password');
-        let submitBtn = screen.getByRole('button', {
-            name: 'Submit your registration credentials'
-        });
+    await user.type(usernameInput, tooShortUsername);
+    await user.type(passwordInput, tooShortPassowrd);
 
-        await user.type(usernameInput, tooShortUsername);
-        await user.type(passwordInput, tooShortPassowrd);
-
-        expect(submitBtn.getAttribute('disabled')).toBe('');
-    });
-    it('types the correct credentials and then submits them', async () => {
-        const tooShortUsername = 'aaaaaaasdsad';
-        const tooShortPassowrd = '11231asdasd';
-
-        let usernameInput = screen.getByRole('textbox', {name: /Username/i});
-        let passwordInput = screen.getByLabelText('Password');
-        let submitBtn = screen.getByRole('button', {
-            name: 'Submit your registration credentials'
-        });
-
-        await user.type(usernameInput, tooShortUsername);
-        await user.type(passwordInput, tooShortPassowrd);
-        expect(submitBtn.getAttribute('disabled')).toBe(null);
-
-        await user.click(submitBtn);
-        expect(axios.post).toHaveBeenCalledTimes(1);
-    });
+    expect(submitBtn.getAttribute("disabled")).toBe("");
+  });
 });

@@ -2,18 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: Shentox;
+  src: url("./fonts/Shentox/Shentox-Regular.ttf");
+}
+
+@font-face {
+  font-family: Shentox-Medium;
+  src: url("./fonts/Shentox/Shentox-Medium.ttf");
+}
+
 @layer base {
   html {
     @apply overflow-x-hidden;
   }
-  
-  body, main {
-    @apply text-lg text-slate-200 bg-[#101010] min-h-screen;
+
+  body,
+  main {
+    @apply text-lg text-slate-200 bg-[#101010] min-h-screen font-shentox;
   }
 
   main {
-    /* each main component can have different layout, avoid adding
-     global positioning, style them individually instead
+    @apply relative
+    /* 
+      each main component can have different layout, avoid adding
+      global positioning, style them individually instead
     */
   }
 
@@ -124,14 +137,7 @@
   }
 }
 
-.bg-img--1 {
-  background-image: url("./assets/Mining.png");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
 header + main {
-  padding-top: 6rem;
+  /* account for header height, while maintaining the background image height: 100vh */
+  padding-top: 4rem !important;
 }

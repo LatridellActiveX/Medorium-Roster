@@ -12,77 +12,50 @@ export type CharacterType = {
   payGrade?: string;
 };
 
-export const CharacterSchema = new Schema<CharacterType>({
+export const CharacterSchema = new Schema<CharacterType & { __v: number }>({
   username: { type: String, required: true },
   name: { type: String, required: true, unique: true },
   main: { type: Boolean, required: true },
   rank: { type: Boolean },
-  rankAcquisitionTimestamp: { type: String },
+  rankAcquisitionTimestamp: { type: Number },
   division: { type: String },
   payGrade: { type: String },
+  __v: { type: Number, select: false },
 });
 
 export const CharacterModel = model("Character", CharacterSchema);
 
 class Character {
-  static async getFullRoster() {
-    return [
-      {
-        name: "Wingedminer",
-        username: "wingedguy",
-        main: false,
-        rank: "Journeyman Technician",
-        division: "Mining",
-      },
-      {
-        name: "Wingedfall",
-        username: "wingedguy",
-        main: false,
-        rank: "Journeyman Technician",
-        division: "Mining",
-      },
-      {
-        name: "Wingedfaith",
-        username: "wingedguy",
-        main: true,
-        rank: "Section Foreman",
-        division: "Mining",
-      },
-      {
-        name: "Wingedarc",
-        username: "wingedguy",
-        main: false,
-        rank: "Technician",
-        division: "Mining",
-      },
-      {
-        name: "Benjamin Thomson",
-        username: "latridell",
-        main: true,
-        rank: "Chief Financial Officer (CFO)",
-        division: "Front Office",
-      },
-      {
-        name: "Josaline Thomson",
-        username: "latridell",
-        main: false,
-      },
-      {
-        name: "Jericho Thomson",
-        username: "latridell",
-        main: false,
-      },
-    ];
+  static async getAllCharacters() {
+    try {
+      const result = await CharacterModel.find({});
+      return Ok({ characters: result });
+    } catch (_e) {
+      const error = _e as MongoError;
+      console.error("UNHANDLED ERROR:", error);
+      return Err("Could not fetch full roster");
+    }
   }
+
+  static async getAllUserCharacters(username: string) {
+    try {
+      const result = await CharacterModel.find({ username });
+      return Ok({ characters: result });
+    } catch (_e) {
+      const error = _e as MongoError;
+      console.error("UNHANDLED ERROR:", error);
+      return Err("Could not fetch full roster");
+    }
+  }
+
   static async createCharacter(username: string, name: string, main: boolean) {
     try {
-      console.log({ username, name, main });
       const result = await CharacterModel.create({
         username,
         name,
         main,
       });
-      return Ok({ character: result.toObject({versionKey: false}) });
+      return Ok({ character: result.toObject({ versionKey: false }) });
     } catch (_e) {
       const error = _e as MongoError;
       console.log(error);
@@ -90,6 +63,27 @@ class Character {
         // Duplicate key error
         return Err("Name is already in use");
       }
+      console.error("UNHANDLED ERROR:", error);
+      return Err("Something went wrong");
+    }
+  }
+
+  static async deleteCharacter(username: string, name: string) {
+    try {
+      let result = await CharacterModel.deleteOne({
+        username,
+        name
+      })
+
+      if (result.deletedCount !== 1) {
+        return Err("Character does not exist");
+      }
+       
+      return Ok({ deleted: true });
+    } catch (_e) {
+      const error = _e as MongoError;
+      console.log(error);
+
       console.error("UNHANDLED ERROR:", error);
       return Err("Something went wrong");
     }

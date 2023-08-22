@@ -7,10 +7,11 @@ What better way to keep track of our Eve Online membership than an entire websit
 All changes and features should be done through a feature branch.
 You have to create a new branch, commit the changes on that branch,
 then make a Pull Request when finished and ask for code review.
+Make sure the tests pass and make sure the feature works by testing manually.
 
 ## Project overview
 
-### `api` - REST API for authentication and fetching data of users and their characters
+### `api` - REST API with authentication and CRUD for users and their characters
 
 #### Tech Stack
 
@@ -24,10 +25,11 @@ then make a Pull Request when finished and ask for code review.
 #### Tech Stack
 
 - TypeScript
-- Redux toolkit
-- CSS
+- React
+- TanStack Query
 - Tailwind CSS
 - Vitest
+- Cypress
 
 ## Installation guide
 
@@ -54,15 +56,10 @@ copy .env.example .env
 cp .env.example .env
 ```
 
-### Installing dependencies
+### Installing dependencies and running the project in dev mode
 
 ```bash
+# after cd'ing into frontend/ and api/ directories individually
 npm install
-```
-
-### Running the project in development mode
-
-```bash
-npm run frontend
-npm run api
+npm run dev
 ```
