@@ -58,9 +58,7 @@ const RegForm: React.FC = () => {
   }
   if (accessCode.length < 100 || accessCode.length > 200) {
     return (
-      <ErrorPreview msgs={errorMsgs.codeLength}>
-        <p></p>
-      </ErrorPreview>
+      <ErrorPreview msgs={errorMsgs.codeLength} />
     );
   }
 
