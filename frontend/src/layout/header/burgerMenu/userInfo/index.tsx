@@ -11,7 +11,7 @@ const UserInfo: React.FC<Props> = ({ handleOpenStatus }) => {
   const isAuth = !!currentUser.username;
 
   return (
-    <div className="flex justify-between items-center mt-8 text-lg">
+    <div className="grid grid-cols-[1fr_max-content] gap-x-5 items-center mt-8 text-lg">
       <div className="">
         <p>
           {isAuth ? (
