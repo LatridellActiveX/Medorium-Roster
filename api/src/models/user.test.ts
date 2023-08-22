@@ -1,6 +1,3 @@
-import { MongoMemoryServer } from "mongodb-memory-server";
-import type { MongoMemoryServer as MongoServer } from "mongodb-memory-server";
-import { connect, connection } from "mongoose";
 import {
   beforeAll,
   beforeEach,
@@ -10,42 +7,20 @@ import {
   expect,
 } from "vitest";
 import User from "./user.js";
+import MongoTestServer from "../test-utils/mongoTestServer.js";
 
-let mongoServer: MongoServer;
-
-const connectDb = async () => {
-  mongoServer = await MongoMemoryServer.create();
-  const uri = mongoServer.getUri();
-  await connect(uri);
-};
-
-const dropCollections = async () => {
-  if (mongoServer) {
-    const collections = await connection.db.collections();
-    for (let collection of collections) {
-      await collection.drop();
-    }
-  }
-};
-
-const dropDb = async () => {
-  if (mongoServer) {
-    await connection.dropDatabase();
-    await connection.close();
-    await mongoServer.stop();
-  }
-};
+const mongoTestServer = new MongoTestServer();
 
 beforeAll(() => {
-  connectDb();
+  mongoTestServer.connect();
 });
 
 beforeEach(() => {
-  dropCollections();
+  mongoTestServer.dropCollections();
 });
 
 afterAll(() => {
-  dropDb();
+  mongoTestServer.drop();
 });
 
 describe("authentication", () => {
