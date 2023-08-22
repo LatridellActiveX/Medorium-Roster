@@ -5,7 +5,7 @@ import type {
   ResponseErrorMessage,
   ResponseZodError,
 } from "../../types.js";
-import Character from "../models/character.js";
+import Character, { CharacterType } from "../models/character.js";
 import { z } from "zod";
 
 export async function getAllCharacters(req: Request, res: Response) {
@@ -57,8 +57,54 @@ export async function createCharacter(req: Request, res: Response) {
   return res.status(200).json(character as ResponseCharacter);
 }
 
-export async function deleteUserCharacters(req: Request, res: Response) {
-  const { name }  = req.body;
+export async function replaceCharacter(req: Request, res: Response) {
+  const characterSchema = z.object({
+    username: z.string().min(6).max(30).trim(),
+    name: z.string().min(3).max(37).trim(),
+    main: z.boolean(),
+    rank: z.union([z.string().min(3).max(30), z.undefined()]),
+    rankAcquisitionTimestamp: z.union([z.number(), z.undefined()]),
+    division: z.union([z.string().min(3).max(30), z.undefined()]),
+    payGrade: z.union([z.string(), z.undefined()]),
+  });
+
+  const schema = z.object({
+    username: z.string().min(6).max(30).trim(),
+    name: z.string().min(3).max(37).trim(),
+    character: characterSchema,
+  });
+
+  const validation = schema.safeParse(req.body);
+
+  if (!validation.success) {
+    return res.status(400).json(validation.error.issues as ResponseZodError);
+  }
+
+  // const username = "testuser";
+  // const name = "Main";
+  // const character: CharacterType = {
+  //   username: "testuser",
+  //   name: "Main",
+  //   main: true,
+  //   division: "Mining",
+  //   rank: "Journeyman Technician",
+  // };
+
+  const { username, name, character } = validation.data;
+
+  const result = await Character.replaceCharacter(username, name, character);
+
+  if (!result.ok) {
+    return res.status(400).json({ error: result.err });
+  }
+
+  const { updatedCharacter } = result.val;
+
+  return res.status(200).json(updatedCharacter);
+}
+
+export async function deleteUserCharacter(req: Request, res: Response) {
+  const { name } = req.body;
   const { username } = res.locals;
 
   const result = await Character.deleteCharacter(username, name);
