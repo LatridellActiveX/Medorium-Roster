@@ -101,7 +101,7 @@ export async function login(req: Request, res: Response) {
     sameSite: "lax",
   });
 
-  return res.status(200).json({ authenticated: true, isAdmin: true });
+  return res.status(200).json({ authenticated: true, isAdmin: user.isAdmin });
 }
 
 export async function isAuthorized(req: Request, res: Response) {

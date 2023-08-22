@@ -11,6 +11,7 @@ import type { NextFunction, Request, Response } from "express";
  */
 function admin(req: Request, res: Response, next: NextFunction) {
   const { isAdmin } = res.locals;
+
   if (!isAdmin) {
     return res.status(401).json({ error: "Not Authorized" });
   }

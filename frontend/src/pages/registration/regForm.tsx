@@ -2,6 +2,7 @@ import * as Yup from "yup";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import FormBase from "../../ui/formBase";
 import useCurrentUser from "../../hooks/useCurrentUser";
+import ErrorPreview from "./errorPreview";
 
 const initialValues = {
   username: "",
@@ -24,6 +25,13 @@ const inputs = [
     type: "password",
   },
 ];
+const errorMsgs = {
+  noCode: "You need a valid registration code to create an account.",
+  codeLength: [
+    "Your code is too short/long.",
+    "Please contact to admin to provide you a correct access code",
+  ],
+};
 
 const RegForm: React.FC = () => {
   const navigate = useNavigate();
@@ -38,12 +46,23 @@ const RegForm: React.FC = () => {
     navigate("/");
   };
 
-  // if (accessCode.length < 100 || accessCode.length > 200) {
-  //     // TODO: nicely handle the error
-  //     return <>
-  //         <h1>Invalid access code</h1>
-  //     </>
-  // }
+  if (!accessCode) {
+    return (
+      <ErrorPreview msgs={errorMsgs.noCode}>
+        <p>
+          Please contact your admin to resolve
+          <Link to="/faq#registrationCode"> the issue.</Link>
+        </p>
+      </ErrorPreview>
+    );
+  }
+  if (accessCode.length < 100 || accessCode.length > 200) {
+    return (
+      <ErrorPreview msgs={errorMsgs.codeLength}>
+        <p></p>
+      </ErrorPreview>
+    );
+  }
 
   return (
     <FormBase
