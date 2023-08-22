@@ -1,31 +1,24 @@
-import { MongoMemoryServer } from "mongodb-memory-server";
 import { connect, connection } from "mongoose";
 
 class MongoTestServer {
-  private mongoServer?: MongoMemoryServer;
-
   async connect() {
-    const server = await MongoMemoryServer.create();
-    const uri = server.getUri();
-    connect(uri);
-    this.mongoServer = server;
+    connect("mongodb://127.0.0.1:27017/medorium-test-server");
   }
 
-  async dropCollections() {
-    if (this.mongoServer) {
-      const collections = await connection.db.collections();
-      for (let collection of collections) {
-        await collection.drop();
-      }
+  /**
+   * Removes all documents from all collections
+   */
+  async deleteRecords() {
+    const collections = Object.keys(connection.collections);
+
+    for (const collectionName of collections) {
+      const collection = connection.collections[collectionName];
+      await collection.deleteMany({});
     }
   }
 
-  async drop() {
-    if (this.mongoServer) {
-      await connection.dropDatabase();
-      await connection.close();
-      await this.mongoServer.stop();
-    }
+  async close() {
+    await connection.close();
   }
 }
 

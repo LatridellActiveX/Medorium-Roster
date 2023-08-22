@@ -1,0 +1,162 @@
+import {
+  beforeAll,
+  afterAll,
+  test,
+  describe,
+  expect,
+  assert,
+  afterEach,
+} from "vitest";
+import MongoTestServer from "../test-utils/mongoTestServer.js";
+import Character from "./character.js";
+
+const mongoTestServer = new MongoTestServer();
+
+beforeAll(async () => {
+  await mongoTestServer.connect();
+  await mongoTestServer.deleteRecords();
+});
+
+afterEach(async () => {
+  await mongoTestServer.deleteRecords();
+});
+
+afterAll(async () => {
+  await mongoTestServer.close();
+});
+
+describe("CRUD operations for the characters of users", () => {
+  test("user can add a character", async () => {
+    const createResult = await Character.createCharacter(
+      "user1",
+      "character1",
+      true
+    );
+
+    assert(createResult.ok);
+
+    const allCharactersResult = await Character.getAllUserCharacters("user1");
+
+    assert(allCharactersResult.ok);
+    const { characters } = allCharactersResult.val;
+
+    const characterExists =
+      characters.find((character) => character.name === "character1") !==
+      undefined;
+
+    expect(characterExists).toBeTruthy();
+  });
+
+  test("no duplicate character names are allowed", async () => {
+    const result1 = await Character.createCharacter(
+      "user1",
+      "character1",
+      false
+    );
+
+    assert(result1.ok);
+
+    const result2 = await Character.createCharacter(
+      "user1",
+      "character1",
+      false
+    );
+
+    const result3 = await Character.createCharacter(
+      "user2",
+      "character1",
+      false
+    );
+
+    expect(result2.ok).toBeFalsy(); // character1 name is already used by the same user
+    expect(result3.ok).toBeFalsy(); // character1 name is already used by a different user
+  });
+
+  test("user can only have one main character", async () => {
+    const result1 = await Character.createCharacter(
+      "user1",
+      "character1",
+      true
+    );
+    const result2 = await Character.createCharacter(
+      "user1",
+      "character2",
+      true
+    );
+
+    const result3 = await Character.createCharacter(
+      "user2",
+      "character3",
+      true
+    );
+
+    expect(result1.ok).toBeTruthy();
+    expect(result2.ok).toBeFalsy(); // character1 is already a main character
+    expect(result3.ok).toBeTruthy(); // this is fine because user2 has no main character
+  });
+
+  test("user can delete their character", async () => {
+    const createResult1 = await Character.createCharacter(
+      "user1",
+      "character1",
+      false
+    );
+
+    const createResult2 = await Character.createCharacter(
+      "user1",
+      "character2",
+      false
+    );
+
+    const createResult3 = await Character.createCharacter(
+      "user1",
+      "character3",
+      false
+    );
+
+    const createResult4 = await Character.createCharacter(
+      "user2",
+      "character123",
+      false
+    );
+
+    assert(
+      createResult1.ok &&
+        createResult2.ok &&
+        createResult3.ok &&
+        createResult4.ok
+    );
+
+    const deleteNonExistingResult = await Character.deleteCharacter(
+      "user1",
+      "character42069"
+    );
+
+    const deleteOtherUserCharacterResult = await Character.deleteCharacter(
+      "user1",
+      "character123"
+    );
+
+    expect(deleteNonExistingResult.ok).toBeFalsy(); // character does not exist
+    expect(deleteOtherUserCharacterResult.ok).toBeFalsy(); // cannot delete character that belongs to a different user
+
+    const deleteThirdCharacterResult = await Character.deleteCharacter(
+      "user1",
+      "character3"
+    );
+
+    expect(deleteThirdCharacterResult.ok).toBeTruthy();
+
+    const firstUserCharactersResult = await Character.getAllUserCharacters(
+      "user1"
+    );
+
+    assert(firstUserCharactersResult.ok);
+
+    const firstUserCharacters = firstUserCharactersResult.val.characters;
+
+    expect(firstUserCharacters.length).toBe(2); // first and second characters remain
+  });
+
+  test.skip("user can update an existing character", async () => {});
+});

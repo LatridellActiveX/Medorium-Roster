@@ -1,26 +1,20 @@
-import {
-  beforeAll,
-  beforeEach,
-  afterAll,
-  test,
-  describe,
-  expect,
-} from "vitest";
-import User from "./user.js";
+import { beforeAll, afterAll, test, describe, expect, afterEach } from "vitest";
 import MongoTestServer from "../test-utils/mongoTestServer.js";
+import User from "./user.js";
 
 const mongoTestServer = new MongoTestServer();
 
-beforeAll(() => {
-  mongoTestServer.connect();
+beforeAll(async () => {
+  await mongoTestServer.connect();
+  await mongoTestServer.deleteRecords();
 });
 
-beforeEach(() => {
-  mongoTestServer.dropCollections();
+afterEach(async () => {
+  await mongoTestServer.deleteRecords();
 });
 
-afterAll(() => {
-  mongoTestServer.drop();
+afterAll(async () => {
+  await mongoTestServer.close();
 });
 
 describe("authentication", () => {
