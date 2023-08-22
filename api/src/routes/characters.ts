@@ -10,10 +10,10 @@ import admin from "../middlewares/admin.js";
 
 const router = Router();
 
-router.get("/characters", authorized, getUserCharacters);
-router.post("/characters", authorized, createCharacter);
-router.put("/characters", authorized, admin, replaceCharacter);
-// router.patch("/characters", authorized, admin, updateCharacter);
-router.delete("/characters", authorized, deleteUserCharacter);
+router.get("/", authorized, getUserCharacters);
+router.post("/", authorized, createCharacter);
+router.put("/", authorized, admin, replaceCharacter);
+// router.patch("/", authorized, admin, updateCharacter);
+router.delete("/", authorized, deleteUserCharacter);
 
 export default router;

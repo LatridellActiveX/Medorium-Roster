@@ -29,8 +29,8 @@ app.use(cookieParser());
 // Logging
 app.use(morgan(":status :method :url :response-time[2] ms"));
 
-app.use("/", authRouter);
-app.use("/api", rosterRouter);
-app.use("/api", charactersRouter);
+app.use("/auth", authRouter);
+app.use("/api/roster", rosterRouter);
+app.use("/api/characters", charactersRouter);
 
 export default app;
