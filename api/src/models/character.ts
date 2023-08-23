@@ -58,7 +58,6 @@ class Character {
       return Ok({ character: result.toObject({ versionKey: false }) });
     } catch (_e) {
       const error = _e as MongoError;
-      console.log(error);
       if (error.code === 11000) {
         // Duplicate key error
         return Err("Name is already in use");
@@ -111,8 +110,6 @@ class Character {
       return Ok({ deleted: true });
     } catch (_e) {
       const error = _e as MongoError;
-      console.log(error);
-
       console.error("UNHANDLED ERROR:", error);
       return Err("Something went wrong");
     }

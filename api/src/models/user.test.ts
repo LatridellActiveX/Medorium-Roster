@@ -1,51 +1,20 @@
-import { MongoMemoryServer } from "mongodb-memory-server";
-import type { MongoMemoryServer as MongoServer } from "mongodb-memory-server";
-import { connect, connection } from "mongoose";
-import {
-  beforeAll,
-  beforeEach,
-  afterAll,
-  test,
-  describe,
-  expect,
-} from "vitest";
+import { beforeAll, afterAll, test, describe, expect, afterEach } from "vitest";
+import MongoTestServer from "../test-utils/mongoTestServer.js";
 import User from "./user.js";
 
-let mongoServer: MongoServer;
+const mongoTestServer = new MongoTestServer();
 
-const connectDb = async () => {
-  mongoServer = await MongoMemoryServer.create();
-  const uri = mongoServer.getUri();
-  await connect(uri);
-};
-
-const dropCollections = async () => {
-  if (mongoServer) {
-    const collections = await connection.db.collections();
-    for (let collection of collections) {
-      await collection.drop();
-    }
-  }
-};
-
-const dropDb = async () => {
-  if (mongoServer) {
-    await connection.dropDatabase();
-    await connection.close();
-    await mongoServer.stop();
-  }
-};
-
-beforeAll(() => {
-  connectDb();
+beforeAll(async () => {
+  await mongoTestServer.connect();
+  await mongoTestServer.deleteRecords();
 });
 
-beforeEach(() => {
-  dropCollections();
+afterEach(async () => {
+  await mongoTestServer.deleteRecords();
 });
 
-afterAll(() => {
-  dropDb();
+afterAll(async () => {
+  await mongoTestServer.close();
 });
 
 describe("authentication", () => {
