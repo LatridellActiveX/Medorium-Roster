@@ -14,7 +14,6 @@ const mongoTestServer = new MongoTestServer();
 
 beforeAll(async () => {
   await mongoTestServer.connect();
-  await mongoTestServer.deleteRecords();
 });
 
 afterEach(async () => {
