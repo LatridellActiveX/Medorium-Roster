@@ -10,33 +10,12 @@ jobs:
     name: Run API Tests
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js for API
-        uses: actions/setup-node@v2
-        with:
-          node-version: 19
-
-      - name: Install API Dependencies
-        working-directory: ./api
-        run: npm install
-
-      - name: Run API Tests
-        working-directory: ./api
-        run: npm test
-name: API CI
-
-on:
-  push:
-    branches:
-      - cicd
-
-jobs:
-  api-tests:
-    name: Run API Tests
-    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+        options: --health-cmd="mongo --quiet --eval 'db.runCommand({ping: 1})'"
 
     steps:
       - name: Checkout code
@@ -51,6 +30,9 @@ jobs:
         working-directory: ./api
         run: npm install
 
+      - name: Run MongoDB and Wait for Healthy State
+        run: sleep 10  # Wait for MongoDB container to initialize (adjust timing if needed)
+
       - name: Run API Tests
         working-directory: ./api
-        run: npm test
+        run: npm run unit:once

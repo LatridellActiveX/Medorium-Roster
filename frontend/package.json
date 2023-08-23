@@ -12,7 +12,9 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "e2e": "cypress open"
+    "e2e": "cypress open",
+    "unit:once": "vitest --run",
+    "e2e:headless": "cypress run --headless -q"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.32.1",
