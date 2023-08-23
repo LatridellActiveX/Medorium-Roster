@@ -2,7 +2,7 @@ import * as Yup from "yup";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import FormBase from "../../ui/formBase";
 import useCurrentUser from "../../hooks/useCurrentUser";
-import ErrorPreview from "./errorPreview";
+import Error from "./error";
 
 const initialValues = {
   username: "",
@@ -25,18 +25,13 @@ const inputs = [
     type: "password",
   },
 ];
-const errorMsgs = {
-  noCode: "You need a valid registration code to create an account.",
-  codeLength: [
-    "Your code is too short/long.",
-    "Please contact to admin to provide you a correct access code",
-  ],
+
+type Props = {
+  accessCode: string;
 };
 
-const RegForm: React.FC = () => {
+const RegForm: React.FC<Props> = ({ accessCode }) => {
   const navigate = useNavigate();
-  const [searchParams, _setSearchParams] = useSearchParams();
-  const accessCode = searchParams.get("accessCode") ?? "";
   let { setCurrentUser } = useCurrentUser();
 
   const onSubmitSuccess = (values: { [key: string]: string }) => {
@@ -45,22 +40,6 @@ const RegForm: React.FC = () => {
     });
     navigate("/");
   };
-
-  if (!accessCode) {
-    return (
-      <ErrorPreview msgs={errorMsgs.noCode}>
-        <p>
-          Please contact your admin to resolve
-          <Link to="/faq#registrationCode"> the issue.</Link>
-        </p>
-      </ErrorPreview>
-    );
-  }
-  if (accessCode.length < 100 || accessCode.length > 200) {
-    return (
-      <ErrorPreview msgs={errorMsgs.codeLength} />
-    );
-  }
 
   return (
     <FormBase
@@ -74,9 +53,7 @@ const RegForm: React.FC = () => {
       isH1Heading
     >
       <small>
-        <p>
-          Already got an account? <Link to="/login">Log in</Link> here
-        </p>
+        Already got an account? <Link to="/login">Log in</Link> here
       </small>
     </FormBase>
   );
