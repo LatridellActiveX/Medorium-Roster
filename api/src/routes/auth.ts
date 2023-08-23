@@ -10,9 +10,9 @@ import admin from "../middlewares/admin.js";
 
 const router = Router();
 
-router.get("/auth", authorized, isAuthorized);
-router.post("/auth/register", register);
-router.post("/auth/login", login);
-router.get("/auth/accessCode", authorized, admin, generateAccessCode);
+router.get("/", authorized, isAuthorized);
+router.post("/register", register);
+router.post("/login", login);
+router.get("/accessCode", authorized, admin, generateAccessCode);
 
 export default router;

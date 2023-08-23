@@ -90,14 +90,14 @@ export async function login(req: Request, res: Response) {
   res.cookie("authToken1", firstHalf, {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     httpOnly: true,
-    // secure: true, // TODO: set to true if in production env
+    secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
   });
 
   res.cookie("authToken2", secondHalf, {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     httpOnly: false,
-    // secure: true, // TODO: set to true if in production env
+    secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
   });
 

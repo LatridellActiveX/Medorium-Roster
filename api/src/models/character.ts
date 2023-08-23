@@ -16,7 +16,7 @@ export const CharacterSchema = new Schema<CharacterType & { __v: number }>({
   username: { type: String, required: true },
   name: { type: String, required: true, unique: true },
   main: { type: Boolean, required: true },
-  rank: { type: Boolean },
+  rank: { type: String },
   rankAcquisitionTimestamp: { type: Number },
   division: { type: String },
   payGrade: { type: String },
@@ -68,17 +68,46 @@ class Character {
     }
   }
 
+  /**
+   * Replaces the existing document that matches username and name with updatedCharacter
+   */
+  static async replaceCharacter(
+    username: string,
+    name: string,
+    character: CharacterType
+  ) {
+    try {
+      const result = await CharacterModel.findOneAndUpdate(
+        {
+          username,
+          name,
+        },
+        character,
+        { new: true }
+      );
+
+      if (result === null) {
+        return Err("Character does not exist");
+      }
+      return Ok({ updatedCharacter: result.toObject({ versionKey: false }) });
+    } catch (_e) {
+      const error = _e as MongoError;
+      console.error("UNHANDLED ERROR:", error);
+      return Err("Something went wrong");
+    }
+  }
+
   static async deleteCharacter(username: string, name: string) {
     try {
       let result = await CharacterModel.deleteOne({
         username,
-        name
-      })
+        name,
+      });
 
       if (result.deletedCount !== 1) {
         return Err("Character does not exist");
       }
-       
+
       return Ok({ deleted: true });
     } catch (_e) {
       const error = _e as MongoError;
