@@ -134,6 +134,16 @@ Requires being logged in as an admin.
 }
 ```
 
+## GET `/auth/accessCode/verify/:accessCode`
+
+Validates the specified accessCode in the following format
+
+```json
+{
+  "valid": true // or false
+}
+```
+
 # Roster
 
 ## `GET /api/roster`
