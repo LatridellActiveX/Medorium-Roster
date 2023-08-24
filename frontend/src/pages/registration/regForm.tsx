@@ -1,8 +1,7 @@
 import * as Yup from "yup";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FormBase from "../../ui/formBase";
 import useCurrentUser from "../../hooks/useCurrentUser";
-import Error from "./error";
 
 const initialValues = {
   username: "",
@@ -27,7 +26,7 @@ const inputs = [
 ];
 
 type Props = {
-  accessCode: string;
+  accessCode: string | null;
 };
 
 const RegForm: React.FC<Props> = ({ accessCode }) => {
