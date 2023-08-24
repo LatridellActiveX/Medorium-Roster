@@ -18,9 +18,13 @@ const RegistrationPage: React.FC = () => {
   let { data: isCodeValid, isLoading } = useAccessCodeValidation(accessCode);
 
   if (isLoading) {
-    return <PageInitialization pathIfAuth="/">
-      <p>Loading....</p>
-    </PageInitialization>
+    return (
+      <PageInitialization pathIfAuth="/">
+        <main className="bg-img--1 flex flex-col items-center">
+          <p className="text-center">Loading....</p>
+        </main>
+      </PageInitialization>
+    );
   }
   if (accessCode && (accessCode.length < 100 || accessCode.length > 200)) {
     return <Error msgs={errorMsgs.codeLength} />;
