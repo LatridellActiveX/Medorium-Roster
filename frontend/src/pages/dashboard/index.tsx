@@ -4,7 +4,6 @@ import CreateCharacterModal from "./createCharacterModal";
 import PlusIcon from "../../icons/plus";
 import useGetCharacters from "../../api/characters/useGetCharacters";
 import PageInitialization from "../../ui/pageInitialization";
-import axios from "../../api/axios";
 import { ResponseCharacters } from "api/types";
 
 const DashboardPage: React.FC = () => {
@@ -43,15 +42,6 @@ const DashboardPage: React.FC = () => {
     setIsModal((prev) => !prev);
   };
 
-  const deleteCharacter = (name: string) => {
-    axios.delete("api/characters", {
-      data: {
-        name,
-      },
-    });
-    refetch();
-  };
-
   let isThereMain = characters.find((c) => c.main);
 
   return (
@@ -72,7 +62,8 @@ const DashboardPage: React.FC = () => {
             className="mt10-20"
             data={characters || []}
             isLoading={isFetching}
-            deleteCharacter={deleteCharacter}
+            refetch={refetch}
+            actions={["Delete"]}
           />
 
           <CreateCharacterModal
