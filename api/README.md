@@ -270,3 +270,38 @@ Deletes a character of the logged in user
   "error": "Character does not exist"
 }
 ```
+
+# Users
+
+## `DELETE /api/users/:username/characters/:character`
+
+Deletes a character of specified user. Requires admin privileges.
+
+### Params
+
+Note: accessCode is not implemented yet
+
+|   Field   | Required |  Type  | minLen | maxLen |
+| :-------: | :------: | :----: | :----: | :----: |
+| username  |   Yes    | string |   6    |   30   |
+| character |   Yes    | string |   3    |   37   |
+
+### Example responses
+
+#### Success
+
+```json
+{
+  "message": "Successfully deleted character \"test\" of user \"username\""
+}
+```
+
+#### Error
+
+```json
+{
+  "error": "Character does not exist"
+}
+```
+
+<br>

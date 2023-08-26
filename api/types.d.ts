@@ -14,6 +14,10 @@ export type ResponseZodError = {
   path: string[];
 }[];
 
+export type ResponseMessage = {
+  message: string;
+};
+
 export type ResponseIsAuthorized = {
   authorized: boolean;
   username: string;
