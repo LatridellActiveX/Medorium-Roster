@@ -257,7 +257,7 @@ Deletes a character of the logged in user
 
 ### Example Responses
 
-#### Success - TODO: response type (respond in this format: { message: "" })
+#### Success
 
 ```json
 { "message": "Successfully deleted \"characterName\"" }
