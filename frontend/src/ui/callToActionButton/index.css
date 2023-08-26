@@ -1,0 +1,47 @@
+.call-to-action {
+  width: 220px;
+  height: 60px;
+  background-color: rgb(30, 30, 30);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+  position: relative;
+  cursor: pointer;
+}
+
+.call-to-action::before,
+.call-to-action::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.1s ease-out;
+  /* Add transition property */
+}
+
+.call-to-action::before {
+  top: -6px;
+  left: -6px;
+  border-top: 2px solid rgb(30, 30, 30);
+  border-left: 2px solid rgb(30, 30, 30);
+}
+
+.call-to-action::after {
+  bottom: -6px;
+  right: -6px;
+  border-bottom: 2px solid rgb(30, 30, 30);
+  border-right: 2px solid rgb(30, 30, 30);
+}
+
+.call-to-action:hover::before {
+  transform: translate(-2px, -2px);
+}
+
+.call-to-action:hover::after {
+  transform: translate(2px, 2px);
+}

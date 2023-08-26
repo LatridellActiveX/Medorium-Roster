@@ -4,6 +4,7 @@ import cors from "cors";
 import authRouter from "./routes/auth.js";
 import rosterRouter from "./routes/roster.js";
 import charactersRouter from "./routes/characters.js";
+import usersRouter from "./routes/users.js";
 import morgan from "morgan";
 import User from "./models/user.js";
 
@@ -32,5 +33,6 @@ app.use(morgan(":status :method :url :response-time[2] ms"));
 app.use("/auth", authRouter);
 app.use("/api/roster", rosterRouter);
 app.use("/api/characters", charactersRouter);
+app.use("/api/users", usersRouter);
 
 export default app;
