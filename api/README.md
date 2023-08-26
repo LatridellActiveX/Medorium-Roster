@@ -247,10 +247,10 @@ Deletes a character of the logged in user
 
 ### Example Responses
 
-#### Success - TODO: response type (respond in this format: { message: "" })
+#### Success
 
 ```json
-"Successfully deleted \"characterName\""
+{ "message": "Successfully deleted \"characterName\"" }
 ```
 
 #### Error

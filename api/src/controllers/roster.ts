@@ -114,7 +114,9 @@ export async function deleteLoggedInUserCharacter(req: Request, res: Response) {
     return res.status(400).json({ error: result.err } as ResponseErrorMessage);
   }
 
-  return res.status(200).json(`Successfully deleted "${name}"`);
+  return res
+    .status(200)
+    .json({ message: `Successfully deleted "${name}"` } as ResponseMessage);
 }
 
 export async function adminDeleteUserCharacter(req: Request, res: Response) {
@@ -126,9 +128,7 @@ export async function adminDeleteUserCharacter(req: Request, res: Response) {
     return res.status(400).json({ error: result.err } as ResponseErrorMessage);
   }
 
-  return res
-    .status(200)
-    .json({
-      message: `Successfully deleted character "${character}" of user "${username}"`,
-    } as ResponseMessage);
+  return res.status(200).json({
+    message: `Successfully deleted character "${character}" of user "${username}"`,
+  } as ResponseMessage);
 }
