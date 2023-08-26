@@ -1,7 +1,8 @@
 import { ResponseCharacter } from "api/types";
-import axios from "../../../../../api/axios";
 import EditIcon from "../../../../../icons/edit";
 import Icon from "../icon";
+import UpdateModal from "./updateModal";
+import { useState } from "react";
 
 type Props = {
   character: ResponseCharacter;
@@ -9,17 +10,24 @@ type Props = {
 };
 
 const Update: React.FC<Props> = ({ character, refetch }) => {
-  const handleClick = () => {
-    axios.put('/api/characters', {
-      
-    })
-    refetch();
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const handleEditModeStatus = () => {
+    setIsEditMode((prev) => !prev);
   };
 
   return (
-    <Icon action="Edit" name={character.name} onClick={handleClick}>
-      <EditIcon />
-    </Icon>
+    <div>
+      <Icon action="Edit" name={character.name} onClick={handleEditModeStatus}>
+        <EditIcon />
+      </Icon>
+      <UpdateModal
+        character={character}
+        isOpen={isEditMode}
+        onClose={handleEditModeStatus}
+        refetch={refetch}
+      />
+    </div>
   );
 };
 

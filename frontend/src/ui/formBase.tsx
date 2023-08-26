@@ -1,7 +1,7 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-import { ReactNode, useState } from "react";
+import { HTMLInputTypeAttribute, ReactNode, useState } from "react";
 import Input from "./input";
 import type { ResponseZodError, ResponseErrorMessage } from "api/types";
 import cn from "classnames";
@@ -12,29 +12,35 @@ export type FormInputType =
   | {
       name: string;
       label?: string;
-      type?: string;
+      type?: HTMLInputTypeAttribute;
       variant?: "default" | "select";
       selectItems?: OptionType[];
+      disabled?: boolean;
+      required?: boolean;
     }
   | string;
 
+export type FormBaseInputType = {
+  [key: string]: string | boolean | number | undefined;
+};
+
 type Props = {
-  initialValues: {
-    [key: string]: string;
-  };
+  initialValues: FormBaseInputType;
   validationSchema: any;
   apiUrl: string;
-  onSubmitSuccess: (values: Props["initialValues"], response: AxiosResponse<any, any>) => void;
-  heading: string;
+  onSubmitSuccess: (
+    values: Props["initialValues"],
+    response: AxiosResponse<any, any>
+  ) => void;
+  heading: string | ReactNode;
   inputs: FormInputType[];
-  formatRequestData?: (data: Props["initialValues"]) => {
-    [key: string]: string | boolean;
-  };
-  apiMethod?: "post" | "delete" | "get";
+  formatRequestData?: (data: Props["initialValues"]) => any;
+  apiMethod?: "post" | "delete" | "get" | "put";
   submitBtnSign?: string;
   navigateTo?: string;
   children?: ReactNode;
   className?: string;
+  fieldContainerClassName?: string;
   isH1Heading?: boolean;
   toastMessages?: {
     pending?: string | null;
@@ -66,6 +72,7 @@ const FormBase: React.FC<Props> = ({
   submitBtnSign = "Submit",
   children,
   className,
+  fieldContainerClassName,
   isH1Heading,
   toastMessages,
 }) => {
@@ -112,7 +119,7 @@ const FormBase: React.FC<Props> = ({
           setServerError(response.error);
         } else {
           // ResponseZodError
-          let errors: Props["initialValues"] = {};
+          let errors: { [key: string]: string } = {};
 
           response?.forEach((e) => {
             errors[e.path[0]] = e.message;
@@ -151,7 +158,7 @@ const FormBase: React.FC<Props> = ({
       ) : (
         <h2 className="text-center mb-4 text-2xl">{heading}</h2>
       )}
-      <div className="w-full">
+      <div className={cn("grid gap-y-4 w-full", fieldContainerClassName)}>
         {inputs.map((i) => {
           let inputName =
             typeof i === "string" ? i.toLowerCase() : i.name.toLowerCase();
@@ -174,6 +181,18 @@ const FormBase: React.FC<Props> = ({
             );
           }
 
+          if (typeof formik.values[inputName] === "number") {
+            <Input
+              label={inputLabel}
+              error={formik.errors[inputName]}
+              value={"to do: number input"}
+              type={typeof i === "object" ? i.type : undefined}
+              handleChange={formik.handleChange}
+              disabled={typeof i === "object" ? i?.disabled : undefined}
+              key={inputName}
+            />;
+          }
+
           return (
             <Input
               label={inputLabel}
@@ -181,6 +200,8 @@ const FormBase: React.FC<Props> = ({
               value={formik.values[inputName]}
               type={typeof i === "object" ? i.type : undefined}
               handleChange={formik.handleChange}
+              disabled={typeof i === "object" ? i?.disabled : undefined}
+              required={typeof i === "object" ? i?.required : undefined}
               key={inputName}
             />
           );
@@ -193,7 +214,7 @@ const FormBase: React.FC<Props> = ({
         className="bg-blue-600 hover:bg-blue-500 disabled:bg-gray-500 disabled:cursor-not-allowed text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5 mb-6"
         disabled={isDisabled()}
         type="submit"
-        aria-label={`Submit your ${heading.toLowerCase()} credentials`} // for accessibility
+        aria-label={`Submit your credentials`} // for accessibility
       >
         {submitBtnSign}
       </button>

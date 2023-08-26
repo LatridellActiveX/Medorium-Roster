@@ -15,9 +15,7 @@ const Character: React.FC<Props> = ({ character, actions, refetch }) => {
     main,
     username,
     division,
-    payGrade,
     rank,
-    rankAcquisitionTimestamp,
   } = character;
 
   return (

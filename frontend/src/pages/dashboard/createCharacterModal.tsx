@@ -1,7 +1,8 @@
 import { useMemo } from "react";
-import FormBase, { FormInputType } from "../../ui/formBase";
+import FormBase, { FormBaseInputType, FormInputType } from "../../ui/formBase";
 import ModalBase from "../../ui/modalBase";
 import * as Yup from "yup";
+import useCurrentUser from "../../hooks/useCurrentUser";
 
 type Props = {
   isOpen: boolean;
@@ -24,6 +25,8 @@ const CreateCharacterModal: React.FC<Props> = ({
   onClose,
   refetch,
 }) => {
+  const { currentUser } = useCurrentUser();
+
   const initialValues = useMemo(() => {
     return {
       name: "",
@@ -52,12 +55,13 @@ const CreateCharacterModal: React.FC<Props> = ({
     return <></>;
   }
 
-  const onSubmitSuccess = async (values: { [key: string]: string }) => {
+  const onSubmitSuccess = async (_values: FormBaseInputType) => {
     refetch();
     onClose();
   };
-  const formatRequestData = (data: { [key: string]: string }) => {
+  const formatRequestData = (data: FormBaseInputType) => {
     return {
+      username: currentUser.username,
       name: data.name,
       main: data.main === "main",
     };
