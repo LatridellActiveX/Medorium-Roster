@@ -260,7 +260,7 @@ Deletes a character of the logged in user
 #### Success - TODO: response type (respond in this format: { message: "" })
 
 ```json
-"Successfully deleted \"characterName\""
+{ "message": "Successfully deleted \"characterName\"" }
 ```
 
 #### Error
