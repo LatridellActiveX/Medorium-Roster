@@ -32,8 +32,6 @@ Registers user if name is not in use
 
 ### Query
 
-Note: accessCode is not implemented yet
-
 |   Field    | Required |  Type  | minLen | maxLen |
 | :--------: | :------: | :----: | :----: | :----: |
 | accessCode |   Yes    | string |  100   |  200   |
@@ -278,8 +276,6 @@ Deletes a character of the logged in user
 Deletes a character of specified user. Requires admin privileges.
 
 ### Params
-
-Note: accessCode is not implemented yet
 
 |   Field   | Required |  Type  | minLen | maxLen |
 | :-------: | :------: | :----: | :----: | :----: |
