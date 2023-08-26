@@ -3,6 +3,7 @@ import type {
   ResponseCharacter,
   ResponseCharacters,
   ResponseErrorMessage,
+  ResponseMessage,
   ResponseZodError,
 } from "../../types.js";
 import Character, { CharacterType } from "../models/character.js";
@@ -103,7 +104,7 @@ export async function replaceCharacter(req: Request, res: Response) {
   return res.status(200).json(updatedCharacter);
 }
 
-export async function deleteUserCharacter(req: Request, res: Response) {
+export async function deleteLoggedInUserCharacter(req: Request, res: Response) {
   const { name } = req.body;
   const { username } = res.locals;
 
@@ -114,4 +115,20 @@ export async function deleteUserCharacter(req: Request, res: Response) {
   }
 
   return res.status(200).json(`Successfully deleted "${name}"`);
+}
+
+export async function adminDeleteUserCharacter(req: Request, res: Response) {
+  const { username, character } = req.params;
+
+  const result = await Character.deleteCharacter(username, character);
+
+  if (!result.ok) {
+    return res.status(400).json({ error: result.err } as ResponseErrorMessage);
+  }
+
+  return res
+    .status(200)
+    .json({
+      message: `Successfully deleted character "${character}" of user "${username}"`,
+    } as ResponseMessage);
 }
