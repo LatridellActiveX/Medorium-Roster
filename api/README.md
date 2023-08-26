@@ -56,7 +56,7 @@ Registers user if name is not in use
 
 ## `POST /auth/login`
 
-Sends authToken cookie
+Sends two authentication cookies, authToken1 httpOnly: true, and authToken2 httpOnly: false
 
 ### Body
 
