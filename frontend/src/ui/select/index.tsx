@@ -12,6 +12,7 @@ type Props = {
   data: OptionType[];
   name: string;
   onChange: (e: React.ChangeEvent<any>) => void;
+  error?: string;
   label?: string;
   className?: string;
 };
@@ -20,10 +21,11 @@ const Select: React.FC<Props> = ({
   data,
   className,
   name,
-  label = name,
   onChange,
+  label = name,
+  error,
 }) => {
-  let Items = data.map((d, i) => (
+  let Items = data.map((d) => (
     <Option
       text={typeof d === "string" ? d : d.text}
       isDisabled={typeof d === "object" ? d.isDisabled : undefined}
@@ -41,6 +43,7 @@ const Select: React.FC<Props> = ({
       >
         {Items}
       </select>
+      <small className="text12-14 text-red-600">{error}</small>
     </div>
   );
 };

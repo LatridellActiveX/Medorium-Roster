@@ -1,8 +1,9 @@
 import { ChangeEvent, HTMLInputTypeAttribute } from "react";
+import connectWords from "../helpers/connectWords";
 
 export type InputType = {
   label: string;
-  value: string | undefined;
+  value: string | undefined | number;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   error?: string;
   name?: string;
@@ -34,10 +35,10 @@ const Input: React.FC<Props> = ({
       </label>
       <input
         type={type}
-        name={name || label.toLowerCase()} //it is absolutely unesessary to provide name prop for username and password because words are the same. Regestration code label and regcode name is a different story
+        name={name || label} //it is absolutely unesessary to provide name prop for username and password because words are the same. Regestration code label and regcode name is a different story
         id={label}
         className="outline-none p-2 text-base rounded-md box-border w-full mt-2"
-        value={value || ""}
+        value={typeof value === undefined ? "" : value}
         placeholder={!value ? "Missing" : undefined}
         onChange={handleChange}
         disabled={disabled}

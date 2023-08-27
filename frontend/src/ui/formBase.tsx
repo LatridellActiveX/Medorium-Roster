@@ -7,6 +7,7 @@ import type { ResponseZodError, ResponseErrorMessage } from "api/types";
 import cn from "classnames";
 import Select, { OptionType } from "./select";
 import axios from "../api/axios";
+import connectWords from "../helpers/connectWords";
 
 export type FormInputType =
   | {
@@ -135,8 +136,8 @@ const FormBase: React.FC<Props> = ({
     for (let input of inputs) {
       let inputName =
         typeof input === "string"
-          ? input.toLowerCase()
-          : input.name.toLowerCase();
+          ? connectWords(input)
+          : input.name;
 
       if (formik.errors[inputName]) {
         return true;
@@ -161,9 +162,11 @@ const FormBase: React.FC<Props> = ({
       <div className={cn("grid gap-y-4 w-full", fieldContainerClassName)}>
         {inputs.map((i) => {
           let inputName =
-            typeof i === "string" ? i.toLowerCase() : i.name.toLowerCase();
+            typeof i === "string" ? connectWords(i) : i.name;
           let inputLabel =
             typeof i === "object" && i.label ? i.label : inputName;
+          let value = formik.values[inputName];
+          let error = formik.errors[inputName];
 
           if (
             typeof i === "object" &&
@@ -174,6 +177,7 @@ const FormBase: React.FC<Props> = ({
               <Select
                 label={inputLabel}
                 data={i.selectItems}
+                error={error}
                 name={inputName}
                 onChange={formik.handleChange}
                 key={inputName}
@@ -181,24 +185,13 @@ const FormBase: React.FC<Props> = ({
             );
           }
 
-          if (typeof formik.values[inputName] === "number") {
-            <Input
-              label={inputLabel}
-              error={formik.errors[inputName]}
-              value={"to do: number input"}
-              type={typeof i === "object" ? i.type : undefined}
-              handleChange={formik.handleChange}
-              disabled={typeof i === "object" ? i?.disabled : undefined}
-              key={inputName}
-            />;
-          }
-
           return (
             <Input
               label={inputLabel}
-              error={formik.errors[inputName]}
-              value={formik.values[inputName]}
+              error={error}
+              value={value as string}
               type={typeof i === "object" ? i.type : undefined}
+              name={inputName}
               handleChange={formik.handleChange}
               disabled={typeof i === "object" ? i?.disabled : undefined}
               required={typeof i === "object" ? i?.required : undefined}

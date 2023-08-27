@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import FormBase, { FormBaseInputType, FormInputType } from "../../ui/formBase";
 import ModalBase from "../../ui/modalBase";
 import * as Yup from "yup";
-import useCurrentUser from "../../hooks/useCurrentUser";
 
 type Props = {
   isOpen: boolean;
@@ -25,10 +24,9 @@ const CreateCharacterModal: React.FC<Props> = ({
   onClose,
   refetch,
 }) => {
-  const { currentUser } = useCurrentUser();
-
   const initialValues = useMemo(() => {
     return {
+      username: "",
       name: "",
       main: "alt",
     };
@@ -61,7 +59,6 @@ const CreateCharacterModal: React.FC<Props> = ({
   };
   const formatRequestData = (data: FormBaseInputType) => {
     return {
-      username: currentUser.username,
       name: data.name,
       main: data.main === "main",
     };

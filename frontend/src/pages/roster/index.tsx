@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import useGetRoster from "../../api/roster/useGetRoster";
 import Characters from "../../ui/characters";
 import PageInitialization from "../../ui/pageInitialization";
 
 const RosterPage: React.FC = () => {
   const { data, isLoading, refetch } = useGetRoster();
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <PageInitialization pathIfUnauth='/login'>

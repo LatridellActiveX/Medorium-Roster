@@ -1,7 +1,7 @@
 import { ResponseCharacter } from "api/types";
 import EditIcon from "../../../../../icons/edit";
 import Icon from "../icon";
-import UpdateModal from "./updateModal";
+import UpdateCharacterModal from "./updateCharacterModal";
 import { useState } from "react";
 
 type Props = {
@@ -21,7 +21,7 @@ const Update: React.FC<Props> = ({ character, refetch }) => {
       <Icon action="Edit" name={character.name} onClick={handleEditModeStatus}>
         <EditIcon />
       </Icon>
-      <UpdateModal
+      <UpdateCharacterModal
         character={character}
         isOpen={isEditMode}
         onClose={handleEditModeStatus}
