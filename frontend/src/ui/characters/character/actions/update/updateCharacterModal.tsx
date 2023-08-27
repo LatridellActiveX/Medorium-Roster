@@ -30,16 +30,14 @@ const UpdateCharacterModal: React.FC<Props> = ({
   };
 
   const formatRequestData = (updatedCharacter: FormBaseInputType) => {
-    const characterCopy = { ...updatedCharacter };
-
     return {
       username: character.username, //must be original
       name: character.name, //must be original
       character: {
-        ...characterCopy,
+        ...updatedCharacter,
         username: character.username, //should be original?
-        main: characterCopy.main === "main",
-        payGrade: String(characterCopy.payGrade)
+        main: updatedCharacter.main === "main",
+        payGrade: !!updatedCharacter.payGrade ? String(updatedCharacter.payGrade) : undefined
       },
     };
   };

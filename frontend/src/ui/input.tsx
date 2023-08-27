@@ -1,5 +1,4 @@
 import { ChangeEvent, HTMLInputTypeAttribute } from "react";
-import connectWords from "../helpers/connectWords";
 
 export type InputType = {
   label: string;
@@ -25,6 +24,7 @@ const Input: React.FC<Props> = ({
   disabled,
   required,
 }) => {
+
   return (
     <div className="flex flex-col items-center">
       <label
@@ -38,7 +38,7 @@ const Input: React.FC<Props> = ({
         name={name || label} //it is absolutely unesessary to provide name prop for username and password because words are the same. Regestration code label and regcode name is a different story
         id={label}
         className="outline-none p-2 text-base rounded-md box-border w-full mt-2"
-        value={typeof value === undefined ? "" : value}
+        value={!!value ? value : ''}
         placeholder={!value ? "Missing" : undefined}
         onChange={handleChange}
         disabled={disabled}
