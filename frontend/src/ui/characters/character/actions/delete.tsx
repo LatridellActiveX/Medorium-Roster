@@ -8,8 +8,8 @@ type Props = {
 };
 
 const Delete: React.FC<Props> = ({ name, refetch }) => {
-  const handleClick = () => {
-    axios.delete("api/characters", {
+  const handleClick = async () => {
+    await axios.delete("api/characters", {
       data: {
         name,
       },

@@ -120,12 +120,11 @@ const UpdateCharacterModal: React.FC<Props> = ({
 
   return (
     <ModalBase
-      className="w-full max-w-[600px] bg-c-primary px-4 py-3"
+      className="w-full max-w-[600px] shadow-2xl"
       isOpen={isOpen}
       onClose={onClose}
     >
       <FormBase
-        className="shadow-2xl"
         fieldContainerClassName="grid-cols-2 gap-x-4"
         initialValues={initialValues}
         validationSchema={validationSchema}
