@@ -7,6 +7,7 @@ import FormBase, {
 } from "../../../../formBase";
 import { AxiosResponse } from "axios";
 import * as Yup from "yup";
+import useGetRoster from "../../../../../api/roster/useGetRoster";
 
 type Props = {
   character: ResponseCharacter;
@@ -21,11 +22,18 @@ const UpdateCharacterModal: React.FC<Props> = ({
   isOpen,
   refetch,
 }) => {
+  const { data: allCharacters } = useGetRoster();
+  let hasMainCharacter = allCharacters?.some(
+    (c) => {
+      return c.username === character.username && c.main
+    }
+  );
+
   const onSubmitSuccess = (
     _values: FormBaseInputType,
     _response: AxiosResponse
   ) => {
-    onClose()
+    onClose();
     refetch();
   };
 
@@ -37,19 +45,33 @@ const UpdateCharacterModal: React.FC<Props> = ({
         ...updatedCharacter,
         username: character.username, //should be original?
         main: updatedCharacter.main === "main",
-        payGrade: !!updatedCharacter.payGrade ? String(updatedCharacter.payGrade) : undefined
+        payGrade: !!updatedCharacter.payGrade
+          ? String(updatedCharacter.payGrade)
+          : undefined,
       },
     };
   };
 
   const validationSchema = useMemo(() => {
     const defaultSchema = Yup.string()
-    .max(30, "Must be 30 characters or less")
-    .min(3, "Must be 3 characters or more");
+      .max(30, "Must be 30 characters or less")
+      .min(3, "Must be 3 characters or more");
     const payGradeSchema = Yup.number()
-    .test('numbers', 'Only numbers allowed', value => !value || /^[0-9]+$/.test(String(value)))
-    .test('lessThanTen', 'Must be 10 characters or less', value => !value || value.toString().length <= 10)
-    .test('moreThanTwo', 'Must be 2 characters or more', value => !value || value.toString().length >= 2)
+      .test(
+        "numbers",
+        "Only numbers allowed",
+        (value) => !value || /^[0-9]+$/.test(String(value))
+      )
+      .test(
+        "lessThanTen",
+        "Must be 10 characters or less",
+        (value) => !value || value.toString().length <= 10
+      )
+      .test(
+        "moreThanTwo",
+        "Must be 2 characters or more",
+        (value) => !value || value.toString().length >= 2
+      );
 
     let schema = {
       name: Yup.string()
@@ -57,9 +79,15 @@ const UpdateCharacterModal: React.FC<Props> = ({
         .min(3, "Must be 3 characters or more")
         .required("Required"),
       main: Yup.string().oneOf(["alt", "main"]).required("Required"),
-      rank: !!character.rank ? defaultSchema.required('Required') : defaultSchema, //the API doesn't like it when we try to send an undefined value as a field value when the value has already been there
-      division: !!character.division ? defaultSchema.required('Required') : defaultSchema,
-      payGrade: !!character.payGrade ? payGradeSchema.required('Required') : payGradeSchema,
+      rank: !!character.rank
+        ? defaultSchema.required("Required")
+        : defaultSchema, //the API doesn't like it when we try to send an undefined value as a field value when the value has already been there
+      division: !!character.division
+        ? defaultSchema.required("Required")
+        : defaultSchema,
+      payGrade: !!character.payGrade
+        ? payGradeSchema.required("Required")
+        : payGradeSchema,
     };
 
     return Yup.object(schema);
@@ -87,7 +115,7 @@ const UpdateCharacterModal: React.FC<Props> = ({
           "alt",
           {
             text: "main",
-            isDisabled: character.main,
+            isDisabled: hasMainCharacter || false,
           },
         ],
       },
@@ -103,7 +131,7 @@ const UpdateCharacterModal: React.FC<Props> = ({
         name: "payGrade",
         label: "pay grade",
         required: !!character.payGrade,
-        type: 'number'
+        type: "number",
       },
       {
         name: "rankAcquisitionTimestamp",
@@ -112,7 +140,7 @@ const UpdateCharacterModal: React.FC<Props> = ({
         required: !!character.rankAcquisitionTimestamp,
       },
     ];
-  }, [character]);
+  }, [character, hasMainCharacter]);
 
   if (!isOpen) {
     return <></>; //cleanup
