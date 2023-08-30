@@ -28,8 +28,8 @@ export const CharacterModel = model("Character", CharacterSchema);
 class Character {
   static async getAllCharacters() {
     try {
-      const result = await CharacterModel.find({});
-      return Ok({ characters: result });
+      const characters = await CharacterModel.find({});
+      return Ok({ characters });
     } catch (_e) {
       const error = _e as MongoError;
       console.error("UNHANDLED ERROR:", error);
@@ -39,8 +39,8 @@ class Character {
 
   static async getAllUserCharacters(username: string) {
     try {
-      const result = await CharacterModel.find({ username });
-      return Ok({ characters: result });
+      const characters = await CharacterModel.find({ username });
+      return Ok({ characters: characters });
     } catch (_e) {
       const error = _e as MongoError;
       console.error("UNHANDLED ERROR:", error);
@@ -50,12 +50,12 @@ class Character {
 
   static async createCharacter(username: string, name: string, main: boolean) {
     try {
-      const result = await CharacterModel.create({
+      const character = await CharacterModel.create({
         username,
         name,
         main,
       });
-      return Ok({ character: result.toObject({ versionKey: false }) });
+      return Ok({ character: character.toObject({ versionKey: false }) });
     } catch (_e) {
       const error = _e as MongoError;
       if (error.code === 11000) {
@@ -68,27 +68,27 @@ class Character {
   }
 
   /**
-   * Replaces the existing document that matches username and name with updatedCharacter
+   * Replaces the existing document that matches username and name with a new character
    */
   static async replaceCharacter(
     username: string,
     name: string,
-    character: CharacterType
+    newCharacter: CharacterType
   ) {
     try {
-      const result = await CharacterModel.findOneAndUpdate(
+      const character = await CharacterModel.findOneAndUpdate(
         {
           username,
           name,
         },
-        character,
+        newCharacter,
         { new: true }
       );
 
-      if (result === null) {
+      if (character === null) {
         return Err("Character does not exist");
       }
-      return Ok({ updatedCharacter: result.toObject({ versionKey: false }) });
+      return Ok({ character: character.toObject({ versionKey: false }) });
     } catch (_e) {
       const error = _e as MongoError;
       console.error("UNHANDLED ERROR:", error);
@@ -98,7 +98,7 @@ class Character {
 
   static async deleteCharacter(username: string, name: string) {
     try {
-      let result = await CharacterModel.deleteOne({
+      const result = await CharacterModel.deleteOne({
         username,
         name,
       });
