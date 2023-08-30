@@ -18,7 +18,7 @@ const Actions: React.FC<Props> = ({ character, actions, refetch }) => {
   return (
     <div className="absolute top-2 right-2 flex gap-x-4">
       {actions.includes('Update') && <Update character={character} refetch={refetch} />}
-      {actions.includes('Delete') && <Delete name={character.name} refetch={refetch} />}
+      {actions.includes('Delete') && <Delete characterName={character.name} refetch={refetch} />}
     </div>
   );
 };
