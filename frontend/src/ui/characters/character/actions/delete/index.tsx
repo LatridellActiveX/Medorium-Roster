@@ -5,10 +5,11 @@ import DeletionConfirmationModal from "./deletionConfirmationModal";
 
 type Props = {
   characterName: string;
+  username: string;
   refetch: () => void;
 };
 
-const Delete: React.FC<Props> = ({ characterName, refetch }) => {
+const Delete: React.FC<Props> = ({ characterName, username, refetch }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenStatus = () => {
@@ -21,11 +22,11 @@ const Delete: React.FC<Props> = ({ characterName, refetch }) => {
         <TrashIcon />
       </Icon>
       <DeletionConfirmationModal
-        accountName={characterName}
+        characterName={characterName}
+        username={username}
         isOpen={isOpen}
         onClose={handleOpenStatus}
         refetch={refetch}
-        characterName={characterName}
       />
     </div>
   );

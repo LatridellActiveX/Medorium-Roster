@@ -5,26 +5,23 @@ import { AxiosError } from "axios";
 
 type Props = {
   isOpen: boolean;
-  accountName: string;
-  onClose: () => void;
+  username: string;
   characterName: string;
+  onClose: () => void;
   refetch: () => void;
 };
 
 const DeletionConfirmationModal: React.FC<Props> = ({
   isOpen,
-  accountName,
+  username,
   onClose,
   characterName,
   refetch,
 }) => {
+
   const deleteCharacter = async () => {
     try {
-      await axios.delete("api/characters", {
-        data: {
-          name: characterName,
-        },
-      });
+      await axios.delete(`api/users/${username}/characters/${characterName}`);
       onClose();
       refetch();
     } catch (e) {
@@ -42,7 +39,7 @@ const DeletionConfirmationModal: React.FC<Props> = ({
       <h2 className="text-center text-2xl">
         Are you sure you want to <strong>delete</strong>
         <br />
-        the {accountName} character?
+        the {characterName} character?
       </h2>
       <div className="flex gap-x-4 mt-5">
         <button
