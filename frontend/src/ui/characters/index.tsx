@@ -4,8 +4,8 @@ import cn from "classnames";
 import { ActionsType } from "./character/actions";
 import { CharacterType } from "../../../../api/src/models/character";
 
-type Filter = "Main" | "Alt";
-type Sort = "A-Z" | "Z-A";
+export type Filter = "Default" | "Main" | "Alt";
+export type Sort = "Default" | "A-Z" | "Z-A";
 
 type Props = {
   data: ResponseCharacters;
@@ -23,26 +23,28 @@ const Characters: React.FC<Props> = ({
   className,
   refetch,
   actions,
-  filter,
-  sort
+  filter = "Default",
+  sort = "Default"
 }) => {
-  const sorts: {
-    [key in Sort]: (a: CharacterType, b: CharacterType) => number;
-  } = {
-    "A-Z": (a, b) => a.name.localeCompare(b.name),
-    "Z-A": (a, b) => b.name.localeCompare(a.name),
-  }
-
   const filters: {
     [key in Filter]: (c: CharacterType) => boolean;
   } = {
+    "Default": (_c) => (true),
     "Main": (c) => (c.main),
     "Alt": (c) => (!c.main),
   }
 
+  const sorts: {
+    [key in Sort]: (a: CharacterType, b: CharacterType) => number;
+  } = {
+    "Default": (_a, _b) => 0,
+    "A-Z": (a, b) => a.name.localeCompare(b.name),
+    "Z-A": (a, b) => b.name.localeCompare(a.name),
+  }
+
   let Characters = data
-    .filter(filter ? filters[filter] : () => true)
-    .sort(sort ? sorts[sort] : () => 0)
+    .filter(filters[filter])
+    .sort(sorts[sort])
     .map((c) => (
       <Character refetch={refetch} actions={actions} character={c} key={c.name} />
     ));
