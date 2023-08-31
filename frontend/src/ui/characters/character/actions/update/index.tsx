@@ -19,7 +19,7 @@ const Update: React.FC<Props> = ({ character, refetch }) => {
   return (
     <div>
       <Icon action="Edit" name={character.name} onClick={handleEditModeStatus}>
-        <EditIcon />
+        <EditIcon className="mt-[-1px]" />
       </Icon>
       <UpdateCharacterModal
         character={character}
