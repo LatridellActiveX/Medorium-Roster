@@ -44,6 +44,7 @@ const DeletionConfirmationModal: React.FC<Props> = ({
       <div className="flex gap-x-4 mt-5">
         <button
           className="bg-c-red hover:bg-c-red/80 text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5 mb-6"
+          aria-label={`Delete ${characterName}`}
           onClick={deleteCharacter}
         >
           Yes, I do

@@ -166,6 +166,7 @@ const UpdateCharacterModal: React.FC<Props> = ({
           </>
         }
         apiMethod="put"
+        id={`Edit ${character.name}`}
         inputs={inputs}
       />
     </ModalBase>

@@ -43,6 +43,7 @@ type Props = {
   className?: string;
   fieldContainerClassName?: string;
   isH1Heading?: boolean;
+  id?: string;
   toastMessages?: {
     pending?: string | null;
     success?: string | null;
@@ -76,6 +77,7 @@ const FormBase: React.FC<Props> = ({
   fieldContainerClassName,
   isH1Heading,
   toastMessages,
+  id,
 }) => {
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -135,9 +137,7 @@ const FormBase: React.FC<Props> = ({
   const isDisabled = () => {
     for (let input of inputs) {
       let inputName =
-        typeof input === "string"
-          ? connectWords(input)
-          : input.name;
+        typeof input === "string" ? connectWords(input) : input.name;
 
       if (formik.errors[inputName]) {
         return true;
@@ -152,6 +152,7 @@ const FormBase: React.FC<Props> = ({
         "flex flex-col items-center px-4 rounded-xl py-4 bg-neutral-800 bg-opacity-90 sm:px-9",
         className
       )}
+      id={id}
       onSubmit={formik.handleSubmit}
     >
       {isH1Heading ? (
@@ -161,8 +162,7 @@ const FormBase: React.FC<Props> = ({
       )}
       <div className={cn("grid gap-y-4 w-full", fieldContainerClassName)}>
         {inputs.map((i) => {
-          let inputName =
-            typeof i === "string" ? connectWords(i) : i.name;
+          let inputName = typeof i === "string" ? connectWords(i) : i.name;
           let inputLabel =
             typeof i === "object" && i.label ? i.label : inputName;
           let value = formik.values[inputName];
@@ -207,7 +207,7 @@ const FormBase: React.FC<Props> = ({
         className="bg-blue-600 hover:bg-blue-500 disabled:bg-gray-500 disabled:cursor-not-allowed text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5 mb-6"
         disabled={isDisabled()}
         type="submit"
-        aria-label={`Submit your credentials`} // for accessibility
+        aria-label={typeof `Submit your credentials`} // for accessibility
       >
         {submitBtnSign}
       </button>
