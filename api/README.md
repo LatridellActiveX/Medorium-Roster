@@ -32,8 +32,6 @@ Registers user if name is not in use
 
 ### Query
 
-Note: accessCode is not implemented yet
-
 |   Field    | Required |  Type  | minLen | maxLen |
 | :--------: | :------: | :----: | :----: | :----: |
 | accessCode |   Yes    | string |  100   |  200   |
@@ -58,7 +56,7 @@ Note: accessCode is not implemented yet
 
 ## `POST /auth/login`
 
-Sends authToken cookie
+Sends two authentication cookies, authToken1 httpOnly: true, and authToken2 httpOnly: false
 
 ### Body
 
@@ -257,10 +255,10 @@ Deletes a character of the logged in user
 
 ### Example Responses
 
-#### Success - TODO: response type (respond in this format: { message: "" })
+#### Success
 
 ```json
-"Successfully deleted \"characterName\""
+{ "message": "Successfully deleted \"characterName\"" }
 ```
 
 #### Error
@@ -270,3 +268,36 @@ Deletes a character of the logged in user
   "error": "Character does not exist"
 }
 ```
+
+# Users
+
+## `DELETE /api/users/:username/characters/:character`
+
+Deletes a character of specified user. Requires admin privileges.
+
+### Params
+
+|   Field   | Required |  Type  | minLen | maxLen |
+| :-------: | :------: | :----: | :----: | :----: |
+| username  |   Yes    | string |   6    |   30   |
+| character |   Yes    | string |   3    |   37   |
+
+### Example responses
+
+#### Success
+
+```json
+{
+  "message": "Successfully deleted character \"test\" of user \"username\""
+}
+```
+
+#### Error
+
+```json
+{
+  "error": "Character does not exist"
+}
+```
+
+<br>
