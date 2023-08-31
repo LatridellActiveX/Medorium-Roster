@@ -79,16 +79,6 @@ export async function replaceCharacter(req: Request, res: Response) {
     return res.status(400).json(validation.error.issues as ResponseZodError);
   }
 
-  // const username = "testuser";
-  // const name = "Main";
-  // const character: CharacterType = {
-  //   username: "testuser",
-  //   name: "Main",
-  //   main: true,
-  //   division: "Mining",
-  //   rank: "Journeyman Technician",
-  // };
-
   const { username, name, character } = validation.data;
 
   const result = await Character.replaceCharacter(username, name, character);
@@ -97,9 +87,7 @@ export async function replaceCharacter(req: Request, res: Response) {
     return res.status(400).json({ error: result.err });
   }
 
-  const { updatedCharacter } = result.val;
-
-  return res.status(200).json(updatedCharacter);
+  return res.status(200).json({ character: result.val.character });
 }
 
 export async function deleteLoggedInUserCharacter(req: Request, res: Response) {
