@@ -8,12 +8,12 @@ const Edit: React.FC<Props> = ({ className, ...props }) => {
   return (
     <svg
       className={cn("", className)}
-      fill="#FFFFFF"
+      fill="rgb(37 99 235)"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      width="18px"
-      height="18px"
+      width="22px"
+      height="22px"
       viewBox="0 0 494.936 494.936"
       xmlSpace="preserve"
       {...props}
