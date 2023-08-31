@@ -15,6 +15,7 @@ type Props = {
   actions?: ActionsType;
   filter?: Filter;
   sort?: Sort;
+  search?: string;
 };
 
 const Characters: React.FC<Props> = ({
@@ -24,7 +25,8 @@ const Characters: React.FC<Props> = ({
   refetch,
   actions,
   filter = "Default",
-  sort = "Default"
+  sort = "Default",
+  search = "",
 }) => {
   const filters: {
     [key in Filter]: (c: CharacterType) => boolean;
@@ -44,6 +46,13 @@ const Characters: React.FC<Props> = ({
 
   let Characters = data
     .filter(filters[filter])
+    .filter((c) => {
+      if (search === "") return true;
+      const searchTerms = [c.name, c.username, c.rank ?? "N/A", c.division ?? "N/A"]
+        .map(term => term.toLowerCase());
+      return searchTerms.some(term => term.includes(search.toLowerCase()));
+    }
+    )
     .sort(sorts[sort])
     .map((c) => (
       <Character refetch={refetch} actions={actions} character={c} key={c.name} />

@@ -9,6 +9,8 @@ const RosterPage: React.FC = () => {
   const [filter, setFilter] = useState<Filter>("Default");
   const [sort, setSort] = useState<Sort>("Default");
 
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
     refetch();
   }, []);
@@ -46,7 +48,9 @@ const RosterPage: React.FC = () => {
 
             {/* search */}
             <div className="flex items-end">
-              <input className="select" type="text" placeholder="Search..." />
+              <input className="select" type="text" placeholder="Search..." onChange={(e) => {
+                setSearch(e.target.value);
+              }} />
             </div>
           </div>
 
@@ -57,6 +61,7 @@ const RosterPage: React.FC = () => {
             actions={["Delete", "Update"]}
             filter={filter}
             sort={sort}
+            search={search}
           />
         </section>
       </main>
