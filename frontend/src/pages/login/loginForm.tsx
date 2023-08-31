@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import FormBase from "../../ui/formBase";
+import FormBase, { FormBaseInputType } from "../../ui/formBase";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import { AxiosResponse } from "axios";
 
@@ -30,7 +30,12 @@ const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   let { setCurrentUser } = useCurrentUser();
 
-  const onSubmitSuccess = (values: { [key: string]: string }, response: AxiosResponse) => {
+  const onSubmitSuccess = (
+    values: FormBaseInputType,
+    response: AxiosResponse
+  ) => {
+    if (typeof values.username !== "string") return;
+
     setCurrentUser({
       username: values?.username,
       isAdmin: response.data?.isAdmin,

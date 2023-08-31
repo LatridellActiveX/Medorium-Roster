@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import FormBase, { FormInputType } from "../../ui/formBase";
+import FormBase, { FormBaseInputType, FormInputType } from "../../ui/formBase";
 import ModalBase from "../../ui/modalBase";
 import * as Yup from "yup";
 
@@ -26,6 +26,7 @@ const CreateCharacterModal: React.FC<Props> = ({
 }) => {
   const initialValues = useMemo(() => {
     return {
+      username: "",
       name: "",
       main: "alt",
     };
@@ -52,11 +53,11 @@ const CreateCharacterModal: React.FC<Props> = ({
     return <></>;
   }
 
-  const onSubmitSuccess = async (values: { [key: string]: string }) => {
+  const onSubmitSuccess = async (_values: FormBaseInputType) => {
     refetch();
     onClose();
   };
-  const formatRequestData = (data: { [key: string]: string }) => {
+  const formatRequestData = (data: FormBaseInputType) => {
     return {
       name: data.name,
       main: data.main === "main",

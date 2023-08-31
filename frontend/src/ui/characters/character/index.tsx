@@ -1,28 +1,22 @@
 import cn from "classnames";
 import Role from "./role";
 import { ResponseCharacter } from "api/types";
-import TrashIcon from "../../../icons/trash";
-import Tooltip from "../../tooltip";
+import Actions, { ActionsType } from "./actions";
 
 type Props = {
-  deleteCharacter?: (name: string) => void;
-} & ResponseCharacter;
+  character: ResponseCharacter;
+  refetch?: () => void;
+  actions?: ActionsType;
+};
 
-const Character: React.FC<Props> = ({
-  name,
-  username,
-  main,
-  rank,
-  division,
-  payGrade,
-  rankAcquisitionTimestamp,
-  deleteCharacter,
-}) => {
-  const handleDeleteCharacter = () => {
-    if (deleteCharacter) {
-      deleteCharacter(name);
-    }
-  };
+const Character: React.FC<Props> = ({ character, actions, refetch }) => {
+  const {
+    name,
+    main,
+    username,
+    division,
+    rank,
+  } = character;
 
   return (
     <li className="relative flex justify-between p-2 flex-col h-24 bg-c-primary border-c-border border-2">
@@ -41,19 +35,11 @@ const Character: React.FC<Props> = ({
         <Role role={division} sign="D" />
       </div>
 
-      {deleteCharacter && (
-        <div className="absolute top-2 right-2">
-          <Tooltip text="Delete the character">
-            <button
-              className="transition-opacity hover:opacity-70"
-              aria-label={`Delete ${name} character`}
-              onClick={handleDeleteCharacter}
-            >
-              <TrashIcon />
-            </button>
-          </Tooltip>
-        </div>
-      )}
+      <Actions
+        character={character}
+        actions={actions}
+        refetch={refetch}
+      />
     </li>
   );
 };

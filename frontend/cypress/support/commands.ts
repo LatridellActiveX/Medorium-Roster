@@ -27,29 +27,52 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
 
-export {}
+export {};
 declare global {
   namespace Cypress {
     interface Chainable {
       login(): Chainable<() => void>;
-      addCharacter(isMain?: boolean): Chainable<() => void>;
-      deleteCharacter(): Chainable<() => void>;
+      addCharacter(isMain?: boolean, name?: string): Chainable<() => void>;
+      deleteCharacter(name?: string): Chainable<() => void>;
       closeDialog(): Chainable<() => void>;
+      openEditModal(): Chainable<() => void>;
+      submitEdit(): Chainable<() => void>;
     }
   }
 }
 
-Cypress.Commands.add('login', () => {
-  cy.session('loginId', () => {
-    cy.visit("http://localhost:5173/login");
-  
-    cy.get('input[name="username"]').type("username");
-    cy.get('input[name="password"]').type("password");
-    cy.get('button[type="submit"]').click();
+Cypress.Commands.add("login", () => {
+  cy.session(
+    "loginId",
+    () => {
+      cy.visit("http://localhost:5173/login");
 
-  }, {
-    validate: () => {
-      cy.getCookie('authToken2').should('exist');
+      cy.get('input[name="username"]').type("username");
+      cy.get('input[name="password"]').type("password");
+      cy.get('button[type="submit"]').click();
+
+      cy.url().should("not.contain", "login");
+    },
+    {
+      validate: () => {
+        cy.getCookie("authToken2").should("exist");
+      },
     }
-  });
-})
+  );
+});
+
+const defaultCharacterName = "Admin N";
+
+Cypress.Commands.add("addCharacter", (isMain = true, name = defaultCharacterName) => {
+  cy.get("button").contains("Add new").click();
+
+  cy.get('input[name="name"]').type(name);
+  cy.get("select").select(isMain ? "main" : "alt");
+  cy.get('button[type="submit"]').click();
+});
+
+Cypress.Commands.add("deleteCharacter", (name: string = defaultCharacterName) => {
+  cy.get(`[aria-label="Delete ${name} character"]`).click();
+
+  cy.get(`button[aria-label="Delete ${name}"]`).click();
+});
