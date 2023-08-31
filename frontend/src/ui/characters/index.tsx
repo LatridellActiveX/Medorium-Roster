@@ -2,13 +2,19 @@ import { ResponseCharacters } from "api/types";
 import Character from "./character";
 import cn from "classnames";
 import { ActionsType } from "./character/actions";
+import { CharacterType } from "../../../../api/src/models/character";
+
+type Filter = "Main" | "Alt";
+type Sort = "A-Z" | "Z-A";
 
 type Props = {
   data: ResponseCharacters;
   isLoading: boolean;
   className?: string;
   refetch?: () => void;
-  actions?: ActionsType
+  actions?: ActionsType;
+  filter?: Filter;
+  sort?: Sort;
 };
 
 const Characters: React.FC<Props> = ({
@@ -16,11 +22,30 @@ const Characters: React.FC<Props> = ({
   isLoading,
   className,
   refetch,
-  actions
+  actions,
+  filter,
+  sort
 }) => {
-  let Characters = data.map((c) => (
-    <Character refetch={refetch} actions={actions} character={c} key={c.name} />
-  ));
+  const sorts: {
+    [key in Sort]: (a: CharacterType, b: CharacterType) => number;
+  } = {
+    "A-Z": (a, b) => a.name.localeCompare(b.name),
+    "Z-A": (a, b) => b.name.localeCompare(a.name),
+  }
+
+  const filters: {
+    [key in Filter]: (c: CharacterType) => boolean;
+  } = {
+    "Main": (c) => (c.main),
+    "Alt": (c) => (!c.main),
+  }
+
+  let Characters = data
+    .filter(filter ? filters[filter] : () => true)
+    .sort(sort ? sorts[sort] : () => 0)
+    .map((c) => (
+      <Character refetch={refetch} actions={actions} character={c} key={c.name} />
+    ));
 
   return (
     <ul className={cn("flex flex-col gap-1", className)}>
