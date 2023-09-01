@@ -40,7 +40,7 @@ const Actions: React.FC<Props> = ({ character, actions, refetch }) => {
         <Update
           character={character}
           refetch={refetch}
-          // requestUrl={updateAction.url}
+          requestUrl={updateAction.url}
         />
       )}
       {deleteAction.doesExist && (

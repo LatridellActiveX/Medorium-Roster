@@ -7,9 +7,10 @@ import { useState } from "react";
 type Props = {
   character: ResponseCharacter;
   refetch: () => void;
+  requestUrl?: string;
 };
 
-const Update: React.FC<Props> = ({ character, refetch }) => {
+const Update: React.FC<Props> = ({ character, refetch, requestUrl }) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const handleEditModeStatus = () => {
@@ -24,6 +25,7 @@ const Update: React.FC<Props> = ({ character, refetch }) => {
       <UpdateCharacterModal
         character={character}
         isOpen={isEditMode}
+        requestUrl={requestUrl}
         onClose={handleEditModeStatus}
         refetch={refetch}
       />
