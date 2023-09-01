@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import FormBase from "../../ui/formBase";
+import FormBase, { FormBaseInputType } from "../../ui/formBase";
 import useCurrentUser from "../../hooks/useCurrentUser";
 
 const initialValues = {
@@ -33,9 +33,9 @@ const RegForm: React.FC<Props> = ({ accessCode }) => {
   const navigate = useNavigate();
   let { setCurrentUser } = useCurrentUser();
 
-  const onSubmitSuccess = (values: { [key: string]: string }) => {
+  const onSubmitSuccess = (values: FormBaseInputType) => {
     setCurrentUser({
-      username: values?.username,
+      username: values?.username as string | null | false,
     });
     navigate("/");
   };

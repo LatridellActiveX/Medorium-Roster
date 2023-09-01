@@ -7,9 +7,10 @@ type Props = {
   characterName: string;
   username: string;
   refetch: () => void;
+  requestUrl?: string
 };
 
-const Delete: React.FC<Props> = ({ characterName, username, refetch }) => {
+const Delete: React.FC<Props> = ({ characterName, username, refetch, requestUrl }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenStatus = () => {
@@ -27,6 +28,7 @@ const Delete: React.FC<Props> = ({ characterName, username, refetch }) => {
         isOpen={isOpen}
         onClose={handleOpenStatus}
         refetch={refetch}
+        requestUrl={requestUrl}
       />
     </div>
   );

@@ -63,7 +63,12 @@ const DashboardPage: React.FC = () => {
             data={characters || []}
             isLoading={isFetching}
             refetch={refetch}
-            actions={["Delete"]}
+            actions={[
+              {
+                action: "Delete",
+                url: '/api/characters'
+              }
+            ]}
           />
 
           <CreateCharacterModal

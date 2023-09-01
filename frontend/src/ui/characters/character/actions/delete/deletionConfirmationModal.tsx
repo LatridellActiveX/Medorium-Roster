@@ -9,6 +9,7 @@ type Props = {
   characterName: string;
   onClose: () => void;
   refetch: () => void;
+  requestUrl?: string;
 };
 
 const DeletionConfirmationModal: React.FC<Props> = ({
@@ -17,11 +18,21 @@ const DeletionConfirmationModal: React.FC<Props> = ({
   onClose,
   characterName,
   refetch,
+  requestUrl, //default one is for admin
 }) => {
-
   const deleteCharacter = async () => {
     try {
-      await axios.delete(`api/users/${username}/characters/${characterName}`);
+      if (requestUrl) {
+        await axios.delete(requestUrl, {
+          data: {
+            name: characterName,
+          },
+        });
+      } else {
+        await axios.delete(
+          requestUrl || `api/users/${username}/characters/${characterName}`
+        );
+      }
       onClose();
       refetch();
     } catch (e) {
