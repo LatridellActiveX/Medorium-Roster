@@ -1,12 +1,12 @@
 import cn from "classnames";
 import Role from "./role";
 import { ResponseCharacter } from "api/types";
-import Actions, { ActionsType } from "./actions";
+import Actions, { ActionType } from "./actions";
 
 type Props = {
   character: ResponseCharacter;
   refetch?: () => void;
-  actions?: ActionsType;
+  actions?: ActionType[];
 };
 
 const Character: React.FC<Props> = ({ character, actions, refetch }) => {

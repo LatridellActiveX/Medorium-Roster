@@ -1,5 +1,5 @@
 import Characters from "../../ui/characters";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CreateCharacterModal from "./createCharacterModal";
 import PlusIcon from "../../icons/plus";
 import useGetCharacters from "../../api/characters/useGetCharacters";
@@ -34,7 +34,13 @@ const DashboardPage: React.FC = () => {
             data={characters || []}
             isLoading={isFetching}
             refetch={refetch}
-            actions={["Delete", "Update"]}
+            actions={[
+              {
+                action: "Delete",
+                url: "/api/characters",
+              },
+              "Update",
+            ]}
           />
 
           <CreateCharacterModal

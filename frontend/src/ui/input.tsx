@@ -9,6 +9,7 @@ export type InputType = {
   type?: HTMLInputTypeAttribute;
   disabled?: boolean;
   required?: boolean;
+  placeholder?: string;
 };
 
 // changed the emtpy object to a type that means the same thing.
@@ -23,6 +24,7 @@ const Input: React.FC<Props> = ({
   type = "text",
   disabled,
   required,
+  placeholder,
 }) => {
 
   return (
@@ -39,7 +41,7 @@ const Input: React.FC<Props> = ({
         id={label}
         className="outline-none p-2 text-base rounded-md box-border w-full mt-2"
         value={!!value ? value : ''}
-        placeholder={!value ? "Missing" : undefined}
+        placeholder={(!value && placeholder) ? placeholder : undefined}
         onChange={handleChange}
         disabled={disabled}
         required={required}

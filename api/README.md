@@ -109,7 +109,7 @@ Responds with status `200` if authorized, otherwise responds with status `401`
 }
 ```
 
-## `GET /auth/accessCode`
+## `GET /auth/access-code`
 
 Returns a one time use code that can be used for registration.
 Requires being logged in as an admin.
@@ -132,7 +132,7 @@ Requires being logged in as an admin.
 }
 ```
 
-## GET `/auth/accessCode/verify/:accessCode`
+## GET `/auth/access-code/verify/:accessCode`
 
 Validates the specified accessCode in the following format
 
