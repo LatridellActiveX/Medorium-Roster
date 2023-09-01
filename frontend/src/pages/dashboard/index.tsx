@@ -7,7 +7,7 @@ import PageInitialization from "../../ui/pageInitialization";
 import { ResponseCharacters } from "api/types";
 
 const DashboardPage: React.FC = () => {
-  const { data, isFetching, refetch } = useGetCharacters();
+  const { data, isFetching, refetch, isPreviousData} = useGetCharacters();
   const [isModal, setIsModal] = useState(false);
   const [characters, setCharacters] = useState<ResponseCharacters>([]);
 
@@ -18,23 +18,8 @@ const DashboardPage: React.FC = () => {
       return;
     }
 
-    let operation: "add" | "delete" =
-      data.length > characters.length ? "add" : "delete";
-
-    if (operation === "add") {
-      let newCharacter = data.filter(
-        (dataItem) =>
-          !characters.some((character) => dataItem.name === character.name)
-      )[0];
-
-      setCharacters((prev) => [...prev, newCharacter]);
-    } else {
-      let deletedCharacter = characters.filter(
-        (dataItem) =>
-          !data.some((character) => dataItem.name === character.name)
-      )[0];
-      
-      setCharacters((prev) => prev.filter((i) => i.name !== deletedCharacter.name));
+    if (!isPreviousData) {
+      setCharacters(data);
     }
   }, [data]);
 
