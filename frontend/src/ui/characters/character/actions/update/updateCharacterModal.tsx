@@ -14,6 +14,7 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   refetch: () => void;
+  requestUrl?: string;
 };
 
 const UpdateCharacterModal: React.FC<Props> = ({
@@ -21,6 +22,7 @@ const UpdateCharacterModal: React.FC<Props> = ({
   onClose,
   isOpen,
   refetch,
+  requestUrl, //default one is for admin
 }) => {
   const { data: allCharacters } = useGetRoster();
   let hasMainCharacter = allCharacters?.some((c) => {
@@ -154,7 +156,7 @@ const UpdateCharacterModal: React.FC<Props> = ({
         fieldContainerClassName="grid-cols-2 gap-x-4"
         initialValues={initialValues}
         validationSchema={validationSchema}
-        apiUrl="api/characters"
+        apiUrl={requestUrl || "api/characters"}
         onSubmitSuccess={onSubmitSuccess}
         formatRequestData={formatRequestData}
         heading={
