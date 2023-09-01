@@ -1,7 +1,7 @@
 import { ResponseCharacters } from "api/types";
 import Character from "./character";
 import cn from "classnames";
-import { ActionsType } from "./character/actions";
+import { ActionType } from "./character/actions";
 import { CharacterType } from "../../../../api/src/models/character";
 
 export type Filter = "Default" | "Main" | "Alt";
@@ -12,7 +12,7 @@ type Props = {
   isLoading: boolean;
   className?: string;
   refetch?: () => void;
-  actions?: ActionsType;
+  actions?: ActionType[];
   filter?: Filter;
   sort?: Sort;
   search?: string;

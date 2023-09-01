@@ -1,42 +1,13 @@
 import Characters from "../../ui/characters";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CreateCharacterModal from "./createCharacterModal";
 import PlusIcon from "../../icons/plus";
 import useGetCharacters from "../../api/characters/useGetCharacters";
 import PageInitialization from "../../ui/pageInitialization";
-import { ResponseCharacters } from "api/types";
 
 const DashboardPage: React.FC = () => {
-  const { data, isFetching, refetch } = useGetCharacters();
+  const { data: characters = [], isFetching, refetch } = useGetCharacters();
   const [isModal, setIsModal] = useState(false);
-  const [characters, setCharacters] = useState<ResponseCharacters>([]);
-
-  useEffect(() => {
-    if (!data) return;
-    if (data.length > characters.length && characters.length === 0) {
-      setCharacters(data);
-      return;
-    }
-
-    let operation: "add" | "delete" =
-      data.length > characters.length ? "add" : "delete";
-
-    if (operation === "add") {
-      let newCharacter = data.filter(
-        (dataItem) =>
-          !characters.some((character) => dataItem.name === character.name)
-      )[0];
-
-      setCharacters((prev) => [...prev, newCharacter]);
-    } else {
-      let deletedCharacter = characters.filter(
-        (dataItem) =>
-          !data.some((character) => dataItem.name === character.name)
-      )[0];
-      
-      setCharacters((prev) => prev.filter((i) => i.name !== deletedCharacter.name));
-    }
-  }, [data]);
 
   const handleModalStatus = () => {
     setIsModal((prev) => !prev);
@@ -63,7 +34,13 @@ const DashboardPage: React.FC = () => {
             data={characters || []}
             isLoading={isFetching}
             refetch={refetch}
-            actions={["Delete"]}
+            actions={[
+              {
+                action: "Delete",
+                url: "/api/characters",
+              },
+              "Update",
+            ]}
           />
 
           <CreateCharacterModal

@@ -15,6 +15,7 @@ import DashboardPage from "./pages/dashboard";
 import LandingPage from "./pages/landing";
 import Header from "./layout/header";
 import useCurrentUser from "./hooks/useCurrentUser";
+import NotFoundPage from "./pages/notFound";
 
 const App: React.FC = () => {
   useAuth();
@@ -37,6 +38,7 @@ const App: React.FC = () => {
 
         <Route path="/FAQ" element={<FAQPage />} />
         <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
+        <Route path="notFound" element={<NotFoundPage />} />
       </Routes>
 
       <ToastContainer position="bottom-right" />

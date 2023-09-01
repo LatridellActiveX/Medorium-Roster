@@ -44,6 +44,7 @@ type Props = {
   fieldContainerClassName?: string;
   isH1Heading?: boolean;
   id?: string;
+  placeholder?: string;
   toastMessages?: {
     pending?: string | null;
     success?: string | null;
@@ -78,6 +79,7 @@ const FormBase: React.FC<Props> = ({
   isH1Heading,
   toastMessages,
   id,
+  placeholder,
 }) => {
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -175,6 +177,7 @@ const FormBase: React.FC<Props> = ({
           ) {
             return (
               <Select
+                className="min-h-[42px] mt-1"
                 label={inputLabel}
                 data={i.selectItems}
                 error={error}
@@ -195,6 +198,7 @@ const FormBase: React.FC<Props> = ({
               handleChange={formik.handleChange}
               disabled={typeof i === "object" ? i?.disabled : undefined}
               required={typeof i === "object" ? i?.required : undefined}
+              placeholder={placeholder}
               key={inputName}
             />
           );

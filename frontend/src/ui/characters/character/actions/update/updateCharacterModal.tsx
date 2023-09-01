@@ -23,11 +23,9 @@ const UpdateCharacterModal: React.FC<Props> = ({
   refetch,
 }) => {
   const { data: allCharacters } = useGetRoster();
-  let hasMainCharacter = allCharacters?.some(
-    (c) => {
-      return c.username === character.username && c.main
-    }
-  );
+  let hasMainCharacter = allCharacters?.some((c) => {
+    return c.username === character.username && c.main;
+  });
 
   const onSubmitSuccess = (
     _values: FormBaseInputType,
@@ -168,6 +166,7 @@ const UpdateCharacterModal: React.FC<Props> = ({
         apiMethod="put"
         id={`Edit ${character.name}`}
         inputs={inputs}
+        placeholder="Missing"
       />
     </ModalBase>
   );
