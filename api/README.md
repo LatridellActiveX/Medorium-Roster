@@ -241,6 +241,58 @@ Creates a character for the logged in user
 }
 ```
 
+## `PUT /api/characters`
+
+Replaces an existing character of the logged in user with a new one
+
+|   Field   | Required |     Type      | minLen | maxLen |
+| :-------: | :------: | :-----------: | :----: | :----: |
+|   name    |   Yes    |    string     |   3    |   37   |
+| character |   Yes    | CharacterType |  N/A   |  N/A   |
+
+### Example Request
+
+#### Body
+
+```json
+{
+  "name": "Benjamin Thomson",
+  "character": {
+    "name": "Benjamin Thomson",
+    "username": "latridell",
+    "main": false,
+    "rank": "Chief Financial Officer (CFO)",
+    "division": "Front Office"
+  }
+}
+```
+
+### Example Responses
+
+#### Success
+
+```json
+{
+  "character": {
+    "name": "Benjamin Thomson",
+    "username": "latridell",
+    "main": false,
+    "rank": "Chief Financial Officer (CFO)",
+    "division": "Front Office"
+  }
+}
+```
+
+#### Error
+
+```json
+{
+  "error": "Character does not exist"
+}
+```
+
+<br>
+
 ## `DELETE /api/characters`
 
 Deletes a character of the logged in user
