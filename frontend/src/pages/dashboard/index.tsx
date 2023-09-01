@@ -41,8 +41,8 @@ const DashboardPage: React.FC = () => {
               },
               {
                 action: "Update",
-                url: '/api'
-              }
+                url: '/api/characters',
+              },
             ]}
           />
 
