@@ -4,24 +4,10 @@ import CreateCharacterModal from "./createCharacterModal";
 import PlusIcon from "../../icons/plus";
 import useGetCharacters from "../../api/characters/useGetCharacters";
 import PageInitialization from "../../ui/pageInitialization";
-import { ResponseCharacters } from "api/types";
 
 const DashboardPage: React.FC = () => {
-  const { data, isFetching, refetch, isPreviousData} = useGetCharacters();
+  const { data: characters = [], isFetching, refetch } = useGetCharacters();
   const [isModal, setIsModal] = useState(false);
-  const [characters, setCharacters] = useState<ResponseCharacters>([]);
-
-  useEffect(() => {
-    if (!data) return;
-    if (data.length > characters.length && characters.length === 0) {
-      setCharacters(data);
-      return;
-    }
-
-    if (!isPreviousData) {
-      setCharacters(data);
-    }
-  }, [data]);
 
   const handleModalStatus = () => {
     setIsModal((prev) => !prev);
