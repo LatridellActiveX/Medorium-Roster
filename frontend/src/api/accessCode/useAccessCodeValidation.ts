@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "../axios";
 
 function useAccessCodeValidation(code: string | null) {
-  const url = `/auth/accessCode/verify/${code}`;
+  const url = `/auth/access-code/verify/${code}`;
 
   if (!code) return {
     data: false,

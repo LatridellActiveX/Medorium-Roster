@@ -14,7 +14,7 @@ const router = Router();
 router.get("/", authorized, isAuthorized);
 router.post("/register", register);
 router.post("/login", login);
-router.get("/accessCode", authorized, admin, generateAccessCode);
-router.get("/accessCode/verify/:accessCode", verifyAccessCode);
+router.get("/access-code", authorized, admin, generateAccessCode);
+router.get("/access-code/verify/:accessCode", verifyAccessCode);
 
 export default router;
