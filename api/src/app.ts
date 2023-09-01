@@ -23,7 +23,7 @@ app.use(cookieParser());
 // Logging
 app.use(morgan(":status :method :url :response-time[2] ms"));
 
-// Middlewares
+// Rate limiters
 app.use(globalRateLimiter);
 
 app.use("/auth", authRouter);
