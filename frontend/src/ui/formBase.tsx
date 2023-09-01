@@ -177,6 +177,7 @@ const FormBase: React.FC<Props> = ({
           ) {
             return (
               <Select
+                className="min-h-[42px] mt-1"
                 label={inputLabel}
                 data={i.selectItems}
                 error={error}

@@ -35,9 +35,9 @@ const Select: React.FC<Props> = ({
 
   return (
     <div>
-      <label className="capitalize">{label}</label>
+      <label className="text-base capitalize">{label}</label>
       <select
-        className={cn("w-full rounded-md text-black capitalize p-2", className)}
+        className={cn("w-full rounded-md capitalize p-2", className)}
         name={name}
         onChange={onChange}
       >
