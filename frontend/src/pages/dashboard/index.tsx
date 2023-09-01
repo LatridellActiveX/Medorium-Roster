@@ -18,8 +18,12 @@ const DashboardPage: React.FC = () => {
       return;
     }
 
-    let operation: "add" | "delete" =
-      data.length > characters.length ? "add" : "delete";
+    let operation: "add" | "delete" | "update" =
+      data.length > characters.length
+        ? "add"
+        : data.length === characters.length
+        ? "update"
+        : "delete";
 
     if (operation === "add") {
       let newCharacter = data.filter(
@@ -28,13 +32,17 @@ const DashboardPage: React.FC = () => {
       )[0];
 
       setCharacters((prev) => [...prev, newCharacter]);
-    } else {
+    } else if (operation === "delete") {
       let deletedCharacter = characters.filter(
         (dataItem) =>
           !data.some((character) => dataItem.name === character.name)
       )[0];
-      
-      setCharacters((prev) => prev.filter((i) => i.name !== deletedCharacter.name));
+
+      setCharacters((prev) =>
+        prev.filter((i) => i.name !== deletedCharacter.name)
+      );
+    } else {
+      setCharacters(data);
     }
   }, [data]);
 
@@ -66,8 +74,9 @@ const DashboardPage: React.FC = () => {
             actions={[
               {
                 action: "Delete",
-                url: '/api/characters'
-              }
+                url: "/api/characters",
+              },
+              "Update",
             ]}
           />
 
