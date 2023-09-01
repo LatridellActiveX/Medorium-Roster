@@ -90,6 +90,45 @@ export async function replaceCharacter(req: Request, res: Response) {
   return res.status(200).json({ character: result.val.character });
 }
 
+export async function replaceLoggedInUserCharacter(
+  req: Request,
+  res: Response
+) {
+  const characterSchema = z.object({
+    name: z.string().min(3).max(37).trim(),
+    main: z.boolean(),
+    rank: z.union([z.string().min(3).max(30), z.undefined()]),
+    rankAcquisitionTimestamp: z.union([z.number(), z.undefined()]),
+    division: z.union([z.string().min(3).max(30), z.undefined()]),
+    payGrade: z.union([z.string(), z.undefined()]),
+  });
+
+  const schema = z.object({
+    name: z.string().min(3).max(37).trim(),
+    character: characterSchema,
+  });
+
+  const validation = schema.safeParse(req.body);
+
+  if (!validation.success) {
+    return res.status(400).json(validation.error.issues as ResponseZodError);
+  }
+
+  const { username } = res.locals;
+  const { name, character } = validation.data;
+
+  const result = await Character.replaceCharacter(username, name, {
+    username,
+    ...character,
+  });
+
+  if (!result.ok) {
+    return res.status(400).json({ error: result.err });
+  }
+
+  return res.status(200).json({ character: result.val.character });
+}
+
 export async function deleteLoggedInUserCharacter(req: Request, res: Response) {
   const { name } = req.body;
   const { username } = res.locals;
