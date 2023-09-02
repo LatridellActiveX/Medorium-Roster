@@ -10,7 +10,7 @@ export const currentUserContext = createContext({
     username: null,
     isAdmin: false,
   } as CurrentUserType,
-  setCurrentUser: (user: CurrentUserType) => {},
+  setCurrentUser: (_user: CurrentUserType) => {},
 });
 
 type Props = {
