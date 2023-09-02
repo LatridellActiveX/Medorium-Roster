@@ -63,6 +63,7 @@ class Character {
         name,
         main,
       });
+
       return Ok({ character: character.toObject({ versionKey: false }) });
     } catch (_e) {
       const error = _e as MongoError;
@@ -105,10 +106,9 @@ class Character {
         { new: true }
       );
 
-      if (character === null) {
-        return Err("Character does not exist");
-      }
-      return Ok({ character: character.toObject({ versionKey: false }) });
+      return character === null
+        ? Err("Character does not exist")
+        : Ok({ character: character.toObject({ versionKey: false }) });
     } catch (_e) {
       const error = _e as MongoError;
       console.error("UNHANDLED ERROR:", error);
@@ -123,11 +123,9 @@ class Character {
         name,
       });
 
-      if (result.deletedCount !== 1) {
-        return Err("Character does not exist");
-      }
-
-      return Ok({ deleted: true });
+      return result.deletedCount !== 1
+        ? Err("Character does not exist")
+        : Ok({ deleted: true });
     } catch (_e) {
       const error = _e as MongoError;
       console.error("UNHANDLED ERROR:", error);
