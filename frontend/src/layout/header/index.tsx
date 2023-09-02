@@ -33,6 +33,7 @@ const Header: React.FC = () => {
               "space-y-2 transition-opacity hover:opacity-70",
               isBurgerOpen && "opacity-70"
             )}
+            aria-label='Open navigation menu'
             onClick={handleBurgerStatus}
             ref={burgerIconRef}
           >
