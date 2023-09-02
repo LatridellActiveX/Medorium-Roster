@@ -19,6 +19,14 @@ jobs:
         with:
           node-version: 19
 
+      - name: Install API Dependencies
+        working-directory: ./api
+        run: npm install
+
+      - name: Start backend
+        working-directory: ./api
+        run: npm run dev
+
       - name: Install Frontend Dependencies
         working-directory: ./frontend
         run: npm install
