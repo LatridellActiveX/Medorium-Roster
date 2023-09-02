@@ -95,36 +95,10 @@ describe("CRUD operations for the characters of users", () => {
   });
 
   test("user can delete their character", async () => {
-    const createResult1 = await Character.createCharacter(
-      "user1",
-      "character1",
-      false
-    );
-
-    const createResult2 = await Character.createCharacter(
-      "user1",
-      "character2",
-      false
-    );
-
-    const createResult3 = await Character.createCharacter(
-      "user1",
-      "character3",
-      false
-    );
-
-    const createResult4 = await Character.createCharacter(
-      "user2",
-      "character123",
-      false
-    );
-
-    assert(
-      createResult1.ok &&
-        createResult2.ok &&
-        createResult3.ok &&
-        createResult4.ok
-    );
+    (await Character.createCharacter("user1", "character1", false)).unwrap();
+    (await Character.createCharacter("user1", "character2", false)).unwrap();
+    (await Character.createCharacter("user1", "character3", false)).unwrap();
+    (await Character.createCharacter("user2", "character123", false)).unwrap();
 
     const deleteNonExistingResult = await Character.deleteCharacter(
       "user1",
@@ -157,5 +131,55 @@ describe("CRUD operations for the characters of users", () => {
     expect(firstUserCharacters.length).toBe(2); // first and second characters remain
   });
 
-  test.skip("user can update an existing character", async () => {});
+  test("user can update an existing character", async () => {
+    const character1 = (
+      await Character.createCharacter("user1", "character1", false)
+    ).unwrap().character;
+
+    const mutatedCharacter1 = {
+      ...character1,
+      main: true,
+      division: "Mining",
+      rank: "Journeyman Technician",
+    };
+
+    const updatedCharacter1 = (
+      await Character.replaceCharacter("user1", "character1", mutatedCharacter1)
+    ).unwrap().character;
+
+    expect(updatedCharacter1.division).toEqual("Mining");
+    expect(updatedCharacter1.rank).toEqual("Journeyman Technician");
+  });
+
+  test("user cannot have more than one main character", async () => {
+    const character1 = (
+      await Character.createCharacter("user1", "character1", false)
+    ).unwrap().character;
+
+    const character2 = (
+      await Character.createCharacter("user1", "character2", true)
+    ).unwrap().character;
+
+    const updateCharacter1Result = await Character.replaceCharacter(
+      "user1",
+      "character1",
+      { ...character1, main: true }
+    );
+
+    expect(updateCharacter1Result.ok).toBeFalsy(); // character2 is a main character
+
+    // now no character is a main character
+    Character.replaceCharacter("user1", "character2", {
+      ...character2,
+      main: false,
+    });
+
+    const updateCharacter2Result = await Character.replaceCharacter(
+      "user1",
+      "character2",
+      { ...character2, main: true }
+    );
+
+    expect(updateCharacter2Result.ok).toBeTruthy();
+  });
 });
