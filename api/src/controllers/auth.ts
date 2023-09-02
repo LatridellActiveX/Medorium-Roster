@@ -5,40 +5,12 @@ import type {
   ResponseZodError,
 } from "../../types.js";
 import User from "../models/user.js";
-import { createAuthToken } from "../utils/authToken.js";
 import { z } from "zod";
-import { splitInHalf } from "../utils/index.js";
 import {
   createRegistrationToken,
   verifyRegistrationToken,
-} from "../utils/registrationToken.js";
-
-function generateAndSendAuthToken(
-  res: Response,
-  username: string,
-  isAdmin: boolean
-) {
-  const authToken = createAuthToken(username, isAdmin);
-
-  // Split token into two cookies, second one is httpOnly: false to allow
-  // client side logout, without exposing the first half to javascript,
-  // or implementing server side logout with token invalidation.
-  const [firstHalf, secondHalf] = splitInHalf(authToken);
-
-  res.cookie("authToken1", firstHalf, {
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-  });
-
-  res.cookie("authToken2", secondHalf, {
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    httpOnly: false,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-  });
-}
+} from "../helpers/registrationToken.js";
+import generateAndSendAuthToken from "../helpers/generateAndSendAuthToken.js";
 
 const usernameAndPasswordSchema = z.object({
   username: z.string().min(6).max(30).trim(),
@@ -90,7 +62,9 @@ export async function register(req: Request, res: Response) {
 
   generateAndSendAuthToken(res, username, user.isAdmin);
 
-  return res.status(200).json({ authenticated: true, username, isAdmin: user.isAdmin });
+  return res
+    .status(200)
+    .json({ authenticated: true, username, isAdmin: user.isAdmin });
 }
 
 export async function login(req: Request, res: Response) {
@@ -116,7 +90,9 @@ export async function login(req: Request, res: Response) {
 
   generateAndSendAuthToken(res, username, user.isAdmin);
 
-  return res.status(200).json({ authenticated: true, username, isAdmin: user.isAdmin });
+  return res
+    .status(200)
+    .json({ authenticated: true, username, isAdmin: user.isAdmin });
 }
 
 export async function isAuthorized(req: Request, res: Response) {

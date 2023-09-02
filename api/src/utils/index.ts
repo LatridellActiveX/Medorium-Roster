@@ -1,7 +1,6 @@
 export function splitInHalf(s: string) {
-  let halfString = Math.round(s.length / 2);
-  let s1 = s.slice(0, halfString);
-  let s2 = s.slice(halfString, s.length);
-
+  const middle = Math.round(s.length / 2);
+  const s1 = s.slice(0, middle);
+  const s2 = s.slice(middle, s.length);
   return [s1, s2];
 }

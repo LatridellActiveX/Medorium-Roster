@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import User from "../models/user.js";
-import { decodeAuthToken } from "../utils/authToken.js";
+import { decodeAuthToken } from "../helpers/authToken.js";
 import { z } from "zod";
 
 async function authorized(req: Request, res: Response, next: NextFunction) {
