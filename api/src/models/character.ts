@@ -50,6 +50,14 @@ class Character {
 
   static async createCharacter(username: string, name: string, main: boolean) {
     try {
+      const findResult = await this.getAllUserCharacters(username);
+      if (!findResult.ok) return Err("Something went wrong");
+
+      const { characters } = findResult.val;
+      const existingMainCharacter = characters.find((c) => c.main);
+
+      if (existingMainCharacter) return Err("Main character already exists");
+
       const character = await CharacterModel.create({
         username,
         name,
