@@ -37,6 +37,7 @@ declare global {
       closeDialog(): Chainable<() => void>;
       openEditModal(): Chainable<() => void>;
       submitEdit(): Chainable<() => void>;
+      logOut(): Chainable<() => void>;
     }
   }
 }
@@ -75,4 +76,9 @@ Cypress.Commands.add("deleteCharacter", (name: string = defaultCharacterName) =>
   cy.get(`[aria-label="Delete ${name} character"]`).click();
 
   cy.get(`button[aria-label="Delete ${name}"]`).click();
+});
+
+Cypress.Commands.add("logOut", () => {
+  cy.get('button[aria-label="Open navigation menu"]').click();
+  cy.get('a').contains('Log out').click();
 });
