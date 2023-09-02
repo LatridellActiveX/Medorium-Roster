@@ -26,6 +26,9 @@ jobs:
         with:
           node-version: 19
 
+      - name: Run MongoDB and Wait for Healthy State
+        run: sleep 10  # Wait for MongoDB container to initialize (adjust timing if needed)
+
       - name: Install API Dependencies
         working-directory: ./api
         run: npm install
@@ -37,10 +40,7 @@ jobs:
       - name: Start the api'
         working-directory: ./api
         run: node . &
-
-      - name: Run MongoDB and Wait for Healthy State
-        run: sleep 10  # Wait for MongoDB container to initialize (adjust timing if needed)
-
+  
       - name: Install Frontend Dependencies
         working-directory: ./frontend
         run: npm install
