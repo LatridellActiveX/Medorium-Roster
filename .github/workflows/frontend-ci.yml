@@ -37,13 +37,17 @@ jobs:
         working-directory: ./api
         run: npm run build
 
-      - name: Start the api'
+      - name: Start the api
         working-directory: ./api
         run: node . &
   
       - name: Install Frontend Dependencies
         working-directory: ./frontend
         run: npm install
+
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: npm run dev
 
       - name: Run Frontend Unit Tests
         working-directory: ./frontend
