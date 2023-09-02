@@ -1,16 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
-import { vi, expect, it, describe, beforeEach } from "vitest";
+import { expect, it, describe, beforeEach } from "vitest";
 import { BrowserRouter } from "react-router-dom";
 import RegForm from "../pages/registration/regForm";
 
 describe("Registration form", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
-
     render(
       <BrowserRouter>
-        <RegForm />
+        <RegForm accessCode="doesNotMatter" />
       </BrowserRouter>
     );
   });
@@ -39,7 +37,7 @@ describe("Registration form", () => {
   });
   it("types too short username and password", async () => {
     const tooShortUsername = "aa";
-    const tooShortPassowrd = "11";
+    const tooShortPasssword = "11";
 
     let usernameInput = screen.getByRole("textbox", { name: /Username/i });
     let passwordInput = screen.getByLabelText("password");
@@ -48,8 +46,23 @@ describe("Registration form", () => {
     });
 
     await user.type(usernameInput, tooShortUsername);
-    await user.type(passwordInput, tooShortPassowrd);
+    await user.type(passwordInput, tooShortPasssword);
 
     expect(submitBtn.getAttribute("disabled")).toBe("");
+  });
+  it("types correct credentials", async () => {
+    const username = "username";
+    const password = "password";
+
+    let usernameInput = screen.getByRole("textbox", { name: /Username/i });
+    let passwordInput = screen.getByLabelText("password");
+    let submitBtn = screen.getByRole("button", {
+      name: "Submit your registration credentials",
+    });
+
+    await user.type(usernameInput, username);
+    await user.type(passwordInput, password);
+
+    expect(submitBtn.getAttribute("disabled")).toBe(null);
   });
 });

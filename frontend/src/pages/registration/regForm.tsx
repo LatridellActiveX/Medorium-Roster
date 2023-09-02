@@ -1,8 +1,7 @@
 import * as Yup from "yup";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import FormBase from "../../ui/formBase";
+import { Link, useNavigate } from "react-router-dom";
+import FormBase, { FormBaseInputType } from "../../ui/formBase";
 import useCurrentUser from "../../hooks/useCurrentUser";
-import ErrorPreview from "./errorPreview";
 
 const initialValues = {
   username: "",
@@ -25,42 +24,21 @@ const inputs = [
     type: "password",
   },
 ];
-const errorMsgs = {
-  noCode: "You need a valid registration code to create an account.",
-  codeLength: [
-    "Your code is too short/long.",
-    "Please contact to admin to provide you a correct access code",
-  ],
+
+type Props = {
+  accessCode: string | null;
 };
 
-const RegForm: React.FC = () => {
+const RegForm: React.FC<Props> = ({ accessCode }) => {
   const navigate = useNavigate();
-  const [searchParams, _setSearchParams] = useSearchParams();
-  const accessCode = searchParams.get("accessCode") ?? "";
   let { setCurrentUser } = useCurrentUser();
 
-  const onSubmitSuccess = (values: { [key: string]: string }) => {
+  const onSubmitSuccess = (values: FormBaseInputType) => {
     setCurrentUser({
-      username: values?.username,
+      username: values?.username as string | null | false,
     });
     navigate("/");
   };
-
-  if (!accessCode) {
-    return (
-      <ErrorPreview msgs={errorMsgs.noCode}>
-        <p>
-          Please contact your admin to resolve
-          <Link to="/faq#registrationCode"> the issue.</Link>
-        </p>
-      </ErrorPreview>
-    );
-  }
-  if (accessCode.length < 100 || accessCode.length > 200) {
-    return (
-      <ErrorPreview msgs={errorMsgs.codeLength} />
-    );
-  }
 
   return (
     <FormBase
@@ -74,9 +52,7 @@ const RegForm: React.FC = () => {
       isH1Heading
     >
       <small>
-        <p>
-          Already got an account? <Link to="/login">Log in</Link> here
-        </p>
+        Already got an account? <Link to="/login">Log in</Link> here
       </small>
     </FormBase>
   );

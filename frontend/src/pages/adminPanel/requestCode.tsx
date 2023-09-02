@@ -14,7 +14,7 @@ const RequestCode: React.FC = () => {
 
     try {
       let resp: { data: { token: string } } = await toast.promise(
-        axios.get("auth/accessCode"),
+        axios.get("auth/access-code"),
         {
           pending: "Pending...",
           success: "Code successfully copied to clipboard",

@@ -117,3 +117,17 @@ export async function generateAccessCode(req: Request, res: Response) {
   const token = createRegistrationToken();
   res.status(200).json({ token });
 }
+
+export async function verifyAccessCode(req: Request, res: Response) {
+  const validation = accessCodeSchema.safeParse(req.params);
+
+  if (!validation.success) {
+    return res.status(200).json({ valid: false });
+  }
+
+  const token = validation.data.accessCode;
+
+  const isValid = verifyRegistrationToken(token, false);
+
+  return res.status(200).json({ valid: isValid });
+}

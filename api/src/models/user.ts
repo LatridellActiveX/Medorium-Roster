@@ -38,12 +38,12 @@ class User {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
     try {
-      const doc = await UserModel.create({
+      const user = await UserModel.create({
         name: name,
         hash,
         isAdmin: options?.admin,
       });
-      return Ok({ user: doc.toObject() });
+      return Ok({ user: user.toObject() });
     } catch (_e) {
       const error = _e as MongoError;
       if (error.code === 11000) {

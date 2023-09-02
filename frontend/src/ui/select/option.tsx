@@ -6,7 +6,7 @@ type Props = {
 const Option: React.FC<Props> = ({ text, isDisabled }) => {
   return (
     <option
-      className="capitalize text-base text-black"
+      className="capitalize text-base"
       value={text}
       disabled={isDisabled}
     >
