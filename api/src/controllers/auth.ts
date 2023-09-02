@@ -13,6 +13,33 @@ import {
   verifyRegistrationToken,
 } from "../utils/registrationToken.js";
 
+function generateAndSendAuthToken(
+  res: Response,
+  username: string,
+  isAdmin: boolean
+) {
+  const authToken = createAuthToken(username, isAdmin);
+
+  // Split token into two cookies, second one is httpOnly: false to allow
+  // client side logout, without exposing the first half to javascript,
+  // or implementing server side logout with token invalidation.
+  const [firstHalf, secondHalf] = splitInHalf(authToken);
+
+  res.cookie("authToken1", firstHalf, {
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+  });
+
+  res.cookie("authToken2", secondHalf, {
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    httpOnly: false,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+  });
+}
+
 const usernameAndPasswordSchema = z.object({
   username: z.string().min(6).max(30).trim(),
   password: z.string().min(8).max(128).trim(),
@@ -51,16 +78,19 @@ export async function register(req: Request, res: Response) {
     return res.status(400).json({ error: result.err } as ResponseErrorMessage);
   }
 
-  const { user } = result.val;
-
   const loginResult = await User.login(username, password);
+
   if (!loginResult.ok) {
     return res
       .status(400)
-      .json({ error: loginResult.err } as ResponseErrorMessage);
+      .json({ error: "Invalid username or password" } as ResponseErrorMessage);
   }
 
-  return res.status(200).json({ authenticated: true, isAdmin: user.isAdmin });
+  const { user } = loginResult.val;
+
+  generateAndSendAuthToken(res, username, user.isAdmin);
+
+  return res.status(200).json({ authenticated: true, username, isAdmin: user.isAdmin });
 }
 
 export async function login(req: Request, res: Response) {
@@ -84,28 +114,9 @@ export async function login(req: Request, res: Response) {
 
   const { user } = result.val;
 
-  const authToken = createAuthToken(username, user.isAdmin);
+  generateAndSendAuthToken(res, username, user.isAdmin);
 
-  // Split token into two cookies, second one is httpOnly: false to allow
-  // client side logout, without exposing the first half to javascript,
-  // or implementing server side logout with token invalidation.
-  const [firstHalf, secondHalf] = splitInHalf(authToken);
-
-  res.cookie("authToken1", firstHalf, {
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-  });
-
-  res.cookie("authToken2", secondHalf, {
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    httpOnly: false,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-  });
-
-  return res.status(200).json({ authenticated: true, isAdmin: user.isAdmin });
+  return res.status(200).json({ authenticated: true, username, isAdmin: user.isAdmin });
 }
 
 export async function isAuthorized(req: Request, res: Response) {
