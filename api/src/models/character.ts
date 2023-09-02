@@ -54,9 +54,9 @@ class Character {
       if (!findResult.ok) return Err("Something went wrong");
 
       const { characters } = findResult.val;
-      const existingMainCharacter = characters.find((c) => c.main);
+      const mainCharacterExists = characters.some((c) => c.main);
 
-      if (existingMainCharacter) return Err("Main character already exists");
+      if (mainCharacterExists) return Err("Main character already exists");
 
       const character = await CharacterModel.create({
         username,
