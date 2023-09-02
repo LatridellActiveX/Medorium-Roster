@@ -20,8 +20,8 @@
 
 ## `POST /auth/register?accessCode=${accessCode}`
 
-Registers user if name is not in use
-(and the accessCode is valid)
+Registers user if name is not in use and accessCode is valid.
+Automatically signs in the user.
 
 ### Body
 
@@ -41,7 +41,11 @@ Registers user if name is not in use
 #### Success
 
 ```json
-{ "message": "Successfully registered user with name 'testuser'" }
+{
+  "authenticated": true,
+  "username": "exampleuser",
+  "isAdmin": false,
+}
 ```
 
 #### Error
@@ -73,7 +77,9 @@ Sends two authentication cookies, authToken1 httpOnly: true, and authToken2 http
 
 ```json
 {
-  "authenticated": true
+  "authenticated": true,
+  "username": "exampleuser",
+  "isAdmin": false,
 }
 ```
 

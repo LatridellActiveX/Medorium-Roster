@@ -53,9 +53,14 @@ export async function register(req: Request, res: Response) {
 
   const { user } = result.val;
 
-  return res
-    .status(200)
-    .json({ message: `Successfully registered user with name '${user.name}'` });
+  const loginResult = await User.login(username, password);
+  if (!loginResult.ok) {
+    return res
+      .status(400)
+      .json({ error: loginResult.err } as ResponseErrorMessage);
+  }
+
+  return res.status(200).json({ authenticated: true, isAdmin: user.isAdmin });
 }
 
 export async function login(req: Request, res: Response) {
@@ -72,7 +77,6 @@ export async function login(req: Request, res: Response) {
   const result = await User.login(username, password);
 
   if (!result.ok) {
-    console.log("Login failed.", result.err);
     return res
       .status(400)
       .json({ error: "Invalid username or password" } as ResponseErrorMessage);
