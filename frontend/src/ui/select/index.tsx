@@ -12,6 +12,7 @@ type Props = {
   data: OptionType[];
   name: string;
   onChange: (e: React.ChangeEvent<any>) => void;
+  error?: string;
   label?: string;
   className?: string;
 };
@@ -20,10 +21,11 @@ const Select: React.FC<Props> = ({
   data,
   className,
   name,
-  label = name,
   onChange,
+  label = name,
+  error,
 }) => {
-  let Items = data.map((d, i) => (
+  let Items = data.map((d) => (
     <Option
       text={typeof d === "string" ? d : d.text}
       isDisabled={typeof d === "object" ? d.isDisabled : undefined}
@@ -33,14 +35,15 @@ const Select: React.FC<Props> = ({
 
   return (
     <div>
-      <label className="capitalize">{label}</label>
+      <label className="text-base capitalize">{label}</label>
       <select
-        className={cn("w-full rounded-md text-black capitalize p-2", className)}
+        className={cn("w-full rounded-md capitalize p-2", className)}
         name={name}
         onChange={onChange}
       >
         {Items}
       </select>
+      <small className="text12-14 text-red-600">{error}</small>
     </div>
   );
 };

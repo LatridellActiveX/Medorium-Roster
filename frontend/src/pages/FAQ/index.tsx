@@ -9,7 +9,7 @@ const data: ParagraphType[] = [
     },
     {
         heading: 'What is the Medor Roster website?',
-        texts: 'The Medor Roster website is a platform that allows you to view your character information from EVE Online in a table format. //Not really, they would think this is connected to eve\'s api, it is not'
+        texts: 'The Medor Roster website is a platform that allows you to view your characters rank and role information in your corp, as well as the corp administrators to assign and view your ranks and roles.'
     },
     {
         heading: 'How do I access the Medor Roster website?',
@@ -17,7 +17,7 @@ const data: ParagraphType[] = [
     },
     {
         heading: 'What kind of information can I view on the Medor Roster website?',
-        texts: 'On the Medor Roster website, you can view information about your EVE Online character, such as their name, race, and skills.'
+        texts: 'On the Medor Roster website, you can view information about your position in your corp, such as your rank, roles and time served.'
     },
     {
         heading: 'Can I register for the Medor Roster website without a registration code?',

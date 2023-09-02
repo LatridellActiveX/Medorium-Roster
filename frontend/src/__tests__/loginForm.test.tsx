@@ -53,4 +53,19 @@ describe("Login form", () => {
 
     expect(submitBtn.getAttribute("disabled")).toBe("");
   });
+  it("types correct credentials", async () => {
+    const username = "username";
+    const password = "password";
+
+    let usernameInput = screen.getByRole("textbox", { name: /Username/i });
+    let passwordInput = screen.getByLabelText("password");
+    let submitBtn = screen.getByRole("button", {
+      name: "Submit your login credentials",
+    });
+
+    await user.type(usernameInput, username);
+    await user.type(passwordInput, password);
+
+    expect(submitBtn.getAttribute("disabled")).toBe(null);
+  });
 });

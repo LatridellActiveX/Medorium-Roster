@@ -11,6 +11,7 @@ module.exports = {
                 'c-background': "#101010",
                 'c-primary': "#202325",
                 'c-secondary': "#cef", //needs to be added
+                'c-red': '#F87171'
             },
             container: {
                 center: true
