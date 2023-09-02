@@ -25,8 +25,8 @@ jobs:
 
       - name: Run Frontend Unit Tests
         working-directory: ./frontend
-        run: npm run test
+        run: npm run unit:once
 
       - name: Run Frontend E2E Tests
         working-directory: ./frontend
-        run: npm run e2e
+        run: npm run e2e:headless
