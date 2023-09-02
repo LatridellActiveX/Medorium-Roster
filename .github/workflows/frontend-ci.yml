@@ -1,5 +1,6 @@
 name: Frontend CI
 
+# on: [push]
 on:
   pull_request:
     branches:
@@ -28,6 +29,14 @@ jobs:
       - name: Install API Dependencies
         working-directory: ./api
         run: npm install
+
+      - name: Build the api
+        working-directory: ./api
+        run: npm run build
+
+      - name: Start the api'
+        working-directory: ./api
+        run: node . &
 
       - name: Run MongoDB and Wait for Healthy State
         run: sleep 10  # Wait for MongoDB container to initialize (adjust timing if needed)
