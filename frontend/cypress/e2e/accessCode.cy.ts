@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 import "../support/commands";
+import "cypress-real-events";
 
 describe("Access code", () => {
   it("Full use", () => {
@@ -7,7 +8,7 @@ describe("Access code", () => {
     cy.visit("http://localhost:5173/adminPanel");
 
     let regLink: string = "";
-    cy.get("button").contains("Request registration code").click();
+    cy.get("button").contains("Request registration code").realClick();
     cy.get('textarea[id="regCode"]').should(
       "contain.text",
       "/registration?accessCode="
