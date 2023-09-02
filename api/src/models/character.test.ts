@@ -95,36 +95,10 @@ describe("CRUD operations for the characters of users", () => {
   });
 
   test("user can delete their character", async () => {
-    const createResult1 = await Character.createCharacter(
-      "user1",
-      "character1",
-      false
-    );
-
-    const createResult2 = await Character.createCharacter(
-      "user1",
-      "character2",
-      false
-    );
-
-    const createResult3 = await Character.createCharacter(
-      "user1",
-      "character3",
-      false
-    );
-
-    const createResult4 = await Character.createCharacter(
-      "user2",
-      "character123",
-      false
-    );
-
-    assert(
-      createResult1.ok &&
-        createResult2.ok &&
-        createResult3.ok &&
-        createResult4.ok
-    );
+    (await Character.createCharacter("user1", "character1", false)).unwrap();
+    (await Character.createCharacter("user1", "character2", false)).unwrap();
+    (await Character.createCharacter("user1", "character3", false)).unwrap();
+    (await Character.createCharacter("user2", "character123", false)).unwrap();
 
     const deleteNonExistingResult = await Character.deleteCharacter(
       "user1",
@@ -161,10 +135,6 @@ describe("CRUD operations for the characters of users", () => {
     const character1 = (
       await Character.createCharacter("user1", "character1", false)
     ).unwrap().character;
-
-    // const character2 = (
-    //   await Character.createCharacter("user1", "character2", true)
-    // ).unwrap().character;
 
     const mutatedCharacter1 = {
       ...character1,
