@@ -84,6 +84,18 @@ class Character {
     newCharacter: CharacterType
   ) {
     try {
+      if (newCharacter.main) {
+        const existingMainCharacter = (
+          await CharacterModel.findOne({
+            main: true,
+          })
+        )?.toObject();
+
+        if (existingMainCharacter && existingMainCharacter.name !== name) {
+          return Err("Main character already exists");
+        }
+      }
+
       const character = await CharacterModel.findOneAndUpdate(
         {
           username,

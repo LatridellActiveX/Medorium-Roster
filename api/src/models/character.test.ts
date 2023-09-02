@@ -157,5 +157,59 @@ describe("CRUD operations for the characters of users", () => {
     expect(firstUserCharacters.length).toBe(2); // first and second characters remain
   });
 
-  test.skip("user can update an existing character", async () => {});
+  test("user can update an existing character", async () => {
+    const character1 = (
+      await Character.createCharacter("user1", "character1", false)
+    ).unwrap().character;
+
+    // const character2 = (
+    //   await Character.createCharacter("user1", "character2", true)
+    // ).unwrap().character;
+
+    const mutatedCharacter1 = {
+      ...character1,
+      main: true,
+      division: "Mining",
+      rank: "Journeyman Technician",
+    };
+
+    const updatedCharacter1 = (
+      await Character.replaceCharacter("user1", "character1", mutatedCharacter1)
+    ).unwrap().character;
+
+    expect(updatedCharacter1.division).toEqual("Mining");
+    expect(updatedCharacter1.rank).toEqual("Journeyman Technician");
+  });
+
+  test("user cannot have more than one main character", async () => {
+    const character1 = (
+      await Character.createCharacter("user1", "character1", false)
+    ).unwrap().character;
+
+    const character2 = (
+      await Character.createCharacter("user1", "character2", true)
+    ).unwrap().character;
+
+    const updateCharacter1Result = await Character.replaceCharacter(
+      "user1",
+      "character1",
+      { ...character1, main: true }
+    );
+
+    expect(updateCharacter1Result.ok).toBeFalsy(); // character2 is a main character
+
+    // now no character is a main character
+    Character.replaceCharacter("user1", "character2", {
+      ...character2,
+      main: false,
+    });
+
+    const updateCharacter2Result = await Character.replaceCharacter(
+      "user1",
+      "character2",
+      { ...character2, main: true }
+    );
+
+    expect(updateCharacter2Result.ok).toBeTruthy();
+  });
 });
