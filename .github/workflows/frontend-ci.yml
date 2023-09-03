@@ -10,8 +10,8 @@ jobs:
       mongodb:
         image: mongo:latest
         ports:
-         - 27017:27017
-    
+          - 27017:27017
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -22,7 +22,7 @@ jobs:
           node-version: 19
 
       - name: Run MongoDB and Wait for Healthy State
-        run: sleep 10  # Wait for MongoDB container to initialize (adjust timing if needed)
+        run: sleep 10 # Wait for MongoDB container to initialize (adjust timing if needed)
 
       - name: "Start backend"
         env:
@@ -40,11 +40,11 @@ jobs:
           npm run build &&
           npm run preview &
           sleep 10
-      
-      - name: "Run unit tests"
-        working-directory: ./frontend
-        run: npm run unit:once
 
       - name: "Run e2e tests"
         working-directory: ./frontend
         run: npm run e2e:headless
+
+      - name: "Run unit tests"
+        working-directory: ./frontend
+        run: npm run unit:once
