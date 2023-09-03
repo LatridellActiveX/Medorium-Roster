@@ -1,10 +1,6 @@
 name: Frontend CI
 
-# on: [push]
-on:
-  pull_request:
-    branches:
-      - cicd
+on: pull_request
 
 jobs:
   frontend-tests:
@@ -52,59 +48,3 @@ jobs:
       - name: "Run e2e tests"
         working-directory: ./frontend
         run: npm run e2e:headless
-
-
-# jobs:
-#   frontend-tests:
-#     name: Run Frontend Tests
-#     runs-on: ubuntu-latest
-
-#     services:
-#       mongodb:
-#         image: mongo:latest
-#         ports:
-#           - 27017:27017
-
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-
-#       - name: Setup Node.js for Frontend
-#         uses: actions/setup-node@v2
-#         with:
-#           node-version: 19
-
-#       - name: Run MongoDB and Wait for Healthy State
-#         run: sleep 10  # Wait for MongoDB container to initialize (adjust timing if needed)
-
-#       - name: Install API Dependencies
-#         working-directory: ./api
-#         run: npm install
-
-#       - name: Build the api
-#         working-directory: ./api
-#         run: npm run build
-
-#       - name: Start the api
-#         working-directory: ./api
-#         run: node . &
-  
-#       - name: Install Frontend Dependencies
-#         working-directory: ./frontend
-#         run: npm install
-
-#       - name: Build the frontend
-#         working-directory: ./frontend
-#         run: npm run build
-  
-#       - name: Run frontend
-#         working-directory: ./frontend
-#         run: npm run preview &
-
-#       - name: Run Frontend Unit Tests
-#         working-directory: ./frontend
-#         run: npm run unit:once
-
-#       - name: Run Frontend E2E Tests
-#         working-directory: ./frontend
-#         run: npm run e2e:headless
