@@ -11,8 +11,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview --port 5173",
     "unit": "vitest",
-    "e2e": "cypress open",
     "unit:once": "vitest --run",
+    "e2e": "cypress open",
     "e2e:headless": "cypress run --headless -q"
   },
   "dependencies": {
