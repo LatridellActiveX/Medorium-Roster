@@ -45,8 +45,10 @@ jobs:
           sleep 5 &&
           curl http://localhost:5173 -I
       
-      - name: "Run tests":
+      - name: "Run unit tests"
         run: npm run unit:once
+
+      - name: "Run e2e tests"
         run: npm run e2e:headless
 
 
