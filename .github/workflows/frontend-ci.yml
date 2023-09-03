@@ -32,16 +32,15 @@ jobs:
         env:
           JWT_SECRET: LJKHGHJYT78CV8676XCYHN
         run: |
-          cd api &&
+          cd ./api &&
           npm install &&
-          npm run build &&
           node . &
           sleep 10 &&
           curl http://localhost:3000
 
       - name: "Start Frontend"
         run: |
-          cd frontend &&
+          cd ./frontend &&
           npm install &&
           npm run build &&
           npm run preview &
