@@ -37,14 +37,13 @@ jobs:
         run: |
           cd ./frontend &&
           npm install &&
-          npm run build &&
-          npm run preview &
+          npm run dev &
           sleep 10
-
-      - name: "Run e2e tests"
-        working-directory: ./frontend
-        run: npm run e2e:headless
 
       - name: "Run unit tests"
         working-directory: ./frontend
         run: npm run unit:once
+
+      - name: "Run e2e tests"
+        working-directory: ./frontend
+        run: npm run e2e:headless
