@@ -29,6 +29,8 @@ jobs:
         run: sleep 10  # Wait for MongoDB container to initialize (adjust timing if needed)
 
       - name: "Start backend"
+        env:
+          JWT_SECRET: LJKHGHJYT78CV8676XCYHN
         run: |
           cd api &&
           npm install &&
