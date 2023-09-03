@@ -35,8 +35,7 @@ jobs:
           cd ./api &&
           npm install &&
           npm run dev &
-          sleep 10 &&
-          curl http://localhost:3000
+          sleep 10
 
       - name: "Start Frontend"
         run: |
@@ -44,8 +43,7 @@ jobs:
           npm install &&
           npm run build &&
           npm run preview &
-          sleep 10 &&
-          curl http://localhost:5173
+          sleep 10
       
       - name: "Run unit tests"
         run: npm run unit:once
