@@ -34,8 +34,8 @@ jobs:
           npm install &&
           npm run build &&
           node . &
-          sleep 5 &&
-          curl http://localhost:3000 -I
+          sleep 10 &&
+          curl http://localhost:3000
 
       - name: "Start Frontend"
         run: |
@@ -43,8 +43,8 @@ jobs:
           npm install &&
           npm run build &&
           npm run preview &
-          sleep 5 &&
-          curl http://localhost:5173 -I
+          sleep 10 &&
+          curl http://localhost:5173
       
       - name: "Run unit tests"
         run: npm run unit:once
