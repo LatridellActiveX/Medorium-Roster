@@ -33,12 +33,13 @@ jobs:
           cd api &&
           npm install &&
           npm run build &&
-          node . & &
+          node . &
           sleep 5 &&
           curl http://localhost:3000 -I
 
       - name: "Start Frontend"
         run: |
+          cd frontend &&
           npm install &&
           npm run build &&
           npm run preview &
