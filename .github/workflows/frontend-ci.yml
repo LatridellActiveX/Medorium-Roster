@@ -34,7 +34,7 @@ jobs:
         run: |
           cd ./api &&
           npm install &&
-          node . &
+          npm run dev &
           sleep 10 &&
           curl http://localhost:3000
 
