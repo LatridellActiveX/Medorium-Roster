@@ -30,7 +30,7 @@ describe("Access code", () => {
       );
       cy.get('input[name="password"]').type("password");
       cy.get('button[type="submit"]').click();
-      
+
       cy.url().should("not.contain", "registration");
     });
   });

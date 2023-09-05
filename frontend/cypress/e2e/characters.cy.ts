@@ -27,7 +27,6 @@ describe("Characters", () => {
     //add a character for future manipulations
     cy.visit("http://localhost:5173/dashboard");
     cy.addCharacter();
-    cy.addCharacter(false, 'Admin 2N');
   });
 
   it("Edit character rank", () => {
@@ -45,6 +44,5 @@ describe("Characters", () => {
 
   it('Cleanup', () => {
     cy.deleteCharacter();
-    cy.deleteCharacter('Admin 2N');
   });
 });

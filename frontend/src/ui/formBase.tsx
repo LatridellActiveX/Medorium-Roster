@@ -211,7 +211,7 @@ const FormBase: React.FC<Props> = ({
         className="bg-blue-600 hover:bg-blue-500 disabled:bg-gray-500 disabled:cursor-not-allowed text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5 mb-6"
         disabled={isDisabled()}
         type="submit"
-        aria-label={typeof `Submit your credentials`} // for accessibility
+        aria-label={`Submit your credentials`} // for accessibility
       >
         {submitBtnSign}
       </button>

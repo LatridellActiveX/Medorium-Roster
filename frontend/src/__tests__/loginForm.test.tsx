@@ -21,7 +21,7 @@ describe("Login form", () => {
     let usernameInput = screen.getByRole("textbox", { name: /Username/i });
     let passwordInput = screen.getByLabelText("password");
     let submitBtn = screen.getByRole("button", {
-      name: "Submit your login credentials",
+      name: "Submit your credentials",
     });
 
     await user.type(usernameInput, tooLongUsername);
@@ -32,7 +32,7 @@ describe("Login form", () => {
 
   it("does not provide any credentials", () => {
     let submitBtn = screen.getByRole("button", {
-      name: "Submit your login credentials",
+      name: "Submit your credentials",
     });
 
     expect(submitBtn.getAttribute("disabled")).toBe(null);
@@ -45,7 +45,7 @@ describe("Login form", () => {
     let usernameInput = screen.getByRole("textbox", { name: /Username/i });
     let passwordInput = screen.getByLabelText("password");
     let submitBtn = screen.getByRole("button", {
-      name: "Submit your login credentials",
+      name: "Submit your credentials",
     });
 
     await user.type(usernameInput, tooShortUsername);
@@ -60,7 +60,7 @@ describe("Login form", () => {
     let usernameInput = screen.getByRole("textbox", { name: /Username/i });
     let passwordInput = screen.getByLabelText("password");
     let submitBtn = screen.getByRole("button", {
-      name: "Submit your login credentials",
+      name: "Submit your credentials",
     });
 
     await user.type(usernameInput, username);
