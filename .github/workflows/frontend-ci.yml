@@ -1,14 +1,16 @@
 name: Frontend CI
 
-on:
-  pull_request:
-    branches:
-      - cicd
+on: pull_request
 
 jobs:
   frontend-tests:
-    name: Run Frontend Tests
     runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:latest
+        ports:
+          - 27017:27017
 
     steps:
       - name: Checkout code
@@ -19,14 +21,29 @@ jobs:
         with:
           node-version: 19
 
-      - name: Install Frontend Dependencies
-        working-directory: ./frontend
-        run: npm install
+      - name: Run MongoDB and Wait for Healthy State
+        run: sleep 10 # Wait for MongoDB container to initialize (adjust timing if needed)
 
-      - name: Run Frontend Unit Tests
+      - name: "Start backend"
+        env:
+          JWT_SECRET: LJKHGHJYT78CV8676XCYHN
+        run: |
+          cd ./api &&
+          npm install &&
+          npm run dev &
+          sleep 10
+
+      - name: "Start Frontend"
+        run: |
+          cd ./frontend &&
+          npm install &&
+          npm run dev &
+          sleep 10
+
+      - name: "Run unit tests"
         working-directory: ./frontend
         run: npm run unit:once
 
-      - name: Run Frontend E2E Tests
+      - name: "Run e2e tests"
         working-directory: ./frontend
         run: npm run e2e:headless
