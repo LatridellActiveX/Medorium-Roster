@@ -1,9 +1,6 @@
 name: API CI
 
-on:
-  pull_request:
-    branches:
-      - cicd
+on: pull_request
 
 jobs:
   api-tests:
