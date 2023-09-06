@@ -3,7 +3,7 @@ import Arrow from "./arrow";
 import { useEffect, useState } from "react";
 
 type Props = {
-  items: object[]; //all items
+  items: any[]; //all items
   setItems: (items: Props["items"]) => void;
   itemsPerPage: number;
   reset?: boolean;
