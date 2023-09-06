@@ -51,8 +51,7 @@ const Characters: React.FC<Props> = ({
       const searchTerms = [c.name, c.username, c.rank ?? "N/A", c.division ?? "N/A"]
         .map(term => term.toLowerCase());
       return searchTerms.some(term => term.includes(search.toLowerCase()));
-    }
-    )
+    })
     .sort(sorts[sort])
     .map((c) => (
       <Character refetch={refetch} actions={actions} character={c} key={c.name} />

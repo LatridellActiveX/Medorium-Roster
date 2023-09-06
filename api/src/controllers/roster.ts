@@ -94,6 +94,7 @@ export async function replaceLoggedInUserCharacter(
   req: Request,
   res: Response
 ) {
+  // TODO: flatten body { character: {}} -> {}
   const characterSchema = z.object({
     name: z.string().min(3).max(37).trim(),
     main: z.boolean(),
@@ -103,19 +104,30 @@ export async function replaceLoggedInUserCharacter(
     payGrade: z.union([z.string(), z.undefined()]),
   });
 
-  const schema = z.object({
-    name: z.string().min(3).max(37).trim(),
+  const bodySchema = z.object({
     character: characterSchema,
   });
+  const paramSchema = z.object({
+    name: z.string().min(3).max(37).trim(),
+  });
 
-  const validation = schema.safeParse(req.body);
+  const bodyValidation = bodySchema.safeParse(req.body);
+  const paramValidation = paramSchema.safeParse(req.params);
 
-  if (!validation.success) {
-    return res.status(400).json(validation.error.issues as ResponseZodError);
+  if (!bodyValidation.success) {
+    return res
+      .status(400)
+      .json(bodyValidation.error.issues as ResponseZodError);
+  }
+  if (!paramValidation.success) {
+    return res
+      .status(400)
+      .json(paramValidation.error.issues as ResponseZodError);
   }
 
   const { username } = res.locals;
-  const { name, character } = validation.data;
+  const { name } = req.params;
+  const { character } = bodyValidation.data;
 
   const result = await Character.replaceCharacter(username, name, {
     username,
@@ -130,7 +142,19 @@ export async function replaceLoggedInUserCharacter(
 }
 
 export async function deleteLoggedInUserCharacter(req: Request, res: Response) {
-  const { name } = req.body;
+  const paramSchema = z.object({
+    name: z.string().min(3).max(37).trim(),
+  });
+
+  const paramValidation = paramSchema.safeParse(req.params);
+
+  if (!paramValidation.success) {
+    return res
+      .status(400)
+      .json(paramValidation.error.issues as ResponseZodError);
+  }
+
+  const { name } = req.params;
   const { username } = res.locals;
 
   const result = await Character.deleteCharacter(username, name);

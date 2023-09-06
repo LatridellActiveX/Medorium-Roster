@@ -11,8 +11,8 @@ const router = Router();
 
 router.get("/", authorized, getUserCharacters);
 router.post("/", authorized, createCharacter);
-router.put("/", authorized, replaceLoggedInUserCharacter);
+router.put("/:name", authorized, replaceLoggedInUserCharacter);
 // router.patch("/", authorized, updateLoggedInUserCharacter);
-router.delete("/", authorized, deleteLoggedInUserCharacter);
+router.delete("/:name", authorized, deleteLoggedInUserCharacter);
 
 export default router;
