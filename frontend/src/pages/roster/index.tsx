@@ -3,22 +3,15 @@ import useGetRoster from "../../api/roster/useGetRoster";
 import Characters, { Filter, Sort } from "../../ui/characters";
 import PageInitialization from "../../ui/pageInitialization";
 import useCurrentUser from "../../hooks/useCurrentUser";
-import { useNavigate } from "react-router-dom";
 
 const RosterPage: React.FC = () => {
-  const navigate = useNavigate();
   const { data, isLoading, refetch } = useGetRoster();
   const { currentUser } = useCurrentUser();
-  const [forcePage, setForcePage] = useState<number | undefined>(undefined);
+  const [resetPagination, setResetPagination] = useState(false);
 
   const [filter, setFilter] = useState<Filter>("Default");
   const [sort, setSort] = useState<Sort>("Default");
   const [search, setSearch] = useState("");
-
-  const resetPagination = () => {
-    setForcePage(0);
-    navigate('/roster');
-  };
 
   useEffect(() => {
     refetch();
@@ -37,7 +30,7 @@ const RosterPage: React.FC = () => {
                   id="sort"
                   onChange={(e) => {
                     setSort(e.target.value as Sort);
-                    resetPagination();
+                    setResetPagination(true);
                   }}
                 >
                   <option value="Default">Date Added</option>
@@ -53,7 +46,7 @@ const RosterPage: React.FC = () => {
                   id="filter"
                   onChange={(e) => {
                     setFilter(e.target.value as Filter);
-                    resetPagination();
+                    setResetPagination(true);
                   }}
                 >
                   <option value="Default">None</option>
@@ -71,7 +64,7 @@ const RosterPage: React.FC = () => {
                 placeholder="Search..."
                 onChange={(e) => {
                   setSearch(e.target.value);
-                  resetPagination();
+                  setResetPagination(true);
                 }}
               />
             </div>
@@ -85,8 +78,8 @@ const RosterPage: React.FC = () => {
             filter={filter}
             sort={sort}
             search={search}
-            forcePage={forcePage}
-            setForcePage={setForcePage}
+            resetPagination={resetPagination}
+            setResetPagination={setResetPagination}
           />
         </section>
       </main>

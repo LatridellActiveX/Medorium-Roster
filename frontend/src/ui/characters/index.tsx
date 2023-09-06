@@ -35,8 +35,8 @@ type Props = {
   sort?: Sort;
   search?: string;
   itemsPerPage?: number;
-  forcePage?: number | undefined;
-  setForcePage?: (page: number | undefined) => void;
+  resetPagination?: boolean;
+  setResetPagination?: (reset: boolean) => void;
 };
 
 const Characters: React.FC<Props> = ({
@@ -49,15 +49,13 @@ const Characters: React.FC<Props> = ({
   sort = "Default",
   search = "",
   itemsPerPage = 2,
-  forcePage,
-  setForcePage,
+  resetPagination,
+  setResetPagination,
 }) => {
-  const [items, setItems] = useState<ResponseCharacters>(data);
-  const [itemsPortion, setItemsPortion] = useState(data.slice(0, itemsPerPage));
-
-  useEffect(() => {
-    setItems(data);
-  }, [data]);
+  const [filtredItems, setFiltredItems] = useState<ResponseCharacters>(data);
+  const [itemsPortion, setItemsPortion] = useState(
+    filtredItems.slice(0, itemsPerPage)
+  );
 
   useEffect(() => {
     const filtredItems = data
@@ -73,9 +71,13 @@ const Characters: React.FC<Props> = ({
         return searchTerms.some((term) => term.includes(search.toLowerCase()));
       })
       .sort(sorts[sort]);
-      console.log(filtredItems)
-    setItems(filtredItems);
+
+    setFiltredItems(filtredItems);
   }, [data, filter, search, sort]);
+
+  useEffect(() => {
+    setItemsPortion(filtredItems.slice(0, itemsPerPage));
+  }, [filtredItems]);
 
   const Characters = itemsPortion.map((c) => (
     <Character refetch={refetch} actions={actions} character={c} key={c.name} />
@@ -93,11 +95,11 @@ const Characters: React.FC<Props> = ({
         {Characters}
       </ul>
       <Pagination
-        items={items}
+        items={filtredItems}
         setItems={(items) => setItemsPortion(items as ResponseCharacters)}
         itemsPerPage={itemsPerPage}
-        forcePage={forcePage}
-        setForcePage={setForcePage}
+        reset={resetPagination}
+        setReset={setResetPagination}
       />
     </section>
   );

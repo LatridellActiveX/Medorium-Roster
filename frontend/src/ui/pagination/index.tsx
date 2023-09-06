@@ -1,71 +1,44 @@
-import { useLocation, useSearchParams, useNavigate } from "react-router-dom";
 import ReactPaginate, { ReactPaginateProps } from "react-paginate";
 import Arrow from "./arrow";
-import { Component, useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   items: object[]; //all items
   setItems: (items: Props["items"]) => void;
   itemsPerPage: number;
-  forcePage?: number;
-  setForcePage?: (page: number | undefined) => void;
+  reset?: boolean;
+  setReset?: (reset: boolean) => void;
 };
 
 const Pagination: React.FC<Props> = ({
-  items,
+  items, //all items
   setItems,
   itemsPerPage,
-  forcePage,
-  setForcePage,
+  reset,
+  setReset,
 }) => {
-  const paginationRef = useRef<Component<ReactPaginateProps>>(null);
-  const location = useLocation();
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const [itemOffset, setItemOffset] = useState(0);
 
-  const pageCount = Math.ceil(items?.length / itemsPerPage);
-  const itemOffset = Number(searchParams.get("offset")) || 0;
-  const urlCurrnetPage = itemOffset / itemsPerPage;
+  const pageCount = Math.ceil(items.length / itemsPerPage);
+  const endOffset = itemOffset + itemsPerPage;
+  const currentItems = items.slice(itemOffset, endOffset);
 
   const handlePageClick: ReactPaginateProps["onPageChange"] = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % items?.length;
+    const newOffset = (event.selected * itemsPerPage) % items.length;
 
-    navigate({
-      pathname: location.pathname,
-      search: `offset=${newOffset}`,
-    });
+    setItemOffset(newOffset);
   };
 
   useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    const newItems = items.slice(itemOffset, endOffset);
-
-    setItems(newItems);
-  }, [items, itemOffset]);
-
-  useEffect(() => {
-    if (!paginationRef.current || !setForcePage || pageCount === 0) return;
-
-    const currentPage = (paginationRef.current.state as { selected: number })
-      .selected;
-
-    if (pageCount <= urlCurrnetPage) {
-      setForcePage(0);
-      return;
-    }
-
-    if (currentPage !== urlCurrnetPage) {
-      setForcePage(urlCurrnetPage);
-      return;
-    }
-  }, [paginationRef, urlCurrnetPage, pageCount]);
+    setItems(currentItems);
+  }, [itemOffset]);
 
   useEffect(() => {
     //cleanup
-    if (forcePage === undefined || !setForcePage) return;
+    if (!reset || !setReset) return;
 
-    setForcePage(undefined);
-  }, [forcePage, setForcePage]);
+    setReset(false);
+  }, [reset, setReset]);
 
   if (pageCount <= 1) {
     return <></>;
@@ -83,8 +56,7 @@ const Pagination: React.FC<Props> = ({
       pageCount={pageCount}
       previousLabel={<Arrow className="-rotate-90" />}
       renderOnZeroPageCount={null}
-      forcePage={forcePage}
-      ref={paginationRef}
+      forcePage={reset ? 0 : undefined}
     />
   );
 };

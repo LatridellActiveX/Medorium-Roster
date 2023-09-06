@@ -7,7 +7,7 @@ type Props = {
 }
 
 const Arrow: FC<Props> = ({ className }) => {
-  return <div className={cn('flex h-[40px] w-[40px] border border-grey4 transition-colors hover:border-grey1', className)}>
+  return <div className={cn('flex h-[40px] w-[40px] border transition-opacity hover:opacity-60', className)}>
     <ChevronDown className='m-auto' />
   </div>
 };
