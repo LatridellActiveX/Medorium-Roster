@@ -8,15 +8,16 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-      "api": "cd .\\api && npm run dev",
-      "frontend": "cd .\\frontend && npm run dev",
-      "full": "concurrently \"npm run dev -w frontend\" \"npm run dev -w api\""
+        "api": "cd .\\api && npm run dev",
+        "frontend": "cd .\\frontend && npm run dev",
+        "full": "concurrently \"npm run dev -w frontend\" \"npm run dev -w api\""
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
-      "concurrently": "^8.2.0",
-      "zod": "^3.21.4"
+        "concurrently": "^8.2.0",
+        "react-paginate": "^8.2.0",
+        "zod": "^3.21.4"
     }
-  }
+}
