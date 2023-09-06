@@ -3,6 +3,11 @@ import axios from "../api/axios";
 import useCurrentUser from "./useCurrentUser";
 import type { ResponseIsAuthorized } from "api/types";
 
+/** Checks User Authentication
+ * 
+ *  If true then populates the currentUserContext
+ * @question What occurs if the user is not authorized?
+ */
 const useAuth = () => {
   const { setCurrentUser } = useCurrentUser();
 

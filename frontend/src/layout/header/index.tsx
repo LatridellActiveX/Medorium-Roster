@@ -20,7 +20,7 @@ const Header: React.FC = () => {
         <div className="">
           <div className="flex items-center cursor-pointer">
             <Link to="/" className="text-slate-200">
-              Medor
+              MP Collective
             </Link>
           </div>
         </div>

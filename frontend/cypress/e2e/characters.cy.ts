@@ -1,9 +1,12 @@
 /// <reference types="cypress" />
 import "../support/commands";
 
+/**LATRIDELL - Test cases */
+
 const defaultCharacterName = "Admin N";
 const defaultRankName = "Rank N";
 const defaultPayGrade = "80";
+
 
 Cypress.Commands.add("openEditModal", () => {
   cy.get(

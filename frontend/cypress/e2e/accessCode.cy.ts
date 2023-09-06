@@ -2,6 +2,7 @@
 import "../support/commands";
 import "cypress-real-events";
 
+//related to testing, Cypress & Mocha-Suite are testing tools
 describe("Access code", () => {
   it("Full use", () => {
     cy.login();
