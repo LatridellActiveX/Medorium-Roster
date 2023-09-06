@@ -7,10 +7,10 @@ import useCurrentUser from "../../hooks/useCurrentUser";
 const RosterPage: React.FC = () => {
   const { data, isLoading, refetch } = useGetRoster();
   const { currentUser } = useCurrentUser();
+  const [resetPagination, setResetPagination] = useState(false);
 
   const [filter, setFilter] = useState<Filter>("Default");
   const [sort, setSort] = useState<Sort>("Default");
-
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -30,6 +30,7 @@ const RosterPage: React.FC = () => {
                   id="sort"
                   onChange={(e) => {
                     setSort(e.target.value as Sort);
+                    setResetPagination(true);
                   }}
                 >
                   <option value="Default">Date Added</option>
@@ -45,6 +46,7 @@ const RosterPage: React.FC = () => {
                   id="filter"
                   onChange={(e) => {
                     setFilter(e.target.value as Filter);
+                    setResetPagination(true);
                   }}
                 >
                   <option value="Default">None</option>
@@ -62,6 +64,7 @@ const RosterPage: React.FC = () => {
                 placeholder="Search..."
                 onChange={(e) => {
                   setSearch(e.target.value);
+                  setResetPagination(true);
                 }}
               />
             </div>
@@ -75,6 +78,8 @@ const RosterPage: React.FC = () => {
             filter={filter}
             sort={sort}
             search={search}
+            resetPagination={resetPagination}
+            setResetPagination={setResetPagination}
           />
         </section>
       </main>
