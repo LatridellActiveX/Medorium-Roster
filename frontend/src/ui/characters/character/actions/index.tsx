@@ -5,9 +5,9 @@ import Update from "./update";
 export type ActionType =
   | ("Delete" | "Update")
   | {
-      action: "Delete" | "Update";
-      url: string;
-    };
+    action: "Delete" | "Update";
+    url: string;
+  };
 
 type Props = {
   character: ResponseCharacter;
@@ -33,6 +33,9 @@ const Actions: React.FC<Props> = ({ character, actions, refetch }) => {
 
   const updateAction = doesActionExist(actions, "Update");
   const deleteAction = doesActionExist(actions, "Delete");
+
+  updateAction.url += `/${character.name}`;
+  deleteAction.url += `/${character.name}`;
 
   return (
     <div className="absolute top-2 right-2 flex gap-x-4">
