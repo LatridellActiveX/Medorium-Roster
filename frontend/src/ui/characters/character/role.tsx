@@ -6,7 +6,7 @@ type Props = {
 //the name of this component may not be the best
 const Role: React.FC<Props> = ({ sign, role }) => {
 
-    return <p className="w-80 gap-2">
+    return <p className="flex gap-2 text-white">
         <span className="text-gray-500">[{sign}]</span>{" "}
         {role ?? "N/A"}
     </p>
