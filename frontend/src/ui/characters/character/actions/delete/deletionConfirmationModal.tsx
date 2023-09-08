@@ -12,6 +12,7 @@ type Props = {
   refetch: () => void;
 };
 
+
 const DeletionConfirmationModal: React.FC<Props> = ({
   isOpen,
   character,

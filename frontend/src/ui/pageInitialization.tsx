@@ -2,6 +2,10 @@ import { ReactNode, useState, useEffect } from "react";
 import cn from "classnames";
 import useAuthRedirect from "../hooks/useAuthRedirect";
 
+/**LATRIDELL - Top level component that defines layout
+ * for all other pages
+ */
+
 type Props = {
   children: ReactNode;
   className?: string;
@@ -9,7 +13,12 @@ type Props = {
   pathIfUnauth?: string;
   redirectIfNotAdmin?: boolean;
 };
-
+/** Sets container style and redirects based on authorization
+ * 
+ * @location frontend/src/ui/pageinitializaiton
+ * @see Props type in this file
+ * @returns child components 
+ */
 const PageInitialization: React.FC<Props> = ({
   children,
   className,
