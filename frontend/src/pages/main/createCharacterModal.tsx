@@ -58,6 +58,7 @@ const CreateCharacterModal: React.FC<Props> = ({
     onClose();
   };
   const formatRequestData = (data: FormBaseInputType) => {
+    console.log(data)
     return {
       name: data.name,
       main: data.main === "main",

@@ -46,7 +46,7 @@ const Pagination: React.FC<Props> = ({
 
   return (
     <ReactPaginate
-      className="flex items-center gap-x-4 w-fit mx-auto mt-20 esm:gap-x-8"
+      className="flex items-center gap-x-4 w-fit mx-auto mt-5 esm:gap-x-8"
       pageClassName="text-esm text-white transition-colors"
       activeClassName="font-bold [&>a]:text-white"
       disabledClassName="opacity-70 pointer-events-none"

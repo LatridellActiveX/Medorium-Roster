@@ -4,7 +4,7 @@ import cn from "classnames";
 import { ActionType } from "./character/actions";
 import { CharacterType } from "../../../../api/src/models/character";
 import Pagination from "../pagination";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 export type Filter = "Default" | "Main" | "Alt";
 export type Sort = "Default" | "A-Z" | "Z-A";
@@ -37,6 +37,7 @@ type Props = {
   itemsPerPage?: number;
   resetPagination?: boolean;
   setResetPagination?: (reset: boolean) => void;
+  noCharactersSign?: ReactNode;
 };
 
 const Characters: React.FC<Props> = ({
@@ -48,9 +49,10 @@ const Characters: React.FC<Props> = ({
   filter = "Default",
   sort = "Default",
   search = "",
-  itemsPerPage = 2,
+  itemsPerPage = 3,
   resetPagination,
   setResetPagination,
+  noCharactersSign,
 }) => {
   const [filtredItems, setFiltredItems] = useState<ResponseCharacters>(data);
   const [itemsPortion, setItemsPortion] = useState(
@@ -79,17 +81,27 @@ const Characters: React.FC<Props> = ({
     setItemsPortion(filtredItems.slice(0, itemsPerPage));
   }, [filtredItems]);
 
+  useEffect(() => {
+    refetch && refetch();
+  }, [refetch]);
+
   const Characters = itemsPortion.map((c) => (
-    <Character refetch={refetch} actions={actions} character={c} key={c.name} />
+    <Character
+      refetch={refetch}
+      actions={actions}
+      character={c}
+      key={c.name}
+    />
   ));
 
   return (
-    <section>
-      <ul className={cn("flex flex-col gap-1", className)}>
+    <div>
+      <ul className={cn("flex flex-col gap-1 min-w-[600px] w-full", className)}>
         {isLoading && data.length === 0 && <p>Loading...</p>}
         {!isLoading && data.length === 0 && (
-          <h6 className="text18-20 text-center">
+          <h6 className="flex flex-col gap-y-4 text18-20 text-center">
             There are currently no characters at your disposal.
+            {noCharactersSign}
           </h6>
         )}
         {Characters}
@@ -101,7 +113,7 @@ const Characters: React.FC<Props> = ({
         reset={resetPagination}
         setReset={setResetPagination}
       />
-    </section>
+    </div>
   );
 };
 
