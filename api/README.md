@@ -247,18 +247,21 @@ Replaces an existing character of the logged in user with a new one
 
 ### Params
 
+| Field | Required |  Type  | minLen | maxLen |
+| :---: | :------: | :----: | :----: | :----: |
+| name  |   Yes    | string |   3    |   37   |
+
+### Body
+
 |   Field   | Required |     Type      | minLen | maxLen |
 | :-------: | :------: | :-----------: | :----: | :----: |
-|   name    |   Yes    |    string     |   3    |   37   |
-
-### TODO: Body
+| character |   Yes    | CharacterType |  N/A   |  N/A   |
 
 ### Example Request
 
 #### Body
 
 ```json
-// TODO: flatten
 {
   "character": {
     "name": "Benjamin Thomson",
