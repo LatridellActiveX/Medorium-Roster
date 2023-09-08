@@ -39,8 +39,8 @@ const UpdateCharacterModal: React.FC<Props> = ({
 
   const formatRequestData = (updatedCharacter: FormBaseInputType) => {
     return {
-      username: character.username, //must be original
-      name: character.name, //must be original
+      // username: character.username, //must be original
+      // name: character.name, //must be original
       character: {
         ...updatedCharacter,
         username: character.username, //should be original?
