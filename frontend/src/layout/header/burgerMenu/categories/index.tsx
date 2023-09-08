@@ -15,7 +15,6 @@ const categories: BurgerMenuCategoryType[] = [
     group: "auth",
     pages: [
       { name: "Roster", route: "/roster" },
-      { name: "Dashboard", route: "/dashboard" },
     ]
   },
   {

@@ -4,7 +4,7 @@ import cn from "classnames";
 import { ActionType } from "./character/actions";
 import { CharacterType } from "../../../../api/src/models/character";
 import Pagination from "../pagination";
-import { FC, ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 export type Filter = "Default" | "Main" | "Alt";
 export type Sort = "Default" | "A-Z" | "Z-A";
@@ -37,7 +37,6 @@ type Props = {
   itemsPerPage?: number;
   resetPagination?: boolean;
   setResetPagination?: (reset: boolean) => void;
-  ItemWrapper?: FC<{ children: ReactNode }>;
   noCharactersSign?: ReactNode;
 };
 
@@ -53,7 +52,6 @@ const Characters: React.FC<Props> = ({
   itemsPerPage = 3,
   resetPagination,
   setResetPagination,
-  ItemWrapper,
   noCharactersSign,
 }) => {
   const [filtredItems, setFiltredItems] = useState<ResponseCharacters>(data);
@@ -92,7 +90,6 @@ const Characters: React.FC<Props> = ({
       refetch={refetch}
       actions={actions}
       character={c}
-      Wrapper={ItemWrapper}
       key={c.name}
     />
   ));

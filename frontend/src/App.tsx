@@ -11,7 +11,6 @@ import ScrollToHashElement from "./layout/scrollToHashElement";
 import RosterPage from "./pages/roster";
 import PrivacyPolicyPage from "./pages/privacyPolicy";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import DashboardPage from "./pages/dashboard";
 import LandingPage from "./pages/landing";
 import Header from "./layout/header";
 import useCurrentUser from "./hooks/useCurrentUser";
@@ -27,7 +26,6 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/adminPanel" element={<AdminPanelPage />} />
         <Route path="/roster" element={<RosterPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
 
         <Route
           path="/"
@@ -38,7 +36,7 @@ const App: React.FC = () => {
 
         <Route path="/FAQ" element={<FAQPage />} />
         <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
-        <Route path="notFound" element={<NotFoundPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
 
       <ToastContainer position="bottom-right" />
