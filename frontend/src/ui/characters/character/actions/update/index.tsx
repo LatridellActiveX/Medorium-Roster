@@ -7,15 +7,19 @@ import { useState } from "react";
 type Props = {
   character: ResponseCharacter;
   refetch: () => void;
-  requestUrl?: string;
+  admin: boolean;
 };
 
-const Update: React.FC<Props> = ({ character, refetch, requestUrl }) => {
+const Update: React.FC<Props> = ({ character, refetch, admin }) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const handleEditModeStatus = () => {
     setIsEditMode((prev) => !prev);
   };
+
+  const apiUrl = admin
+    ? `/api/users/${character.username}/characters/${character.name}`
+    : `/api/characters/${character.name}`
 
   return (
     <div>
@@ -25,7 +29,7 @@ const Update: React.FC<Props> = ({ character, refetch, requestUrl }) => {
       <UpdateCharacterModal
         character={character}
         isOpen={isEditMode}
-        requestUrl={requestUrl}
+        apiUrl={apiUrl}
         onClose={handleEditModeStatus}
         refetch={refetch}
       />

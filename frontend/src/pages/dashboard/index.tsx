@@ -37,11 +37,11 @@ const DashboardPage: React.FC = () => {
             actions={[
               {
                 action: "Delete",
-                url: "/api/characters",
+                admin: false
               },
               {
                 action: "Update",
-                url: '/api/characters',
+                admin: false
               },
             ]}
           />

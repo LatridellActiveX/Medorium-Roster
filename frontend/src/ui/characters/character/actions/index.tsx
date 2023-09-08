@@ -2,28 +2,21 @@ import { ResponseCharacter } from "api/types";
 import Delete from "./delete";
 import Update from "./update";
 
-export type ActionType =
-  | ("Delete" | "Update")
-  | {
-    action: "Delete" | "Update";
-    url: string;
-  };
+export type ActionType = {
+  action: "Delete" | "Update";
+  admin: boolean;
+};
 
 type Props = {
   character: ResponseCharacter;
-  actions?: ActionType[];
+  actions: ActionType[];
   refetch?: () => void;
 };
 
-const doesActionExist = (actions: ActionType[], name: "Delete" | "Update") => {
-  let action = actions.find((a) =>
+const getAction = (actions: ActionType[], name: "Delete" | "Update") => {
+  return actions.find((a) =>
     typeof a === "object" ? a.action === name : a === name
   );
-
-  return {
-    doesExist: action !== undefined,
-    url: typeof action === "object" ? action.url : undefined,
-  };
 };
 
 const Actions: React.FC<Props> = ({ character, actions, refetch }) => {
@@ -31,27 +24,23 @@ const Actions: React.FC<Props> = ({ character, actions, refetch }) => {
     return <></>;
   }
 
-  const updateAction = doesActionExist(actions, "Update");
-  const deleteAction = doesActionExist(actions, "Delete");
-
-  updateAction.url += `/${character.name}`;
-  deleteAction.url += `/${character.name}`;
+  const updateAction = getAction(actions, "Update");
+  const deleteAction = getAction(actions, "Delete");
 
   return (
     <div className="absolute top-2 right-2 flex gap-x-4">
-      {updateAction.doesExist && (
+      {updateAction && (
         <Update
           character={character}
+          admin={updateAction.admin}
           refetch={refetch}
-          requestUrl={updateAction.url}
         />
       )}
-      {deleteAction.doesExist && (
+      {deleteAction && (
         <Delete
-          username={character.username}
-          characterName={character.name}
+          character={character}
+          admin={deleteAction.admin}
           refetch={refetch}
-          requestUrl={deleteAction.url}
         />
       )}
     </div>
