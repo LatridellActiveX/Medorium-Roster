@@ -28,7 +28,7 @@ describe("Characters", () => {
 
   it("Add a character", () => {
     //add a character for future manipulations
-    cy.visit("http://localhost:5173/dashboard");
+    cy.visit("http://localhost:5173/");
     cy.addCharacter();
   });
 
