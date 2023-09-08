@@ -1,10 +1,14 @@
 import Characters from "../../ui/characters";
 import { useState } from "react";
 import CreateCharacterModal from "./createCharacterModal";
-import PlusIcon from "../../icons/plus";
+import PlusIcon from "../icons/plus";
 import useGetCharacters from "../../api/characters/useGetCharacters";
 import PageInitialization from "../../ui/pageInitialization";
 
+/** CRUD for user characters
+ * 
+ * 
+ */
 const DashboardPage: React.FC = () => {
   const { data: characters = [], isFetching, refetch } = useGetCharacters();
   const [isModal, setIsModal] = useState(false);
