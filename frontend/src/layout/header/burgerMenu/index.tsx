@@ -9,6 +9,9 @@ type Props = {
   burgerIconRef: RefObject<HTMLButtonElement>;
 };
 
+/** Displays Burger Menu on top right?'
+ * 
+ */
 const BurgerMenu: React.FC<Props> = ({
   isOpen,
   handleOpenStatus,

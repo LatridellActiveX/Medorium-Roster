@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import cn from 'classnames';
-import ChevronDown from '../../icons/chevronDown';
+import ChevronDown from '../../pages/icons/chevronDown'
 
 type Props = {
   className: string

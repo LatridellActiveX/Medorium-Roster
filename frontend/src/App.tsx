@@ -16,6 +16,7 @@ import LandingPage from "./pages/landing";
 import Header from "./layout/header";
 import useCurrentUser from "./hooks/useCurrentUser";
 import NotFoundPage from "./pages/notFound";
+import FinancialPage from "./pages/Financials";
 
 const App: React.FC = () => {
   useAuth();
@@ -26,6 +27,7 @@ const App: React.FC = () => {
       <Header />
       <Routes>
         <Route path="/adminPanel" element={<AdminPanelPage />} />
+        <Route path="/finance" element={<FinancialPage />} />
         <Route path="/roster" element={<RosterPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
 

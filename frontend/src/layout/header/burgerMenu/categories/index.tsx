@@ -2,6 +2,9 @@ import { RefObject, useEffect, useMemo } from "react";
 import Category, { BurgerMenuCategoryType } from "./category";
 import useCurrentUser from "../../../../hooks/useCurrentUser";
 
+/**Object of pages in top right menu
+ * 
+ */
 const categories: BurgerMenuCategoryType[] = [
   {
     group: "unauth",
@@ -21,7 +24,8 @@ const categories: BurgerMenuCategoryType[] = [
   {
     group: "admin",
     pages: [
-      { name: "Admin Panel", route: "/adminPanel" }
+      { name: "Admin Panel", route: "/adminPanel" },
+      { name: "Financial Center", route: "/finance"}
     ]
   },
 ];
@@ -33,6 +37,11 @@ type Props = {
   handleOpenStatus: () => void;
 };
 
+/** No idea how this works - Latridell
+ * 
+ * @see Props type in this file 
+ * 
+ */
 const Categories: React.FC<Props> = ({
   isOpen,
   burgerRef,

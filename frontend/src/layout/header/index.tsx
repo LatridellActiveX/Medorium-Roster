@@ -5,6 +5,10 @@ import cn from "classnames";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import LoginOrLogout from "./loginOrLogout";
 
+
+/** Displays the Header and handles burger menu toggle
+ * 
+ */
 const Header: React.FC = () => {
   const { currentUser } = useCurrentUser();
   const isAuth = !!currentUser.username;

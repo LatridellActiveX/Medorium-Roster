@@ -6,6 +6,11 @@ type Props = {
   handleOpenStatus: () => void;
 };
 
+/** Displays user at bottom of burger menu
+ * 
+ * @param handleOpenStatus Function 
+ *  
+ */
 const UserInfo: React.FC<Props> = ({ handleOpenStatus }) => {
   const { currentUser } = useCurrentUser();
   const isAuth = !!currentUser.username;
