@@ -6,7 +6,7 @@ import type {
   ResponseMessage,
   ResponseZodError,
 } from "../../types.js";
-import Character, { CharacterType } from "../models/character.js";
+import Character from "../models/character.js";
 import { z } from "zod";
 
 const characterSchema = z.object({

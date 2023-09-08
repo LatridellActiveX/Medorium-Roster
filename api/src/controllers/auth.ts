@@ -10,7 +10,9 @@ import {
   createRegistrationToken,
   verifyRegistrationToken,
 } from "../helpers/registrationToken.js";
-import generateAndSendAuthToken from "../helpers/generateAndSendAuthToken.js";
+import sendAuthToken from "../helpers/sendAuthToken.js";
+import { splitInHalf } from "../utils/index.js";
+import { createAuthToken } from "../helpers/authToken.js";
 
 export async function register(req: Request, res: Response) {
   const schema = z.object({
@@ -54,7 +56,8 @@ export async function register(req: Request, res: Response) {
 
   const { user } = loginResult.val;
 
-  generateAndSendAuthToken(res, username, user.isAdmin);
+  const authToken = splitInHalf(createAuthToken(username, user.isAdmin))
+  sendAuthToken(res, authToken);
 
   return res
     .status(200)
@@ -86,7 +89,8 @@ export async function login(req: Request, res: Response) {
 
   const { user } = result.val;
 
-  generateAndSendAuthToken(res, username, user.isAdmin);
+  const authToken = splitInHalf(createAuthToken(username, user.isAdmin))
+  sendAuthToken(res, authToken);
 
   return res
     .status(200)
