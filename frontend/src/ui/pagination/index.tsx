@@ -3,7 +3,7 @@ import Arrow from "./arrow";
 import { useEffect, useState } from "react";
 
 type Props = {
-  items: any[]; //all items
+  items: any[];
   setItems: (items: Props["items"]) => void;
   itemsPerPage: number;
   reset?: boolean;
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const Pagination: React.FC<Props> = ({
-  items, //all items
+  items,
   setItems,
   itemsPerPage,
   reset,
@@ -38,6 +38,7 @@ const Pagination: React.FC<Props> = ({
     if (!reset || !setReset) return;
 
     setReset(false);
+    setItemOffset(0);
   }, [reset, setReset]);
 
   if (pageCount <= 1) {

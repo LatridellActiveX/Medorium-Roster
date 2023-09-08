@@ -4,7 +4,7 @@ import cn from "classnames";
 import { ActionType } from "./character/actions";
 import { CharacterType } from "../../../../api/src/models/character";
 import Pagination from "../pagination";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 
 export type Filter = "Default" | "Main" | "Alt";
 export type Sort = "Default" | "A-Z" | "Z-A";
@@ -54,13 +54,10 @@ const Characters: React.FC<Props> = ({
   setResetPagination,
   noCharactersSign,
 }) => {
-  const [filtredItems, setFiltredItems] = useState<ResponseCharacters>(data);
-  const [itemsPortion, setItemsPortion] = useState(
-    filtredItems.slice(0, itemsPerPage)
-  );
+  const [itemsPortion, setItemsPortion] = useState(data.slice(0, itemsPerPage));
 
-  useEffect(() => {
-    const filtredItems = data
+  let filtredItems = useMemo(() => {
+    return data
       .filter(filters[filter])
       .filter((c) => {
         if (search === "") return true;
@@ -73,8 +70,6 @@ const Characters: React.FC<Props> = ({
         return searchTerms.some((term) => term.includes(search.toLowerCase()));
       })
       .sort(sorts[sort]);
-
-    setFiltredItems(filtredItems);
   }, [data, filter, search, sort]);
 
   useEffect(() => {
@@ -86,12 +81,7 @@ const Characters: React.FC<Props> = ({
   }, [refetch]);
 
   const Characters = itemsPortion.map((c) => (
-    <Character
-      refetch={refetch}
-      actions={actions}
-      character={c}
-      key={c.name}
-    />
+    <Character refetch={refetch} actions={actions} character={c} key={c.name} />
   ));
 
   return (
