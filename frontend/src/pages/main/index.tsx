@@ -37,7 +37,7 @@ const MainPage: React.FC = () => {
             data={characters}
             isLoading={isLoading}
             noCharactersSign={
-              <Link to="/dashboard?create=true">Create one</Link>
+              <Link to="/?create=true">Create one</Link>
             }
             refetch={refetch}
             actions={[
