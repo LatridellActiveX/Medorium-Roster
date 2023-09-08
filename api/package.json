@@ -5,6 +5,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
+    "start": "NODE_ENV=production node .",
     "dev": "tsc-watch --onSuccess \"node .\" ",
     "build": "tsc",
     "test": "vitest",
