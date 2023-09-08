@@ -241,13 +241,20 @@ Creates a character for the logged in user
 }
 ```
 
-## `PUT /api/characters`
+## `PUT /api/characters/:name`
 
 Replaces an existing character of the logged in user with a new one
 
+### Params
+
+| Field | Required |  Type  | minLen | maxLen |
+| :---: | :------: | :----: | :----: | :----: |
+| name  |   Yes    | string |   3    |   37   |
+
+### Body
+
 |   Field   | Required |     Type      | minLen | maxLen |
 | :-------: | :------: | :-----------: | :----: | :----: |
-|   name    |   Yes    |    string     |   3    |   37   |
 | character |   Yes    | CharacterType |  N/A   |  N/A   |
 
 ### Example Request
@@ -256,7 +263,6 @@ Replaces an existing character of the logged in user with a new one
 
 ```json
 {
-  "name": "Benjamin Thomson",
   "character": {
     "name": "Benjamin Thomson",
     "username": "latridell",

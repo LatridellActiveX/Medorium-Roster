@@ -9,6 +9,15 @@ import type {
 import Character, { CharacterType } from "../models/character.js";
 import { z } from "zod";
 
+const characterSchema = z.object({
+  name: z.string().min(3).max(37).trim(),
+  main: z.boolean(),
+  rank: z.string().min(3).max(30).optional(),
+  rankAcquisitionTimestamp: z.number().optional(),
+  division: z.string().min(3).max(30).optional(),
+  payGrade: z.string().optional(),
+});
+
 export async function getAllCharacters(req: Request, res: Response) {
   const result = await Character.getAllCharacters();
 
@@ -57,29 +66,32 @@ export async function createCharacter(req: Request, res: Response) {
 }
 
 export async function replaceCharacter(req: Request, res: Response) {
-  const characterSchema = z.object({
-    username: z.string().min(6).max(30).trim(),
-    name: z.string().min(3).max(37).trim(),
-    main: z.boolean(),
-    rank: z.union([z.string().min(3).max(30), z.undefined()]),
-    rankAcquisitionTimestamp: z.union([z.number(), z.undefined()]),
-    division: z.union([z.string().min(3).max(30), z.undefined()]),
-    payGrade: z.union([z.string(), z.undefined()]),
-  });
-
   const schema = z.object({
-    username: z.string().min(6).max(30).trim(),
-    name: z.string().min(3).max(37).trim(),
-    character: characterSchema,
+    params: z.object({
+      username: z.string().min(6).max(30).trim(),
+      character: z.string().min(3).max(37).trim(),
+    }),
+    body: z.object({
+      character: z.object({
+        username: z.string().min(6).max(30).trim(),
+        name: z.string().min(3).max(37).trim(),
+        main: z.boolean(),
+        rank: z.string().min(3).max(30).optional(),
+        rankAcquisitionTimestamp: z.number().optional(),
+        division: z.string().min(3).max(30).optional(),
+        payGrade: z.string().optional(),
+      }),
+    }),
   });
 
-  const validation = schema.safeParse(req.body);
+  const validation = schema.safeParse({ params: req.params, body: req.body });
 
   if (!validation.success) {
     return res.status(400).json(validation.error.issues as ResponseZodError);
   }
 
-  const { username, name, character } = validation.data;
+  const { username, character: name } = validation.data.params;
+  const { character } = validation.data.body;
 
   const result = await Character.replaceCharacter(username, name, character);
 
@@ -94,28 +106,20 @@ export async function replaceLoggedInUserCharacter(
   req: Request,
   res: Response
 ) {
-  const characterSchema = z.object({
-    name: z.string().min(3).max(37).trim(),
-    main: z.boolean(),
-    rank: z.union([z.string().min(3).max(30), z.undefined()]),
-    rankAcquisitionTimestamp: z.union([z.number(), z.undefined()]),
-    division: z.union([z.string().min(3).max(30), z.undefined()]),
-    payGrade: z.union([z.string(), z.undefined()]),
-  });
-
   const schema = z.object({
-    name: z.string().min(3).max(37).trim(),
-    character: characterSchema,
+    params: z.object({ name: z.string().min(3).max(37).trim() }),
+    body: z.object({ character: characterSchema }),
   });
 
-  const validation = schema.safeParse(req.body);
+  const validation = schema.safeParse({ params: req.params, body: req.body });
 
   if (!validation.success) {
     return res.status(400).json(validation.error.issues as ResponseZodError);
   }
 
   const { username } = res.locals;
-  const { name, character } = validation.data;
+  const { name } = validation.data.params;
+  const { character } = validation.data.body;
 
   const result = await Character.replaceCharacter(username, name, {
     username,
@@ -130,7 +134,19 @@ export async function replaceLoggedInUserCharacter(
 }
 
 export async function deleteLoggedInUserCharacter(req: Request, res: Response) {
-  const { name } = req.body;
+  const paramSchema = z.object({
+    name: z.string().min(3).max(37).trim(),
+  });
+
+  const paramValidation = paramSchema.safeParse(req.params);
+
+  if (!paramValidation.success) {
+    return res
+      .status(400)
+      .json(paramValidation.error.issues as ResponseZodError);
+  }
+
+  const { name } = req.params;
   const { username } = res.locals;
 
   const result = await Character.deleteCharacter(username, name);
