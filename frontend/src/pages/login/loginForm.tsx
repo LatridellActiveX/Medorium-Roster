@@ -8,6 +8,7 @@ const initialValues = {
   username: "",
   password: "",
 };
+/** Sets the requirements for the password input*/
 const validationSchema = Yup.object({
   username: Yup.string()
     .max(32, "Must be 32 characters or less")
@@ -18,6 +19,7 @@ const validationSchema = Yup.object({
     .min(8, "Your password is too short")
     .required("Required"),
 });
+
 const inputs = [
   "username",
   {

@@ -12,6 +12,12 @@ type Props = {
     text: ParagraphEffectedTextType
 }
 
+/**Styles and formats text according to params
+ * 
+ * @Location frontend/src/ui/paragraphs/paragraph/text/effectedItem.tsx
+ * @see ParagraphEffectedTextType in file 
+ * @returns Formatted Text 
+ */
 const EffectedText: React.FC<Props> = ({ text: { text, effect = 'bold', shouldAddSpace = true } }) => {
 
     return <span
