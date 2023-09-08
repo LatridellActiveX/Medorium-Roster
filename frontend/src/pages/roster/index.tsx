@@ -71,7 +71,7 @@ const RosterPage: React.FC = () => {
             data={data || []}
             isLoading={isLoading}
             refetch={refetch}
-            actions={currentUser.isAdmin ? ["Delete", "Update"] : undefined}
+            actions={currentUser.isAdmin ? [{ action: "Delete", admin: true }, { action: "Update", admin: true }] : []}
             filter={filter}
             sort={sort}
             search={search}
