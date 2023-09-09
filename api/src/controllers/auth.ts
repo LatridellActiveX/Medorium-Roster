@@ -20,7 +20,7 @@ export async function register(req: Request, res: Response) {
     }),
     body: z.object({
       username: z.string().min(6).max(30).trim(),
-      password: z.string().min(8).max(128).trim(),
+      password: z.string().min(8).max(128),
     }),
   });
 
@@ -56,7 +56,7 @@ export async function login(req: Request, res: Response) {
   const schema = z.object({
     body: z.object({
       username: z.string().min(6).max(30).trim(),
-      password: z.string().min(8).max(128).trim(),
+      password: z.string().min(8).max(128),
     }),
   });
   const validation = schema.safeParse({ body: req.body });
