@@ -115,10 +115,7 @@ const UpdateCharacterModal: React.FC<Props> = ({
         variant: "select",
         selectItems: [
           "alt",
-          {
-            text: "main",
-            isDisabled: hasMainCharacter || false,
-          },
+          "main"
         ],
       },
       {
