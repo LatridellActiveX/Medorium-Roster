@@ -3,20 +3,14 @@ import useGetCharacters from "../../api/characters/useGetCharacters";
 import Characters from "../../ui/characters";
 import PageInitialization from "../../ui/pageInitialization";
 import useCurrentUser from "../../hooks/useCurrentUser";
-import { useState } from "react";
 import PlusIcon from "../../icons/plus";
 import CreateCharacterModal from "./createCharacterModal";
+import useModalControllers from "../../hooks/useModalControllers";
 
 const MainPage: React.FC = () => {
   const { data: characters = [], isLoading, refetch } = useGetCharacters();
   const { currentUser } = useCurrentUser();
-  const [isModal, setIsModal] = useState(false);
-
-  const handleModalStatus = () => {
-    setIsModal((prev) => !prev);
-  };
-
-  let isThereMain = characters.find((c) => c.main);
+  const { openModalSearch, modalQuery, closeModal, openModal } = useModalControllers("create");
 
   return (
     <PageInitialization pathIfUnauth="/login">
@@ -26,7 +20,7 @@ const MainPage: React.FC = () => {
             <h1 className="text20-36">Your characters</h1>
             <button
               className="flex items-center justify-between gap-x-3 border border-white rounded-sm transition-colors py-2 px-4 hover:bg-c-primary"
-              onClick={handleModalStatus}
+              onClick={openModal}
             >
               Add new
               <PlusIcon />
@@ -37,17 +31,17 @@ const MainPage: React.FC = () => {
             data={characters}
             isLoading={isLoading}
             noCharactersSign={
-              <Link to="/?create=true">Create one</Link>
+              <Link to={openModalSearch}>Create one</Link>
             }
             refetch={refetch}
             actions={[
               {
                 action: "Delete",
-                admin: false
+                admin: false,
               },
               {
                 action: "Update",
-                admin: false
+                admin: false,
               },
             ]}
           />
@@ -64,9 +58,8 @@ const MainPage: React.FC = () => {
         )}
 
         <CreateCharacterModal
-          isThereMain={isThereMain !== undefined}
-          isOpen={isModal}
-          onClose={handleModalStatus}
+          query={modalQuery}
+          onClose={closeModal}
           refetch={refetch}
         />
       </main>

@@ -2,7 +2,7 @@ import { ResponseCharacter } from "api/types";
 import EditIcon from "../../../../../icons/edit";
 import Icon from "../icon";
 import UpdateCharacterModal from "./updateCharacterModal";
-import { useState } from "react";
+import useModalControllers from "../../../../../hooks/useModalControllers";
 
 type Props = {
   character: ResponseCharacter;
@@ -11,26 +11,26 @@ type Props = {
 };
 
 const Update: React.FC<Props> = ({ character, refetch, admin }) => {
-  const [isEditMode, setIsEditMode] = useState(false);
-
-  const handleEditModeStatus = () => {
-    setIsEditMode((prev) => !prev);
-  };
+  const { modalQuery, isOpen, closeModal, openModal } = useModalControllers({
+    id: character.name,
+    name: "update",
+  });
 
   const apiUrl = admin
     ? `/api/users/${character.username}/characters/${character.name}`
-    : `/api/characters/${character.name}`
+    : `/api/characters/${character.name}`;
 
   return (
     <div>
-      <Icon action="Edit" name={character.name} onClick={handleEditModeStatus}>
+      <Icon action="Edit" name={character.name} onClick={openModal}>
         <EditIcon className="mt-[-1px]" />
       </Icon>
       <UpdateCharacterModal
         character={character}
-        isOpen={isEditMode}
+        query={modalQuery}
+        isOpen={isOpen}
         apiUrl={apiUrl}
-        onClose={handleEditModeStatus}
+        onClose={closeModal}
         refetch={refetch}
       />
     </div>
