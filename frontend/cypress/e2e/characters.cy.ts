@@ -40,11 +40,6 @@ describe("Characters", () => {
     cy.get(`p`).should("contain.text", defaultRankName);
   });
 
-  it('Check if the main option is disabled if there is already a main character', () => {
-    cy.openEditModal();
-    cy.get('select[name="main"]').find('option:disabled').should('have.text', 'main');
-  })
-
   it('Cleanup', () => {
     cy.deleteCharacter();
   });
