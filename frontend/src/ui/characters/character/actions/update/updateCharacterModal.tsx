@@ -113,10 +113,7 @@ const UpdateCharacterModal: React.FC<Props> = ({
       {
         name: "main",
         variant: "select",
-        selectItems: [
-          "alt",
-          "main"
-        ],
+        selectItems: ["alt", "main"],
       },
       {
         name: "rank",

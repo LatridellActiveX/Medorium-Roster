@@ -32,12 +32,7 @@ const inputs: FormInputType[] = [
   },
 ];
 
-const CreateCharacterModal: React.FC<Props> = ({
-  query,
-  onClose,
-  refetch,
-}) => {
-
+const CreateCharacterModal: React.FC<Props> = ({ query, onClose, refetch }) => {
   const onSubmitSuccess = async (_values: FormBaseInputType) => {
     refetch();
     onClose();
@@ -51,7 +46,7 @@ const CreateCharacterModal: React.FC<Props> = ({
 
   return (
     <ModalBase
-      className="bg-neutral-800 p-2 pb-0"
+      className="bg-neutral-800"
       query={query}
       onClose={onClose}
     >
