@@ -12,6 +12,16 @@
   src: url("./fonts/Shentox/Shentox-Medium.ttf");
 }
 
+html::-webkit-scrollbar {
+  width: 17px;
+}
+html::-webkit-scrollbar-track {
+  background-color: #202325;
+}
+html::-webkit-scrollbar-thumb {
+  background-color: #616263;
+}
+
 @layer base {
   html {
     @apply overflow-x-hidden;
