@@ -45,12 +45,9 @@ const CreateCharacterModal: React.FC<Props> = ({ query, onClose, refetch }) => {
   };
 
   return (
-    <ModalBase
-      className="bg-neutral-800"
-      query={query}
-      onClose={onClose}
-    >
+    <ModalBase className="bg-neutral-800" query={query} onClose={onClose}>
       <FormBase
+        className="min-w-[350px]"
         apiUrl="api/characters"
         heading="Create a new character"
         submitBtnSign="Add character"
