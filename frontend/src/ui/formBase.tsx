@@ -151,7 +151,7 @@ const FormBase: React.FC<Props> = ({
   return (
     <form
       className={cn(
-        "flex flex-col items-center px-4 rounded-xl py-4 bg-neutral-800 bg-opacity-90 sm:px-9",
+        "flex flex-col items-center rounded-xl p-4 bg-neutral-800 bg-opacity-90 sm:py-6 sm:px-9",
         className
       )}
       id={id}
@@ -208,7 +208,7 @@ const FormBase: React.FC<Props> = ({
       {serverError && <small className="text-red-600">{serverError}</small>}
 
       <button
-        className="bg-blue-600 hover:bg-blue-500 disabled:bg-gray-500 disabled:cursor-not-allowed text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5 mb-6"
+        className="bg-blue-600 hover:bg-blue-500 disabled:bg-gray-500 disabled:cursor-not-allowed text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5"
         disabled={isDisabled()}
         type="submit"
         aria-label={`Submit your credentials`} // for accessibility

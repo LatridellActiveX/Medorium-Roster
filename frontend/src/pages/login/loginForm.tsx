@@ -59,12 +59,10 @@ const LoginForm: React.FC = () => {
       }}
       isH1Heading
     >
-      <small>
-        <p>
-          First time here? Ask your admin for a{" "}
-          <Link to="/registration">Registration Link</Link> or{" "}
-          <Link to="/FAQ#registrationCode">Learn More</Link>
-        </p>
+      <small className="mt-6">
+        First time here? Ask your admin for a{" "}
+        <Link to="/registration">Registration Link</Link> or{" "}
+        <Link to="/FAQ#registrationCode">Learn More</Link>
       </small>
     </FormBase>
   );
