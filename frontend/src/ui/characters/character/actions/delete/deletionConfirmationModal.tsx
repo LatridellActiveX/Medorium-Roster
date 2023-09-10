@@ -5,7 +5,7 @@ import { AxiosError } from "axios";
 import type { ResponseCharacter } from "api/types";
 
 type Props = {
-  isOpen: boolean;
+  query: string
   character: ResponseCharacter;
   apiUrl: string;
   onClose: () => void;
@@ -14,7 +14,7 @@ type Props = {
 
 
 const DeletionConfirmationModal: React.FC<Props> = ({
-  isOpen,
+  query,
   character,
   apiUrl,
   onClose,
@@ -35,11 +35,11 @@ const DeletionConfirmationModal: React.FC<Props> = ({
   return (
     <ModalBase
       className="w-full max-w-[450px] shadow-2xl p-4 bg-c-primary"
-      isOpen={isOpen}
+      query={query}
       onClose={onClose}
     >
       <h2 className="text-center text-2xl">
-        Are you sure you want to <strong>delete</strong>
+        Are you sure you want to <strong className='text-c-red'>delete</strong>
         <br />
         the {character.name} character?
       </h2>
@@ -49,7 +49,7 @@ const DeletionConfirmationModal: React.FC<Props> = ({
           aria-label={`Delete ${character.name}`}
           onClick={deleteCharacter}
         >
-          Yes, I do
+          Delete
         </button>
         <button
           className="bg-blue-600 hover:bg-blue-500 text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5 mb-6"

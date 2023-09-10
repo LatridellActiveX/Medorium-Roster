@@ -1,20 +1,25 @@
 import { ReactNode } from "react";
 import cn from "classnames";
 import CloseIcon from "../icons/close";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   children: ReactNode;
-  isOpen: boolean;
+  query: string //e.g. localhost/?create=true. query is "create"
   onClose: () => void;
   className?: string;
 };
 
 const ModalBase: React.FC<Props> = ({
   children,
-  isOpen,
+  query,
   onClose,
   className,
 }) => {
+  const location = useLocation();
+
+  let isOpen = location.search.includes(query);
+
   return (
     <div
       className="relative z-10"

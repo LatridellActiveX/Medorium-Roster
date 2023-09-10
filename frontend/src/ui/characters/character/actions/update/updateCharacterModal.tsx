@@ -11,6 +11,7 @@ import useGetRoster from "../../../../../api/roster/useGetRoster";
 
 type Props = {
   character: ResponseCharacter;
+  query: string;
   isOpen: boolean;
   onClose: () => void;
   refetch: () => void;
@@ -19,10 +20,11 @@ type Props = {
 
 const UpdateCharacterModal: React.FC<Props> = ({
   character,
-  onClose,
+  query,
   isOpen,
+  onClose,
   refetch,
-  apiUrl
+  apiUrl,
 }) => {
   const { data: allCharacters } = useGetRoster();
   let hasMainCharacter = allCharacters?.some((c) => {
@@ -113,10 +115,7 @@ const UpdateCharacterModal: React.FC<Props> = ({
         variant: "select",
         selectItems: [
           "alt",
-          {
-            text: "main",
-            isDisabled: hasMainCharacter || false,
-          },
+          "main"
         ],
       },
       {
@@ -149,7 +148,7 @@ const UpdateCharacterModal: React.FC<Props> = ({
   return (
     <ModalBase
       className="w-full max-w-[600px] shadow-2xl"
-      isOpen={isOpen}
+      query={query}
       onClose={onClose}
     >
       <FormBase

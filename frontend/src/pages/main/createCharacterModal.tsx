@@ -1,11 +1,9 @@
-import { useMemo } from "react";
 import FormBase, { FormBaseInputType, FormInputType } from "../../ui/formBase";
 import ModalBase from "../../ui/modalBase";
 import * as Yup from "yup";
 
 type Props = {
-  isOpen: boolean;
-  isThereMain: boolean;
+  query: string;
   onClose: () => void;
   refetch: () => void;
 };
@@ -18,47 +16,33 @@ const validationSchema = Yup.object({
   main: Yup.string().oneOf(["alt", "main"]).required("Required"),
 });
 
+const initialValues = {
+  username: "",
+  name: "",
+  main: "alt",
+};
+
+const inputs: FormInputType[] = [
+  "Name",
+  {
+    label: "Main/Alt",
+    name: "main",
+    variant: "select",
+    selectItems: ["alt", "main"],
+  },
+];
+
 const CreateCharacterModal: React.FC<Props> = ({
-  isOpen,
-  isThereMain,
+  query,
   onClose,
   refetch,
 }) => {
-  const initialValues = useMemo(() => {
-    return {
-      username: "",
-      name: "",
-      main: "alt",
-    };
-  }, [isThereMain]);
-  const inputs: FormInputType[] = useMemo(() => {
-    return [
-      "Name",
-      {
-        label: "Main/Alt",
-        name: "main",
-        variant: "select",
-        selectItems: [
-          "alt",
-          {
-            text: "main",
-            isDisabled: isThereMain,
-          },
-        ],
-      },
-    ];
-  }, [isThereMain]);
-
-  if (!isOpen) {
-    return <></>;
-  }
 
   const onSubmitSuccess = async (_values: FormBaseInputType) => {
     refetch();
     onClose();
   };
   const formatRequestData = (data: FormBaseInputType) => {
-    console.log(data)
     return {
       name: data.name,
       main: data.main === "main",
@@ -68,7 +52,7 @@ const CreateCharacterModal: React.FC<Props> = ({
   return (
     <ModalBase
       className="bg-neutral-800 p-2 pb-0"
-      isOpen={isOpen}
+      query={query}
       onClose={onClose}
     >
       <FormBase
