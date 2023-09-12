@@ -36,7 +36,7 @@ export async function register(req: Request, res: Response) {
   const codeIsValid = verifyRegistrationToken(accessCode);
 
   if (!codeIsValid) {
-    return res.status(401).json({ error: "Invalid access code" });
+    return res.status(401).json({ error: "Invalid access code" } as ResponseErrorMessage);
   }
 
   const result = await User.register(username, password);

@@ -1,4 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
+import { ResponseErrorMessage } from "../../types.js";
 
 /**
  * Ensures that user is an admin.
@@ -13,7 +14,7 @@ function admin(req: Request, res: Response, next: NextFunction) {
   const { isAdmin } = res.locals;
 
   if (!isAdmin) {
-    return res.status(401).json({ error: "Not Authorized" });
+    return res.status(401).json({ error: "Not Authorized" } as ResponseErrorMessage);
   }
 
   next();
