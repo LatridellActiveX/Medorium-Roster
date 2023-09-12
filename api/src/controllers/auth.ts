@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import type {
   ResponseErrorMessage,
   ResponseIsAuthorized,
+  ResponseValidAccessCode,
   ResponseZodError,
 } from "../../types.js";
 import User from "../models/user.js";
@@ -10,6 +11,7 @@ import { z } from "zod";
 import { splitInHalf } from "../utils/index.js";
 import {
   createRegistrationToken,
+  invalidateRegistrationToken,
   verifyRegistrationToken,
 } from "../utils/registrationToken.js";
 
@@ -36,7 +38,9 @@ export async function register(req: Request, res: Response) {
   const codeIsValid = verifyRegistrationToken(accessCode);
 
   if (!codeIsValid) {
-    return res.status(401).json({ error: "Invalid access code" });
+    return res
+      .status(401)
+      .json({ error: "Invalid access code" } as ResponseErrorMessage);
   }
 
   const result = await User.register(username, password);
@@ -44,6 +48,9 @@ export async function register(req: Request, res: Response) {
   if (!result.ok) {
     return res.status(400).json({ error: result.err } as ResponseErrorMessage);
   }
+
+  // invalidate the token after successful registration
+  invalidateRegistrationToken(accessCode);
 
   const { user } = result.val;
 
@@ -59,6 +66,7 @@ export async function login(req: Request, res: Response) {
       password: z.string().min(8).max(128),
     }),
   });
+
   const validation = schema.safeParse({ body: req.body });
 
   if (!validation.success) {
@@ -121,15 +129,16 @@ export async function verifyAccessCode(req: Request, res: Response) {
       accessCode: z.string().min(100).max(200),
     }),
   });
+  
   const validation = schema.safeParse({ params: req.params });
 
   if (!validation.success) {
-    return res.status(200).json({ valid: false });
+    return res.status(200).json({ valid: false } as ResponseValidAccessCode);
   }
 
   const { accessCode } = validation.data.params;
 
-  const isValid = verifyRegistrationToken(accessCode, false);
+  const isValid = verifyRegistrationToken(accessCode);
 
-  return res.status(200).json({ valid: isValid });
+  return res.status(200).json({ valid: isValid } as ResponseValidAccessCode);
 }

@@ -22,7 +22,7 @@ export async function getAllCharacters(req: Request, res: Response) {
   const result = await Character.getAllCharacters();
 
   if (!result.ok) {
-    return res.status(400).json({ error: result.err });
+    return res.status(400).json({ error: result.err } as ResponseErrorMessage);
   }
 
   res.status(200).json(result.val.characters);
@@ -32,7 +32,7 @@ export async function getUserCharacters(req: Request, res: Response) {
   const { username } = res.locals;
   const result = await Character.getAllUserCharacters(username);
   if (!result.ok) {
-    return res.status(400).json({ error: result.err });
+    return res.status(400).json({ error: result.err } as ResponseErrorMessage);
   }
 
   const { characters } = result.val;
@@ -47,6 +47,7 @@ export async function createCharacter(req: Request, res: Response) {
   });
 
   const validation = schema.safeParse(req.body);
+  
   if (!validation.success) {
     return res.status(400).json(validation.error.issues as ResponseZodError);
   }
@@ -96,7 +97,7 @@ export async function replaceCharacter(req: Request, res: Response) {
   const result = await Character.replaceCharacter(username, name, character);
 
   if (!result.ok) {
-    return res.status(400).json({ error: result.err });
+    return res.status(400).json({ error: result.err } as ResponseErrorMessage);
   }
 
   return res.status(200).json({ character: result.val.character });
@@ -127,7 +128,7 @@ export async function replaceLoggedInUserCharacter(
   });
 
   if (!result.ok) {
-    return res.status(400).json({ error: result.err });
+    return res.status(400).json({ error: result.err } as ResponseErrorMessage);
   }
 
   return res.status(200).json({ character: result.val.character });
