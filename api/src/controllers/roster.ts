@@ -47,6 +47,7 @@ export async function createCharacter(req: Request, res: Response) {
   });
 
   const validation = schema.safeParse(req.body);
+  
   if (!validation.success) {
     return res.status(400).json(validation.error.issues as ResponseZodError);
   }

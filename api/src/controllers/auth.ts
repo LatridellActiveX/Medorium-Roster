@@ -66,6 +66,7 @@ export async function login(req: Request, res: Response) {
       password: z.string().min(8).max(128),
     }),
   });
+
   const validation = schema.safeParse({ body: req.body });
 
   if (!validation.success) {
@@ -128,6 +129,7 @@ export async function verifyAccessCode(req: Request, res: Response) {
       accessCode: z.string().min(100).max(200),
     }),
   });
+  
   const validation = schema.safeParse({ params: req.params });
 
   if (!validation.success) {

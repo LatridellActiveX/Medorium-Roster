@@ -9,6 +9,7 @@ async function authorized(req: Request, res: Response, next: NextFunction) {
     authToken1: z.string().min(50).max(100),
     authToken2: z.string().min(50).max(100),
   });
+  
   const validation = authTokenSchema.safeParse(req.cookies);
 
   if (!validation.success) {
