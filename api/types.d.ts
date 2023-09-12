@@ -24,5 +24,10 @@ export type ResponseIsAuthorized = {
   isAdmin: boolean;
 };
 
+export type ResponseValidAccessCode = {
+  valid: boolean;
+};
+
 export type ResponseCharacter = Character;
+
 export type ResponseCharacters = Character[];
