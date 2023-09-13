@@ -43,7 +43,7 @@ const Select: React.FC<Props> = ({
       >
         {Items}
       </select>
-      <small className="text12-14 text-red-600">{error}</small>
+      <small className="text12-14 text-red-500">{error}</small>
     </div>
   );
 };
