@@ -205,7 +205,7 @@ const FormBase: React.FC<Props> = ({
         })}
       </div>
 
-      {serverError && <small className="text-red-600">{serverError}</small>}
+      {serverError && <small className="text-red-500">{serverError}</small>}
 
       <button
         className="bg-blue-600 hover:bg-blue-500 disabled:bg-gray-500 disabled:cursor-not-allowed text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5 mb-6"

@@ -29,12 +29,15 @@ const Input: React.FC<Props> = ({
 
   return (
     <div className="flex flex-col items-center">
-      <label
-        className="w-full text-base capitalize"
-        htmlFor={label} //htmlFor='id of an input' this attribute tells html (I guess it is html) that this label and that input are connected with each other (via id)
-      >
-        {label}
-      </label>
+      <div className="w-full space-x-1">
+        <label
+          className="text-base capitalize"
+          htmlFor={label} //htmlFor='id of an input' this attribute tells html (I guess it is html) that this label and that input are connected with each other (via id)
+        >
+          {label}
+        </label>
+        <small className="text-red-500">{error}</small>
+      </div>
       <input
         type={type}
         name={name || label} //it is absolutely unesessary to provide name prop for username and password because words are the same. Regestration code label and regcode name is a different story
@@ -46,7 +49,6 @@ const Input: React.FC<Props> = ({
         disabled={disabled}
         required={required}
       />
-      <small className="text12-14 text-red-600">{error}</small>
     </div>
   );
 };
