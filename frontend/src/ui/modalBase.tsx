@@ -1,11 +1,11 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import cn from "classnames";
 import CloseIcon from "../icons/close";
 import { useLocation } from "react-router-dom";
 
 type Props = {
   children: ReactNode;
-  query: string //e.g. localhost/?create=true. query is "create"
+  query: string; //e.g. localhost/?create=true. query is "create"
   onClose: () => void;
   className?: string;
 };
@@ -19,6 +19,20 @@ const ModalBase: React.FC<Props> = ({
   const location = useLocation();
 
   let isOpen = location.search.includes(query);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key !== "Escape" || !isOpen) return;
+
+      onClose();
+    };
+
+    window.addEventListener("keydown", handler);
+
+    return () => {
+      window.removeEventListener("keydown", handler);
+    };
+  }, [isOpen]);
 
   return (
     <div
@@ -39,7 +53,11 @@ const ModalBase: React.FC<Props> = ({
           onClick={onClose}
         />
         <div className={cn("relative rounded-xl", className)}>
-          <button className="absolute right-2 top-2 z-10 cursor-pointer transition-opacity sm:right-3 sm:top-3 hover:opacity-80" aria-label="Close dialog" onClick={onClose}>
+          <button
+            className="absolute right-2 top-2 z-10 cursor-pointer transition-opacity sm:right-3 sm:top-3 hover:opacity-80"
+            aria-label="Close dialog"
+            onClick={onClose}
+          >
             <CloseIcon />
           </button>
           {children}
