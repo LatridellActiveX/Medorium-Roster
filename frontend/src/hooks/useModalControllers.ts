@@ -15,7 +15,7 @@ const useModalControllers = (query: ModalQueryType) => {
   const formattedQuery =
     typeof query === "string"
       ? connectWords(query)
-      : connectWords(`${query.id}_${query.name}`);
+      : connectWords(`${query.name}_${query.id}`);
 
   const openModalSearch = {
     search: `${formattedQuery}=true`,
