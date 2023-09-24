@@ -1,21 +1,33 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useRef, useState } from "react";
 import BurgerMenu from "./burgerMenu";
 import cn from "classnames";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import LoginOrLogout from "./loginOrLogout";
 
+const pagesThatRequireBg = ["faq", "privacyPolicy"];
+
 const Header: React.FC = () => {
+  const location = useLocation();
   const { currentUser } = useCurrentUser();
   const isAuth = !!currentUser.username;
   const burgerIconRef = useRef<HTMLButtonElement>(null);
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
+
   const handleBurgerStatus = () => {
     setIsBurgerOpen((prev) => !prev);
   };
+  let shouldAddBg = pagesThatRequireBg.some((p) =>
+    location.pathname.includes(p)
+  );
 
   return (
-    <header className="w-full fixed text-2xl z-20 px-4">
+    <header
+      className={cn(
+        "w-full fixed text-2xl z-20 px-4",
+        shouldAddBg && "bg-c-background"
+      )}
+    >
       <div className="h-16 sm:w-[32rem] md:w-[42rem] mx-auto flex justify-between items-center">
         <div className="">
           <div className="flex items-center cursor-pointer">
@@ -33,7 +45,7 @@ const Header: React.FC = () => {
               "space-y-2 transition-opacity hover:opacity-70",
               isBurgerOpen && "opacity-70"
             )}
-            aria-label='Open navigation menu'
+            aria-label="Open navigation menu"
             onClick={handleBurgerStatus}
             ref={burgerIconRef}
           >
