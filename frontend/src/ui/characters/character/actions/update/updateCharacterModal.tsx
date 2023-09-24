@@ -165,6 +165,7 @@ const UpdateCharacterModal: React.FC<Props> = ({
         id={`Edit ${character.name}`}
         inputs={inputs}
         placeholder="Missing"
+        requiredIndicator
       />
     </ModalBase>
   );

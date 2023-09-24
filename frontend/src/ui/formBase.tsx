@@ -45,6 +45,7 @@ type Props = {
   isH1Heading?: boolean;
   id?: string;
   placeholder?: string;
+  requiredIndicator?: boolean;
   toastMessages?: {
     pending?: string | null;
     success?: string | null;
@@ -80,6 +81,7 @@ const FormBase: React.FC<Props> = ({
   toastMessages,
   id,
   placeholder,
+  requiredIndicator,
 }) => {
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -184,12 +186,14 @@ const FormBase: React.FC<Props> = ({
                 name={inputName}
                 onChange={formik.handleChange}
                 key={inputName}
+                requiredIndicator={requiredIndicator}
               />
             );
           }
 
           return (
             <Input
+              className="gap-y-1"
               label={inputLabel}
               error={error}
               value={value as string}
@@ -200,12 +204,15 @@ const FormBase: React.FC<Props> = ({
               required={typeof i === "object" ? i?.required : undefined}
               placeholder={placeholder}
               key={inputName}
+              requiredIndicator={requiredIndicator}
             />
           );
         })}
       </div>
 
-      {serverError && <small className="text-red-500">{serverError}</small>}
+      {serverError && (
+        <strong className="text14-16 text-red-500 mt-2">{serverError}</strong>
+      )}
 
       <button
         className="bg-blue-600 hover:bg-blue-500 disabled:bg-gray-500 disabled:cursor-not-allowed text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5"

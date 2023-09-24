@@ -148,7 +148,10 @@ html::-webkit-scrollbar-thumb {
 
   select,
   .select {
-    @apply text-slate-200 bg-c-primary border-2 border-c-border rounded-md w-36 h-8 px-1 py-0.5;
+    @apply text-slate-200 bg-c-primary border-2 border-c-border rounded-md px-1 py-0.5;
+  }
+  input {
+    @apply text-slate-200 bg-c-primary border-2 border-c-border rounded-md px-1 py-0.5
   }
 }
 

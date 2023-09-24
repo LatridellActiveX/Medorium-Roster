@@ -9,7 +9,7 @@ type Props = {
   actions?: ActionType[];
 };
 
-const Character: React.FC<Props> = ({ character, actions, refetch }) => {
+const Character: React.FC<Props> = ({ character, actions = [], refetch }) => {
   const { name, main, username, division, rank } = character;
 
   return (
