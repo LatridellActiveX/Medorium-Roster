@@ -184,6 +184,7 @@ const FormBase: React.FC<Props> = ({
                 name={inputName}
                 onChange={formik.handleChange}
                 key={inputName}
+                requiredIndicator
               />
             );
           }
@@ -201,12 +202,15 @@ const FormBase: React.FC<Props> = ({
               required={typeof i === "object" ? i?.required : undefined}
               placeholder={placeholder}
               key={inputName}
+              requiredIndicator
             />
           );
         })}
       </div>
 
-      {serverError && <strong className="text14-16 text-red-500 mt-2">{serverError}</strong>}
+      {serverError && (
+        <strong className="text14-16 text-red-500 mt-2">{serverError}</strong>
+      )}
 
       <button
         className="bg-blue-600 hover:bg-blue-500 disabled:bg-gray-500 disabled:cursor-not-allowed text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5"
