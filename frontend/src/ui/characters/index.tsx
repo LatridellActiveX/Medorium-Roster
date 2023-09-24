@@ -87,13 +87,20 @@ const Characters: React.FC<Props> = ({
   return (
     <div>
       <ul className={cn("flex flex-col gap-1 min-w-[600px] w-full", className)}>
-        {isLoading && data.length === 0 && <p>Loading...</p>}
-        {!isLoading && data.length === 0 && (
-          <h6 className="flex flex-col gap-y-4 text18-20 text-center">
-            There are currently no characters at your disposal.
-            {noCharactersSign}
-          </h6>
-        )}
+        <li className="text18-20 text-center mt-4">
+          {isLoading && data.length === 0 && <p>Loading...</p>}
+          {!isLoading && data.length === 0 && (
+            <h6 className="flex flex-col gap-y-4">
+              There are currently no characters at your disposal.
+              {noCharactersSign}
+            </h6>
+          )}
+          {!isLoading &&
+            itemsPortion.length === 0 &&
+            (filter !== "Default" || sort !== "Default" || search !== "") && (
+              <h6>Nothing was found with these settings.</h6>
+            )}
+        </li>
         {Characters}
       </ul>
       <Pagination
