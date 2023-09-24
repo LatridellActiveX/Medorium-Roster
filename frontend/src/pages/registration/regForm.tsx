@@ -51,7 +51,7 @@ const RegForm: React.FC<Props> = ({ accessCode }) => {
       inputs={inputs}
       isH1Heading
     >
-      <small className="mt-6">
+      <small className="leading-5 mt-4">
         Already got an account? <Link to="/login">Log in</Link> here
       </small>
     </FormBase>
