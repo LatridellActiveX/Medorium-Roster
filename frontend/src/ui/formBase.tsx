@@ -45,6 +45,7 @@ type Props = {
   isH1Heading?: boolean;
   id?: string;
   placeholder?: string;
+  requiredIndicator?: boolean;
   toastMessages?: {
     pending?: string | null;
     success?: string | null;
@@ -80,6 +81,7 @@ const FormBase: React.FC<Props> = ({
   toastMessages,
   id,
   placeholder,
+  requiredIndicator,
 }) => {
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -184,7 +186,7 @@ const FormBase: React.FC<Props> = ({
                 name={inputName}
                 onChange={formik.handleChange}
                 key={inputName}
-                requiredIndicator
+                requiredIndicator={requiredIndicator}
               />
             );
           }
@@ -202,7 +204,7 @@ const FormBase: React.FC<Props> = ({
               required={typeof i === "object" ? i?.required : undefined}
               placeholder={placeholder}
               key={inputName}
-              requiredIndicator
+              requiredIndicator={requiredIndicator}
             />
           );
         })}
