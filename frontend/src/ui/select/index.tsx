@@ -15,6 +15,7 @@ type Props = {
   error?: string;
   label?: string;
   className?: string;
+  requiredIndicator?: boolean;
 };
 
 const Select: React.FC<Props> = ({
@@ -24,6 +25,7 @@ const Select: React.FC<Props> = ({
   onChange,
   label = name,
   error,
+  requiredIndicator,
 }) => {
   let Items = data.map((d) => (
     <Option
@@ -35,7 +37,15 @@ const Select: React.FC<Props> = ({
 
   return (
     <div>
-      <label className="text-base capitalize">{label}</label>
+      <div className="w-full space-x-1">
+        <label className="text-base capitalize">
+          {label}
+          {requiredIndicator && !error ? (
+            <span className="text12-14"> *</span>
+          ) : null}
+        </label>
+        <strong className="text12-14 text-red-500">{error}</strong>
+      </div>
       <select
         className={cn("w-full rounded-md capitalize p-2", className)}
         name={name}
@@ -43,7 +53,6 @@ const Select: React.FC<Props> = ({
       >
         {Items}
       </select>
-      <small className="text12-14 text-red-500">{error}</small>
     </div>
   );
 };

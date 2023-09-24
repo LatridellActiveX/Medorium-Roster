@@ -190,6 +190,7 @@ const FormBase: React.FC<Props> = ({
 
           return (
             <Input
+              className="gap-y-1"
               label={inputLabel}
               error={error}
               value={value as string}
@@ -205,7 +206,7 @@ const FormBase: React.FC<Props> = ({
         })}
       </div>
 
-      {serverError && <small className="text-red-500">{serverError}</small>}
+      {serverError && <strong className="text14-16 text-red-500 mt-2">{serverError}</strong>}
 
       <button
         className="bg-blue-600 hover:bg-blue-500 disabled:bg-gray-500 disabled:cursor-not-allowed text-white text-base font-bold py-2 rounded-md cursor-pointer w-full transition-colors mt-5"
