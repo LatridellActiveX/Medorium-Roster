@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import cn from "classnames";
-import CloseIcon from "../icons/close";
+import CloseIcon from "../pages/icons/close";
 
 type Props = {
   children: ReactNode;

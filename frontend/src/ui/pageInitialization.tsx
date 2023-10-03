@@ -14,6 +14,7 @@ type Props = {
   redirectIfNotAdmin?: boolean;
 };
 /** Sets container style and redirects based on authorization
+ * Only switches between loading page and immediate children. 
  * 
  * @location frontend/src/ui/pageinitializaiton
  * @see Props type in this file

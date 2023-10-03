@@ -1,5 +1,5 @@
 import { ResponseCharacter } from "api/types";
-import EditIcon from "../../../../../icons/edit";
+import EditIcon from "../../../../../pages/icons/edit";
 import Icon from "../icon";
 import UpdateCharacterModal from "./updateCharacterModal";
 import { useState } from "react";

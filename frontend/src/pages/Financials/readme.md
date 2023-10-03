@@ -1,2 +1,1 @@
-This will be where I add a financial calculator for 
-even online financials
+This will be where I will add a financial statement calculator for eve online financials

@@ -2,14 +2,17 @@ import { AxiosError, AxiosResponse } from "axios";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { HTMLInputTypeAttribute, ReactNode, useState } from "react";
-import Input from "./input";
+import { Input } from "./input";
 import type { ResponseZodError, ResponseErrorMessage } from "api/types";
 import cn from "classnames";
 import Select, { OptionType } from "./select";
 import axios from "../api/axios";
 import connectWords from "../helpers/connectWords";
 
-export type FormInputType =
+/** Type for form input
+ * 
+ */
+export type FormInputType =   
   | {
       name: string;
       label?: string;
@@ -21,10 +24,16 @@ export type FormInputType =
     }
   | string;
 
+  /** Type for form input values
+   * 
+   */
 export type FormBaseInputType = {
   [key: string]: string | boolean | number | undefined;
 };
 
+/**Props type for FormBase component
+ * 
+ */
 type Props = {
   initialValues: FormBaseInputType;
   validationSchema: any;
@@ -52,7 +61,13 @@ type Props = {
   };
 };
 
-const getToastMessage = (
+/** Gets toast message for toast notifications
+ * 
+ * @param defaultMessage 
+ * @param customMessage 
+ * @returns message to display on toast notification
+ */
+export const getToastMessage = (
   defaultMessage: string,
   customMessage?: string | null
 ) => {
@@ -63,8 +78,26 @@ const getToastMessage = (
   return customMessage || undefined;
 };
 
+/** Customizable form component that handles form submission, validation, and api calls.
+ * 
+ * @param initialValues - initial values for form inputs
+ * @param validationSchema - schema for form validation to ensure correct inputs
+ * @param apiUrl - url for api call
+ * @param onSubmitSuccess - function to call on successful form submission
+ * @param heading - form header text 
+ * @param inputs - form inputs
+ * @param formatRequestData - function to format request data
+ * @param children - child components
+ * @param className - additional class names for styling
+ * @param fieldContainerClassName - additional class names for styling
+ * @param isH1Heading - boolean to determine if header is h1 or h2
+ * @param toastMessages - messages to display on toast notificatons, in the form of an object
+ * @param id - id for form  
+ * @param placeholder - placeholder text for form inputs
+ * @returns Form customized for specific use case
+ */  
 const FormBase: React.FC<Props> = ({
-  initialValues,
+  initialValues,   
   validationSchema,
   apiUrl,
   apiMethod = "post",
@@ -77,14 +110,14 @@ const FormBase: React.FC<Props> = ({
   className,
   fieldContainerClassName,
   isH1Heading,
-  toastMessages,
+  toastMessages, 
   id,
   placeholder,
 }) => {
   const [serverError, setServerError] = useState<string | null>(null);
 
   const formik = useFormik({
-    initialValues,
+    initialValues,   
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
       try {
@@ -132,7 +165,7 @@ const FormBase: React.FC<Props> = ({
 
           formik.setErrors(errors);
         }
-      }
+        }
     },
   });
 
@@ -200,7 +233,7 @@ const FormBase: React.FC<Props> = ({
               required={typeof i === "object" ? i?.required : undefined}
               placeholder={placeholder}
               key={inputName}
-            />
+            />    
           );
         })}
       </div>

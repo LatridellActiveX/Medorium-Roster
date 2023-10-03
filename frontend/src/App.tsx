@@ -18,6 +18,11 @@ import useCurrentUser from "./hooks/useCurrentUser";
 import NotFoundPage from "./pages/notFound";
 import FinancialPage from "./pages/Financials";
 
+/**Main page layout component. Contains header and routes all
+ * other pages.
+ *
+ * @returns App component
+ */
 const App: React.FC = () => {
   useAuth();
   let { currentUser } = useCurrentUser();

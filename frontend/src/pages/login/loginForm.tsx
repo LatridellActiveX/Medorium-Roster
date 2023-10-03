@@ -28,6 +28,10 @@ const inputs = [
   },
 ];
 
+/**Login form component complete with schema validation and other links. 
+ * 
+ * @returns Login form component
+ */
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   let { setCurrentUser } = useCurrentUser();
@@ -47,7 +51,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <FormBase
-      className="max-w-xs shadow-2xl"
+      className="max-w-xs shadow-2xl" // sets max width and creates shadow
       initialValues={initialValues}
       validationSchema={validationSchema}
       apiUrl="auth/login"

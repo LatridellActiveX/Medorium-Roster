@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TrashIcon from "../../../../../icons/trash";
+import TrashIcon from "../../../../../pages/icons/trash";
 import Icon from "../icon";
 import DeletionConfirmationModal from "./deletionConfirmationModal";
 
